@@ -4,7 +4,7 @@ import { BackLink } from "@/components/ui";
 
 export const metadata: Metadata = { title: "Privacy policy" };
 
-const UPDATED = "October 23, 2026";
+const UPDATED = "October 24, 2026";
 
 export default function PrivacyPage() {
   const contact = process.env.CONTACT_EMAIL;
@@ -64,6 +64,15 @@ export default function PrivacyPage() {
             Members of the Community Service committee can see sign-ups, attendance, locations recorded at check-in and check-out, and points
             for chapter members. Other members cannot see your information. The portal is hosted on Vercel, stores data with Neon (a
             Postgres database provider), and sends email through Google, who process data only to provide those services.
+          </p>
+        </section>
+
+        <section>
+          <h2>Usage analytics</h2>
+          <p>
+            We use Vercel Web Analytics to count page views so we know which parts of the portal are used. It does not use cookies, does
+            not identify you, and only records the page address (without anything after a &ldquo;?&rdquo;), the referring site, and your
+            general country, browser and device type.
           </p>
         </section>
 
