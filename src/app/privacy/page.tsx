@@ -15,9 +15,9 @@ export default function PrivacyPage() {
         <Mark size={36} />
         <h1 className="text-[28px] leading-tight font-bold tracking-[-0.025em]">Privacy policy</h1>
       </div>
-      <p className="mt-2 text-[14px] text-secondary">Last updated {UPDATED}</p>
+      <p className="mt-2 text-body text-secondary">Last updated {UPDATED}</p>
 
-      <div className="mt-8 space-y-7 text-[15px] leading-relaxed text-pretty [&_h2]:mb-2 [&_h2]:text-[17px] [&_h2]:font-semibold [&_li]:ml-5 [&_li]:list-disc [&_p]:text-text/90">
+      <div className="mt-8 space-y-7 text-body leading-relaxed text-pretty [&_h2]:mb-2 [&_h2]:text-headline [&_h2]:font-semibold [&_li]:ml-5 [&_li]:list-disc [&_p]:text-text/90">
         <section>
           <p>
             The BAP Community Service Portal is run by the Community Service committee of Beta Alpha Psi, Mu Chapter, at NYU Stern. It

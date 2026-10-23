@@ -20,7 +20,7 @@ export function Logo() {
   return (
     <Link href="/" className="flex items-center gap-2.5 rounded-lg">
       <Mark />
-      <span className="text-[15px] font-semibold tracking-[-0.01em]">Community Service</span>
+      <span className="text-body font-semibold tracking-[-0.01em]">Community Service</span>
     </Link>
   );
 }
@@ -53,7 +53,7 @@ export function AppShell({
               <UserMenu user={user} />
             </nav>
           ) : (
-            <Link href="/signin" className="text-[15px] font-semibold text-crimson">Sign in</Link>
+            <Link href="/signin" className="text-body font-semibold text-crimson">Sign in</Link>
           )}
         </div>
         {subnav && (

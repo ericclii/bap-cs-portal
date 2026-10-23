@@ -56,7 +56,7 @@ export function SelectionTab({ event, onNotice }: { event: ConsoleEvent; onNotic
   if (error && !rows) return <Notice tone="crimson">{error}</Notice>;
   if (!rows) return <div className="h-40 animate-pulse rounded-xl bg-fill" />;
   if (rows.size === 0) {
-    return <p className="rounded-2xl bg-surface px-6 py-10 text-center text-sm text-secondary">No one has signed up yet.</p>;
+    return <p className="rounded-2xl bg-surface px-6 py-10 text-center text-footnote text-secondary">No one has signed up yet.</p>;
   }
 
   function move(id: string, to: "selected" | "waitlist") {
@@ -99,10 +99,9 @@ export function SelectionTab({ event, onNotice }: { event: ConsoleEvent; onNotic
 
   return (
     <div className="space-y-6">
-      <p className="max-w-prose text-sm text-secondary">
-        Suggested order: candidates first, then fewest points, then earliest sign-up. Anyone already going to another event that day is at the end.
-        {signupsOpen && !published && ` Sign-ups are still open until ${formatDateTime(new Date(event.signupClosesAt))}; later sign-ups join the waitlist.`}
-      </p>
+      {signupsOpen && !published && (
+        <p className="text-footnote text-secondary">Sign-ups open until {formatDateTime(new Date(event.signupClosesAt))}</p>
+      )}
       {error && <Notice tone="crimson">{error}</Notice>}
 
       <List
@@ -130,7 +129,6 @@ export function SelectionTab({ event, onNotice }: { event: ConsoleEvent; onNotic
         <Button size="lg" disabled={busy || over} onClick={publish}>
           {busy ? "Sending…" : published ? "Save changes & email anyone affected" : `Confirm & email ${selected.length + waitlist.length} people`}
         </Button>
-        <span className="text-sm text-secondary">Everyone gets an email with their result.</span>
       </div>
     </div>
   );
@@ -160,26 +158,26 @@ function List({
   return (
     <section className="space-y-3">
       <div className="flex items-center gap-2">
-        <h2 className="text-[17px] font-semibold tabular-nums">{title}</h2>
+        <h2 className="text-headline font-semibold tabular-nums">{title}</h2>
         {warn && <Pill tone="amber">{warn}</Pill>}
       </div>
       <Group>
-        {ids.length === 0 && <p className="px-4 py-6 text-center text-sm text-secondary">{empty}</p>}
+        {ids.length === 0 && <p className="px-4 py-6 text-center text-footnote text-secondary">{empty}</p>}
         {ids.map((id, i) => {
           const r = rows.get(id)!;
           return (
             <div key={id} className="flex flex-col gap-3 px-4 py-2.5 md:flex-row md:items-center md:justify-between">
               <div className="flex min-w-0 items-center gap-3">
-                {numbered && <span className="w-6 shrink-0 text-right text-sm text-secondary tabular-nums">{i + 1}</span>}
+                {numbered && <span className="w-6 shrink-0 text-right text-footnote text-secondary tabular-nums">{i + 1}</span>}
                 <Avatar name={r.name} image={r.image} size={28} />
                 <div className="min-w-0">
                   <div className="flex flex-wrap items-center gap-2">
                     <span className="font-medium">{r.name}</span>
-                    <span className="text-sm text-secondary">{r.netId}</span>
+                    <span className="text-footnote text-secondary">{r.netId}</span>
                     {!r.isCandidate && <Pill>Not a candidate</Pill>}
                     {r.conflict && <Pill tone="amber">Also going: {r.conflict}</Pill>}
                   </div>
-                  <div className="text-sm text-secondary">
+                  <div className="text-footnote text-secondary">
                     {r.points} pts · signed up {formatDateTime(new Date(r.signedUpAt))}
                     {r.note && ` · “${r.note}”`}
                   </div>

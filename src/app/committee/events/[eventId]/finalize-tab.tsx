@@ -51,7 +51,7 @@ export function FinalizeTab({ event, onNotice }: { event: ConsoleEvent; onNotice
 
   if (error && !rows) return <Notice tone="crimson">{error}</Notice>;
   if (!rows) return <div className="h-40 animate-pulse rounded-xl bg-fill" />;
-  if (rows.length === 0) return <p className="rounded-2xl bg-surface px-6 py-10 text-center text-sm text-secondary">No one was confirmed for this event.</p>;
+  if (rows.length === 0) return <p className="rounded-2xl bg-surface px-6 py-10 text-center text-footnote text-secondary">No one was confirmed for this event.</p>;
 
   const defaultPoints = (o: Outcome) => (o === "ATTENDED" ? event.points : o === "NO_SHOW" ? penalty : 0);
   const update = (id: string, patch: Partial<Draft>) => setDrafts((d) => ({ ...d, [id]: { ...d[id], ...patch } }));
@@ -75,10 +75,7 @@ export function FinalizeTab({ event, onNotice }: { event: ConsoleEvent; onNotice
 
   return (
     <div className="space-y-6">
-      <p className="max-w-prose text-sm text-secondary">
-        Results are suggested from check-ins: attended +{event.points}, no-show or late drop {penalty}, excused 0.
-        {flagged > 0 && <> <span className="font-medium text-amber">{flagged} need a look.</span></>} Everyone is emailed their result{event.finalizedAt ? " if it changed" : ""}.
-      </p>
+      {flagged > 0 && <p className="text-footnote font-medium text-amber">{flagged} need a look</p>}
       {error && <Notice tone="crimson">{error}</Notice>}
 
       <Group>
@@ -91,9 +88,9 @@ export function FinalizeTab({ event, onNotice }: { event: ConsoleEvent; onNotice
                 <div className="min-w-0 space-y-1">
                   <div className="flex flex-wrap items-center gap-2">
                     <span className="font-medium">{r.name}</span>
-                    <span className="text-sm text-secondary">{r.netId}</span>
+                    <span className="text-footnote text-secondary">{r.netId}</span>
                   </div>
-                  <div className="text-sm text-secondary">
+                  <div className="text-footnote text-secondary">
                     {r.status === "DROPPED"
                       ? `Dropped late${r.dropReason ? `: “${r.dropReason}”` : ""}`
                       : r.checkedInAt
@@ -124,9 +121,9 @@ export function FinalizeTab({ event, onNotice }: { event: ConsoleEvent; onNotice
                   <option value="EXCUSED">Excused</option>
                 </Select>
                 <label className="sr-only" htmlFor={`p-${r.signupId}`}>Points for {r.name}</label>
-                <input id={`p-${r.signupId}`} type="number" min={-50} max={50} className={`${inputBase} h-8 w-20 py-0 text-[13px]`} value={d.points} onChange={(e) => update(r.signupId, { points: Number(e.target.value) })} />
+                <input id={`p-${r.signupId}`} type="number" min={-50} max={50} className={`${inputBase} h-8 w-20 py-0 text-footnote`} value={d.points} onChange={(e) => update(r.signupId, { points: Number(e.target.value) })} />
                 <label className="sr-only" htmlFor={`n-${r.signupId}`}>Note for {r.name}</label>
-                <input id={`n-${r.signupId}`} className={`${inputBase} h-8 w-48 py-0 text-[13px]`} placeholder="Note (optional)" maxLength={300} value={d.note} onChange={(e) => update(r.signupId, { note: e.target.value })} />
+                <input id={`n-${r.signupId}`} className={`${inputBase} h-8 w-48 py-0 text-footnote`} placeholder="Note (optional)" maxLength={300} value={d.note} onChange={(e) => update(r.signupId, { note: e.target.value })} />
               </div>
             </div>
           );
@@ -135,7 +132,7 @@ export function FinalizeTab({ event, onNotice }: { event: ConsoleEvent; onNotice
 
       <div className="flex flex-wrap items-center gap-3">
         <Button size="lg" disabled={busy} onClick={save}>{busy ? "Saving…" : event.finalizedAt ? "Save changes" : "Award points & email results"}</Button>
-        <span className="text-sm text-secondary tabular-nums">{total >= 0 ? "+" : ""}{total} points total across {rows.length} people</span>
+        <span className="text-footnote text-secondary tabular-nums">{total >= 0 ? "+" : ""}{total} points total across {rows.length} people</span>
       </div>
     </div>
   );

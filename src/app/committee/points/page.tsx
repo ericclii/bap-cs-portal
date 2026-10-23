@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { buttonClass, Empty, LinkButton, PageTitle } from "@/components/ui";
+import { Empty, LinkButton, PageTitle } from "@/components/ui";
 import { appUrl } from "@/server/email";
 import { feedToken } from "@/server/feed-token";
 import { getCurrentUser } from "@/server/session";
@@ -19,7 +19,6 @@ export default async function PointsPage() {
       <PageTitle
         title="Points"
         subtitle={`${term.name}${term.requiredPoints != null ? ` · ${term.requiredPoints} required` : ""}`}
-        actions={<a href="/api/v1/committee/points/export" className={buttonClass("secondary")}>Download CSV</a>}
       />
       <PointsManager
         standings={standings}

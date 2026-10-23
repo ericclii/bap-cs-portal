@@ -12,7 +12,7 @@ export default async function CandidatesPage() {
   const candidates = await listCandidates(term.id);
   return (
     <div className="space-y-6">
-      <PageTitle title="Candidates" subtitle={`${term.name} · ${candidates.length} on the roster. Candidates rank first for spots and their points are tracked against the requirement. Anyone else with an NYU account can still sign up.`} />
+      <PageTitle title="Candidates" subtitle={`${term.name} · ${candidates.length} on the roster`} />
       <RosterManager candidates={candidates} />
     </div>
   );

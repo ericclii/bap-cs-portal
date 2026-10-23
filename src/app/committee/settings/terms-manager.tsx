@@ -41,10 +41,7 @@ export function TermsManager({ terms, isChair }: { terms: Term[]; isChair: boole
 
   return (
     <section className="space-y-3">
-      <h2 className="text-[17px] font-semibold">Terms and points rules</h2>
-      <p className="text-sm text-secondary">
-        Events, the candidate roster and points belong to a term. Each term keeps its own points rules, so changing them next semester never rewrites past results. A new term starts with the current term&apos;s rules.
-      </p>
+      <h2 className="text-headline font-semibold">Terms and points rules</h2>
       {error && <Notice tone="crimson">{error}</Notice>}
       {terms.length > 0 && (
         <Group>
@@ -56,10 +53,10 @@ export function TermsManager({ terms, isChair }: { terms: Term[]; isChair: boole
                     <span className="font-medium">{t.name}</span>
                     {t.isCurrent && <Pill tone="green">Current</Pill>}
                   </div>
-                  <div className="text-sm text-secondary">
+                  <div className="text-footnote text-secondary">
                     {t.requiredPoints != null ? `${t.requiredPoints} points required` : "No requirement set"} · {t.defaultEventPoints} per event · no-show {t.noShowPenalty} · late drop under {t.lateDropHours}h
                   </div>
-                  <div className="text-sm text-secondary">{t._count.events} events · {t._count.candidates} candidates</div>
+                  <div className="text-footnote text-secondary">{t._count.events} events · {t._count.candidates} candidates</div>
                 </div>
                 {isChair && (
                   <div className="flex gap-2">
@@ -105,7 +102,7 @@ export function TermsManager({ terms, isChair }: { terms: Term[]; isChair: boole
           </form>
         </Panel>
       ) : (
-        terms.length === 0 && <p className="text-sm text-secondary">Ask a chair to create the current term.</p>
+        terms.length === 0 && <p className="text-footnote text-secondary">Ask a chair to create the current term.</p>
       )}
     </section>
   );
@@ -137,20 +134,20 @@ function RulesForm({
       }}
     >
       <div className="grid gap-4 sm:grid-cols-2">
-        <Field label="Points required this term" htmlFor={id("req")} hint="Leave empty for no requirement.">
+        <Field label="Points required (optional)" htmlFor={id("req")}>
           <input id={id("req")} type="number" min={0} max={500} className={inputClass} value={requiredPoints} onChange={(e) => setRequiredPoints(e.target.value)} />
         </Field>
-        <Field label="Default points per event" htmlFor={id("pts")} hint="Pre-filled on new events; each event can differ.">
+        <Field label="Points per event" htmlFor={id("pts")}>
           <input id={id("pts")} type="number" min={0} max={50} required className={inputClass} value={defaultEventPoints} onChange={(e) => setDefaultEventPoints(Number(e.target.value))} />
         </Field>
-        <Field label="No-show penalty" htmlFor={id("pen")} hint="Suggested for no-shows and late drops when confirming points.">
+        <Field label="No-show penalty" htmlFor={id("pen")}>
           <input id={id("pen")} type="number" min={-50} max={0} required className={inputClass} value={noShowPenalty} onChange={(e) => setNoShowPenalty(Number(e.target.value))} />
         </Field>
-        <Field label="Late drop cutoff (hours before start)" htmlFor={id("late")} hint="Drops after this are flagged and don't auto-promote the waitlist.">
+        <Field label="Late drop within (hours)" htmlFor={id("late")}>
           <input id={id("late")} type="number" min={0} max={336} required className={inputClass} value={lateDropHours} onChange={(e) => setLateDropHours(Number(e.target.value))} />
         </Field>
       </div>
-      <p className="text-sm text-secondary">Changes apply going forward. Points already confirmed for past events stay as they are.</p>
+      <p className="text-footnote text-secondary">Past points stay as they are.</p>
       <div className="flex gap-2">
         <Button type="submit" disabled={busy}>Save rules</Button>
         <Button variant="plain" onClick={onCancel} disabled={busy}>Cancel</Button>

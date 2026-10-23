@@ -73,15 +73,15 @@ export function SignInPanel({
           Google sign-in isn&apos;t configured. Set <code>GOOGLE_CLIENT_ID</code> and <code>GOOGLE_CLIENT_SECRET</code>.
         </Notice>
       )}
-      <p className="text-center text-[13px] leading-snug text-secondary">
-        Use NetID@nyu.edu or NetID@stern.nyu.edu. Both sign in to the same account.
+      <p className="text-center text-footnote leading-snug text-secondary">
+        Use your NYU or Stern Google account.
       </p>
 
       {devLoginEnabled && (
         <form onSubmit={devSignIn} className="mt-8 space-y-3 rounded-2xl bg-surface p-4">
           <div>
-            <p className="text-[13px] font-semibold text-amber">Development sign-in</p>
-            <p className="mt-0.5 text-[13px] text-secondary">Act as any NetID. Disabled in production.</p>
+            <p className="text-footnote font-semibold text-amber">Development sign-in</p>
+            <p className="mt-0.5 text-footnote text-secondary">Act as any NetID. Disabled in production.</p>
           </div>
           <label className="sr-only" htmlFor="dev-netid">NetID</label>
           <input id="dev-netid" required className={inputClass} value={devNetId} onChange={(e) => setDevNetId(e.target.value)} placeholder="NetID" autoCapitalize="none" autoCorrect="off" />

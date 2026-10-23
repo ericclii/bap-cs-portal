@@ -74,8 +74,8 @@ function DetailRow({ icon, title, children, link }: { icon: React.ReactNode; tit
     <div className="flex gap-3 px-4 py-3.5">
       <span className="mt-0.5 text-secondary">{icon}</span>
       <div className="min-w-0 flex-1">
-        <div className={`text-[15px] font-medium ${link ? "text-crimson" : ""}`}>{title}</div>
-        <div className="mt-0.5 text-[14px] leading-relaxed text-secondary text-pretty">{children}</div>
+        <div className={`text-body font-medium ${link ? "text-crimson" : ""}`}>{title}</div>
+        <div className="mt-0.5 text-body leading-relaxed text-secondary text-pretty">{children}</div>
       </div>
     </div>
   );

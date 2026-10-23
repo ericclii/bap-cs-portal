@@ -113,7 +113,7 @@ export default function LocationPicker({
           )}
         </MapContainer>
       </div>
-      <p className="text-[13px] text-secondary">
+      <p className="text-footnote text-secondary">
         {status ?? (value ? "Pin placed. Tap the map to move it." : "Find the address or tap the map to place the pin.")}
       </p>
     </div>

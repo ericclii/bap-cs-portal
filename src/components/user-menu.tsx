@@ -33,7 +33,7 @@ export function UserMenu({ user }: Props) {
     router.refresh();
   }
 
-  const item = "flex w-full items-center rounded-lg px-3 py-2 text-left text-[15px] hover:bg-fill";
+  const item = "flex w-full items-center rounded-lg px-3 py-2 text-left text-body hover:bg-fill";
 
   return (
     <div ref={ref} className="relative ml-1">
@@ -50,8 +50,8 @@ export function UserMenu({ user }: Props) {
       {open && (
         <div role="menu" className="absolute right-0 z-40 mt-2 w-64 rounded-2xl bg-surface p-1.5 shadow-[0_10px_40px_rgb(0_0_0/0.16)] ring-1 ring-separator">
           <div className="px-3 pt-2 pb-2.5">
-            <div className="truncate text-[15px] font-semibold">{user.name}</div>
-            <div className="truncate text-[13px] text-secondary">{user.netId}@nyu.edu</div>
+            <div className="truncate text-body font-semibold">{user.name}</div>
+            <div className="truncate text-footnote text-secondary">{user.netId}@nyu.edu</div>
           </div>
           {user.role && (
             <div className="border-t border-separator py-1 sm:hidden">

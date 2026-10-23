@@ -67,14 +67,14 @@ export function ReviewList({ reviews }: { reviews: Review[] }) {
                   <div className="min-w-0 space-y-1">
                     <div className="flex flex-wrap items-center gap-2">
                       <span className="font-medium">{r.signup.user.name}</span>
-                      <span className="text-sm text-secondary">{r.signup.netId}</span>
+                      <span className="text-footnote text-secondary">{r.signup.netId}</span>
                       <Pill tone="amber">{KIND[r.kind].label}</Pill>
                     </div>
-                    <div className="text-sm text-secondary">
+                    <div className="text-footnote text-secondary">
                       <Link className="underline" href={`/committee/events/${r.event.id}`}>{r.event.title}</Link> · asked {formatDateTime(new Date(r.requestedAt))}
                     </div>
-                    {r.message && <p className="max-w-prose text-sm">&ldquo;{r.message}&rdquo;</p>}
-                    <p className="text-sm text-secondary">
+                    {r.message && <p className="max-w-prose text-footnote">&ldquo;{r.message}&rdquo;</p>}
+                    <p className="text-footnote text-secondary">
                       {r.kind === "EARLY_CHECKOUT"
                         ? `Checked in ${formatTime(new Date(a!.checkedInAt))}, left after ${formatDuration(stayed)} (minimum ${formatDuration(r.event.minMinutes)}).`
                         : r.distanceM != null

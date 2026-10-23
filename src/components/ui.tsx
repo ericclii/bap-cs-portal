@@ -19,9 +19,9 @@ const variantClass: Record<Variant, string> = {
   destructive: "bg-fill text-crimson hover:bg-crimson-soft",
 };
 const sizeClass: Record<Size, string> = {
-  sm: "h-8 px-3.5 text-[13px]",
-  md: "h-10 px-4 text-[15px]",
-  lg: "h-[50px] px-6 text-[17px]",
+  sm: "h-8 px-3.5 text-footnote",
+  md: "h-10 px-4 text-body",
+  lg: "h-[50px] px-6 text-headline",
 };
 
 export function buttonClass(variant: Variant = "primary", size: Size = "md", extra?: string) {
@@ -60,14 +60,14 @@ export function Group({ className, children, ...props }: ComponentProps<"div">) 
 export function GroupHeader({ children, action }: { children: ReactNode; action?: ReactNode }) {
   return (
     <div className="flex min-h-7 items-end justify-between gap-3 px-1 pb-2">
-      <h2 className="text-[15px] font-semibold">{children}</h2>
+      <h2 className="text-headline">{children}</h2>
       {action}
     </div>
   );
 }
 
 export function GroupFooter({ children }: { children: ReactNode }) {
-  return <p className="px-1 pt-2 text-[13px] leading-snug text-secondary">{children}</p>;
+  return <p className="px-1 pt-2 text-footnote leading-snug text-secondary">{children}</p>;
 }
 
 export function Section({ title, action, footer, children, className }: { title?: ReactNode; action?: ReactNode; footer?: ReactNode; children: ReactNode; className?: string }) {
@@ -105,8 +105,8 @@ export function Row({
     <>
       {leading && <div className="shrink-0">{leading}</div>}
       <div className="min-w-0 flex-1">
-        <div className="text-[15px] font-medium leading-snug">{title}</div>
-        {subtitle && <div className="mt-0.5 text-[13px] leading-snug text-secondary">{subtitle}</div>}
+        <div className="text-body font-medium leading-snug">{title}</div>
+        {subtitle && <div className="mt-0.5 text-footnote leading-snug text-secondary">{subtitle}</div>}
         {trailing && stackTrailing && <div className="mt-1.5 flex items-center gap-2 sm:hidden">{trailing}</div>}
       </div>
       {trailing && <div className={cx("shrink-0 items-center gap-2", stackTrailing ? "hidden sm:flex" : "flex")}>{trailing}</div>}
@@ -148,7 +148,7 @@ const toneClass: Record<Tone, string> = {
 
 export function Pill({ tone = "neutral", children }: { tone?: Tone; children: ReactNode }) {
   return (
-    <span className={cx("inline-flex h-6 items-center rounded-full px-2.5 text-[12px] font-semibold whitespace-nowrap", toneClass[tone])}>
+    <span className={cx("inline-flex h-6 items-center rounded-full px-2.5 text-caption font-semibold whitespace-nowrap", toneClass[tone])}>
       {children}
     </span>
   );
@@ -156,7 +156,7 @@ export function Pill({ tone = "neutral", children }: { tone?: Tone; children: Re
 
 export function Notice({ tone = "blue", children, action }: { tone?: Exclude<Tone, "neutral" | "sand">; children: ReactNode; action?: ReactNode }) {
   return (
-    <div role={tone === "crimson" ? "alert" : "status"} className={cx("flex flex-col gap-2 rounded-2xl px-4 py-3 text-[14px] leading-snug sm:flex-row sm:items-center sm:justify-between", toneClass[tone])}>
+    <div role={tone === "crimson" ? "alert" : "status"} className={cx("flex flex-col gap-2 rounded-2xl px-4 py-3 text-body leading-snug sm:flex-row sm:items-center sm:justify-between", toneClass[tone])}>
       <div>{children}</div>
       {action}
     </div>
@@ -225,7 +225,7 @@ export function DateTile({ date, size = "md", muted, today: todayProp }: { date:
 
 /** Filled input without a width, for controls that set their own. */
 export const inputBase =
-  "block rounded-xl bg-fill px-3.5 py-2.5 text-[15px] text-text placeholder:text-tertiary outline-none transition-shadow duration-150 focus:bg-surface focus:ring-2 focus:ring-crimson/40 disabled:opacity-50";
+  "block rounded-xl bg-fill px-3.5 py-2.5 text-body text-text placeholder:text-tertiary outline-none transition-shadow duration-150 focus:bg-surface focus:ring-2 focus:ring-crimson/40 disabled:opacity-50";
 
 export const inputClass = `${inputBase} w-full`;
 
@@ -237,7 +237,7 @@ export function Select({ className, size = "md", ...props }: Omit<ComponentProps
         {...props}
         className={cx(
           "w-full appearance-none rounded-xl bg-fill pr-9 pl-3.5 text-text outline-none transition-shadow duration-150 focus:bg-surface focus:ring-2 focus:ring-crimson/40 disabled:opacity-50",
-          size === "sm" ? "h-8 text-[13px]" : "h-10 text-[15px]",
+          size === "sm" ? "h-8 text-footnote" : "h-10 text-body",
         )}
       />
       <svg viewBox="0 0 16 16" className="pointer-events-none absolute top-1/2 right-3 h-3.5 w-3.5 -translate-y-1/2 text-secondary" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
@@ -250,11 +250,11 @@ export function Select({ className, size = "md", ...props }: Omit<ComponentProps
 export function Field({ label, hint, error, htmlFor, children }: { label: string; hint?: ReactNode; error?: string | null; htmlFor?: string; children: ReactNode }) {
   return (
     <div className="space-y-1.5">
-      <label htmlFor={htmlFor} className="block text-[13px] font-medium text-secondary">
+      <label htmlFor={htmlFor} className="block text-footnote font-medium text-secondary">
         {label}
       </label>
       {children}
-      {error ? <p className="text-[13px] text-crimson">{error}</p> : hint ? <p className="text-[13px] leading-snug text-secondary">{hint}</p> : null}
+      {error ? <p className="text-footnote text-crimson">{error}</p> : hint ? <p className="text-footnote leading-snug text-secondary">{hint}</p> : null}
     </div>
   );
 }
@@ -264,8 +264,8 @@ export function Toggle({ checked, onChange, label, description, id }: { checked:
   return (
     <label htmlFor={id} className="flex cursor-pointer items-start justify-between gap-4">
       <span className="min-w-0">
-        <span className="block text-[15px] font-medium">{label}</span>
-        {description && <span className="mt-0.5 block text-[13px] leading-snug text-secondary">{description}</span>}
+        <span className="block text-body font-medium">{label}</span>
+        {description && <span className="mt-0.5 block text-footnote leading-snug text-secondary">{description}</span>}
       </span>
       <span className="relative mt-0.5 inline-flex shrink-0">
         <input id={id} type="checkbox" role="switch" className="peer sr-only" checked={checked} onChange={(e) => onChange(e.target.checked)} />
@@ -299,7 +299,7 @@ export function Segmented<T extends string>({
           disabled={o.disabled}
           onClick={() => onChange(o.value)}
           className={cx(
-            "h-8 rounded-lg px-3.5 text-[13px] font-semibold whitespace-nowrap transition-[background-color,color,box-shadow] duration-150 disabled:opacity-35",
+            "h-8 rounded-lg px-3.5 text-footnote font-semibold whitespace-nowrap transition-[background-color,color,box-shadow] duration-150 disabled:opacity-35",
             value === o.value ? "bg-surface text-text shadow-[0_1px_3px_rgb(0_0_0/0.12)]" : "text-secondary hover:text-text",
           )}
         >
@@ -319,8 +319,8 @@ export function PageTitle({ title, subtitle, actions }: { title: ReactNode; subt
   return (
     <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
       <div className="min-w-0">
-        <h1 className="text-[30px] leading-tight font-bold tracking-[-0.025em] text-balance">{title}</h1>
-        {subtitle && <div className="mt-1 text-[15px] text-secondary">{subtitle}</div>}
+        <h1 className="text-display font-bold text-balance">{title}</h1>
+        {subtitle && <div className="mt-1 text-body text-secondary">{subtitle}</div>}
       </div>
       {actions && <div className="flex flex-wrap gap-2">{actions}</div>}
     </div>
@@ -331,8 +331,8 @@ export function Empty({ icon, title, children, action }: { icon?: ReactNode; tit
   return (
     <div className="flex flex-col items-center rounded-2xl bg-surface px-6 py-10 text-center">
       {icon && <div className="mb-3 text-tertiary">{icon}</div>}
-      <p className="text-[15px] font-semibold">{title}</p>
-      {children && <div className="mt-1 max-w-sm text-[14px] leading-snug text-secondary">{children}</div>}
+      <p className="text-body font-semibold">{title}</p>
+      {children && <div className="mt-1 max-w-sm text-body leading-snug text-secondary">{children}</div>}
       {action && <div className="mt-4">{action}</div>}
     </div>
   );
@@ -340,7 +340,7 @@ export function Empty({ icon, title, children, action }: { icon?: ReactNode; tit
 
 export function BackLink({ href, children }: { href: string; children: ReactNode }) {
   return (
-    <Link href={href} className="-ml-1 inline-flex items-center gap-0.5 rounded-lg px-1 py-0.5 text-[15px] text-crimson hover:bg-crimson-soft">
+    <Link href={href} className="-ml-1 inline-flex items-center gap-0.5 rounded-lg px-1 py-0.5 text-body text-crimson hover:bg-crimson-soft">
       <svg viewBox="0 0 16 16" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
         <path d="M10 3.5 5.5 8l4.5 4.5" />
       </svg>

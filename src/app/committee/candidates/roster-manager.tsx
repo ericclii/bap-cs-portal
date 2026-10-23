@@ -54,11 +54,11 @@ export function RosterManager({ candidates }: { candidates: Candidate[] }) {
           onChange={(e) => setText(e.target.value)}
         />
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-sm text-secondary">
+          <p className="text-footnote text-secondary">
             One per line: NetID or NYU email, with an optional name. {parsed.rows.length} recognized
             {parsed.invalid.length > 0 && <span className="text-crimson"> · {parsed.invalid.length} skipped ({parsed.invalid.slice(0, 2).join("; ")})</span>}
           </p>
-          <label className="inline-flex h-10 cursor-pointer items-center rounded-lg border border-separator bg-surface px-4 text-sm font-medium hover:bg-fill">
+          <label className="inline-flex h-10 cursor-pointer items-center rounded-lg border border-separator bg-surface px-4 text-footnote font-medium hover:bg-fill">
             Upload CSV
             <input type="file" accept=".csv,text/csv,.txt" className="sr-only" onChange={async (e) => { const f = e.target.files?.[0]; if (f) setText(await f.text()); }} />
           </label>
@@ -72,7 +72,7 @@ export function RosterManager({ candidates }: { candidates: Candidate[] }) {
       {candidates.length > 0 && (
         <section className="space-y-3">
           <div className="flex items-center justify-between gap-3">
-            <h2 className="text-[17px] font-semibold">Roster <span className="text-secondary tabular-nums">{candidates.length}</span></h2>
+            <h2 className="text-headline font-semibold">Roster <span className="text-secondary tabular-nums">{candidates.length}</span></h2>
             <input aria-label="Search candidates" className={`${inputBase} w-56`} placeholder="Search" value={query} onChange={(e) => setQuery(e.target.value)} />
           </div>
           <Group>
@@ -81,7 +81,7 @@ export function RosterManager({ candidates }: { candidates: Candidate[] }) {
                 <div className="flex min-w-0 items-center gap-3">
                   <Avatar name={c.name ?? c.netId} image={c.image} size={28} />
                   <span className="truncate font-medium">{c.name ?? c.netId}</span>
-                  <span className="text-sm text-secondary">{c.netId}</span>
+                  <span className="text-footnote text-secondary">{c.netId}</span>
                   {!c.signedIn && <Pill>Hasn&apos;t signed in</Pill>}
                 </div>
                 <ConfirmButton confirmLabel="Remove" onConfirm={() => remove(c)}>Remove</ConfirmButton>

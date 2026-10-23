@@ -9,7 +9,7 @@ export default async function NewEventPage() {
   const term = await getCurrentTerm();
   return (
     <div className="mx-auto max-w-2xl space-y-6">
-      <PageTitle title="New event" subtitle="All times are New York time." />
+      <PageTitle title="New event" />
       <NewEventForm defaultPoints={term?.defaultEventPoints ?? 3} />
     </div>
   );

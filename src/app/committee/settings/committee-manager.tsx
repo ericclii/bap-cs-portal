@@ -30,8 +30,7 @@ export function CommitteeManager({ members, bootstrapChairs, isChair, myNetId }:
 
   return (
     <section className="space-y-3">
-      <h2 className="text-[17px] font-semibold">CS committee</h2>
-      <p className="text-sm text-secondary">Members run events, selection, check-in and points. Chairs can also manage terms, the committee and imports. People get access the next time they sign in with their NYU account.</p>
+      <h2 className="text-headline font-semibold">CS committee</h2>
       {error && <Notice tone="crimson">{error}</Notice>}
       <Group>
         {bootstrapChairs.filter((n) => !members.some((m) => m.netId === n)).map((n) => (
@@ -41,7 +40,7 @@ export function CommitteeManager({ members, bootstrapChairs, isChair, myNetId }:
               <span className="font-medium">{n}</span>
               <Pill>Chair</Pill>
             </div>
-            <span className="text-sm text-secondary">Permanent chair</span>
+            <span className="text-footnote text-secondary">Permanent chair</span>
           </div>
         ))}
         {members.map((m) => (
@@ -49,7 +48,7 @@ export function CommitteeManager({ members, bootstrapChairs, isChair, myNetId }:
             <div className="flex min-w-0 items-center gap-3">
               <Avatar name={m.name ?? m.netId} image={m.image} size={28} />
               <span className="font-medium">{m.name ?? m.netId}</span>
-              <span className="text-sm text-secondary">{m.netId}</span>
+              <span className="text-footnote text-secondary">{m.netId}</span>
               {!m.signedIn && <Pill>Hasn&apos;t signed in</Pill>}
             </div>
             {isChair ? (

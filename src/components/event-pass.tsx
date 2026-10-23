@@ -25,8 +25,8 @@ export function EventPass({
     <div className="flex items-start gap-3.5">
       <DateTile date={event.startsAt} size="lg" />
       <div className="min-w-0 flex-1 pt-0.5">
-        <h2 className="text-[20px] leading-tight font-bold tracking-[-0.02em] text-balance">{event.title}</h2>
-        {event.partnerOrg && <p className="mt-0.5 text-[14px] text-secondary">{event.partnerOrg}</p>}
+        <h2 className="text-title font-bold text-balance">{event.title}</h2>
+        {event.partnerOrg && <p className="mt-0.5 text-body text-secondary">{event.partnerOrg}</p>}
       </div>
     </div>
   );
@@ -39,7 +39,7 @@ export function EventPass({
       ) : (
         header
       )}
-      <dl className="mt-4 space-y-2 text-[14px]">
+      <dl className="mt-4 space-y-2 text-body">
         <div className="flex items-center gap-2.5">
           <dt className="sr-only">When</dt>
           <Clock className="h-4 w-4 shrink-0 text-tertiary" aria-hidden />

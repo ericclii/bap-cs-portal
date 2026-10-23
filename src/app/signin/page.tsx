@@ -25,15 +25,13 @@ export default async function SignInPage({
     <main className="mx-auto flex w-full max-w-sm flex-1 flex-col justify-center px-5 pt-[calc(env(safe-area-inset-top)+3rem)] pb-[calc(env(safe-area-inset-bottom)+2rem)]">
       <div className="flex flex-col items-center text-center">
         <Mark size={64} />
-        <h1 className="mt-6 text-[28px] leading-tight font-bold tracking-[-0.025em]">BAP Community Service</h1>
-        <p className="mt-2 text-[15px] leading-snug text-secondary text-pretty">
-          Sign up for service events, check in on site, and see your points. Beta Alpha Psi, Mu Chapter.
-        </p>
+        <h1 className="mt-6 text-display font-bold">BAP Community Service</h1>
+        <p className="mt-1 text-body text-secondary">Beta Alpha Psi · Mu Chapter</p>
       </div>
       <div className="mt-10">
         <SignInPanel next={next} googleConfigured={googleConfigured} devLoginEnabled={devLoginEnabled} initialError={error} />
       </div>
-      <p className="mt-10 text-center text-[13px] text-secondary">
+      <p className="mt-10 text-center text-footnote text-secondary">
         <Link href="/privacy" className="underline underline-offset-2 hover:text-text">Privacy policy</Link>
       </p>
     </main>

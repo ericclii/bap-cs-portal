@@ -19,8 +19,8 @@ export default async function SettingsPage() {
       <TermsManager terms={JSON.parse(JSON.stringify(terms))} isChair={isChair} />
       <CommitteeManager members={committee.members} bootstrapChairs={committee.bootstrapChairs} isChair={isChair} myNetId={user.netId} />
       <section className="space-y-2">
-        <h2 className="text-[17px] font-semibold">Email</h2>
-        <p className="text-sm text-secondary">
+        <h2 className="text-headline font-semibold">Email</h2>
+        <p className="text-footnote text-secondary">
           {emailConfigured
             ? `Confirmations, reminders and results are sent from ${process.env.GMAIL_USER}.`
             : "Email isn't connected yet, so confirmations and reminders are saved but not sent. Whoever set up the portal can connect the committee Gmail account."}

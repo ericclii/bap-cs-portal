@@ -43,14 +43,14 @@ export function EventConsole({ event, initialPeople, initialTab }: { event: Cons
           <DateTile date={new Date(event.startsAt)} size="lg" />
           <div className="min-w-0 space-y-1">
             <div className="flex flex-wrap items-center gap-2">
-              <h1 className="text-[26px] leading-tight font-bold tracking-[-0.025em]">{event.title}</h1>
+              <h1 className="text-display font-bold">{event.title}</h1>
               <PhasePill phase={event.phase} />
             </div>
-            <p className="text-[14px] text-secondary">
+            <p className="text-body text-secondary">
               {formatEventRange(new Date(event.startsAt), new Date(event.endsAt))}
               {event.partnerOrg && ` · ${event.partnerOrg}`}
             </p>
-            <p className="text-[13px] text-secondary">
+            <p className="text-footnote text-secondary">
               {event.capacity} spots · {event.points} pts · {formatDuration(event.minMinutes)} minimum · {event.checkinMode === "QR" ? "QR check-in" : "Link check-in"} · sign-ups close {formatDateTime(new Date(event.signupClosesAt))}
             </p>
           </div>
@@ -119,7 +119,7 @@ function MoreMenu({ event, onError, onNotice }: { event: ConsoleEvent; onError: 
         <div role="menu" className="absolute right-0 z-40 mt-2 w-72 rounded-2xl bg-surface p-1.5 shadow-[0_10px_40px_rgb(0_0_0/0.16)] ring-1 ring-separator">
           {!duplicating ? (
             <>
-              <a role="menuitem" href={`/api/v1/committee/events/${event.id}/export`} className="block rounded-lg px-3 py-2 text-[15px] hover:bg-fill">Download CSV</a>
+              <a role="menuitem" href={`/api/v1/committee/events/${event.id}/export`} className="block rounded-lg px-3 py-2 text-body hover:bg-fill">Download CSV</a>
               <MenuItem onClick={() => setDuplicating(true)}>Duplicate for another date…</MenuItem>
               <MenuItem
                 onClick={() =>
@@ -156,11 +156,11 @@ function MoreMenu({ event, onError, onNotice }: { event: ConsoleEvent; onError: 
             </>
           ) : (
             <div className="space-y-3 p-3">
-              <label className="block space-y-1 text-sm">
+              <label className="block space-y-1 text-footnote">
                 <span className="font-medium">New start (New York time)</span>
                 <input type="datetime-local" className={inputClass} value={startsAtLocal} onChange={(e) => setStartsAtLocal(e.target.value)} />
               </label>
-              <p className="text-xs text-secondary">Copies settings and location; sign-up times shift with the date. Saved as a draft.</p>
+              <p className="text-caption text-secondary">Saved as a draft.</p>
               <div className="flex gap-2">
                 <Button
                   size="sm"
@@ -185,7 +185,7 @@ function MoreMenu({ event, onError, onNotice }: { event: ConsoleEvent; onError: 
 
 function MenuItem({ children, onClick, danger }: { children: React.ReactNode; onClick: () => void; danger?: boolean }) {
   return (
-    <button role="menuitem" type="button" onClick={onClick} className={cx("w-full rounded-lg px-3 py-2 text-left text-[15px] hover:bg-fill", danger && "text-crimson")}>
+    <button role="menuitem" type="button" onClick={onClick} className={cx("w-full rounded-lg px-3 py-2 text-left text-body hover:bg-fill", danger && "text-crimson")}>
       {children}
     </button>
   );

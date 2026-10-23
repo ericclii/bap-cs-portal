@@ -12,7 +12,7 @@ export default async function EditEventPage({ params }: { params: Promise<{ even
   const e = await orNotFound(getEventForCommittee(eventId));
   return (
     <div className="mx-auto max-w-2xl space-y-6">
-      <PageTitle title={`Edit ${e.title}`} subtitle="All times are New York time." />
+      <PageTitle title={`Edit ${e.title}`} />
       <EventForm
         eventId={e.id}
         initial={{

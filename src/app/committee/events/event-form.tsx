@@ -114,7 +114,7 @@ export function EventForm({ eventId, initial }: { eventId?: string; initial: Eve
       {error && <Notice tone="crimson">{error}</Notice>}
 
       <Panel className="space-y-5">
-        <h2 className="text-[17px] font-semibold">Event</h2>
+        <h2 className="text-headline font-semibold">Event</h2>
         <div className="grid gap-4 sm:grid-cols-2">
           <Field label="Title" htmlFor="title">
             <input id="title" className={inputClass} required maxLength={140} value={v.title} onChange={(e) => set("title", e.target.value)} placeholder="Food pantry packing" />
@@ -124,7 +124,7 @@ export function EventForm({ eventId, initial }: { eventId?: string; initial: Eve
           </Field>
         </div>
         <div className="grid gap-4 sm:grid-cols-2">
-          <Field label="Starts" htmlFor="startsAt">
+          <Field label="Starts (New York time)" htmlFor="startsAt">
             <input id="startsAt" type="datetime-local" required className={inputClass} value={v.startsAtLocal} onChange={(e) => set("startsAtLocal", e.target.value)} />
           </Field>
           <Field label="Ends" htmlFor="endsAt" hint={duration > 0 ? formatDuration(duration) : undefined}>
@@ -138,22 +138,21 @@ export function EventForm({ eventId, initial }: { eventId?: string; initial: Eve
           <Field label="Points for attending" htmlFor="points">
             <input id="points" type="number" min={0} max={50} required className={inputClass} value={v.points} onChange={(e) => set("points", Number(e.target.value))} />
           </Field>
-          <Field label="Minimum time on site (min)" htmlFor="minMinutes" hint={`${formatDuration(v.minMinutes)}. Leaving earlier needs a reason.`}>
+          <Field label="Minimum time on site (min)" htmlFor="minMinutes" hint={formatDuration(v.minMinutes)}>
             <input id="minMinutes" type="number" min={0} max={duration || 1440} required className={inputClass} value={v.minMinutes} onChange={(e) => { setMinTouched(true); set("minMinutes", Number(e.target.value)); }} />
           </Field>
         </div>
-        <Field label="What to know" htmlFor="instructions" hint="Shown on the event page and in emails.">
+        <Field label="What to know" htmlFor="instructions">
           <textarea id="instructions" rows={3} className={inputClass} maxLength={3000} value={v.instructions ?? ""} onChange={(e) => set("instructions", e.target.value)} placeholder="Wear closed-toe shoes and clothes that can get dirty. Meet at the side entrance on 3rd Ave." />
         </Field>
-        <Field label="Description" htmlFor="description" hint="Optional. What the work is and who it helps.">
+        <Field label="Description (optional)" htmlFor="description">
           <textarea id="description" rows={3} className={inputClass} maxLength={5000} value={v.description ?? ""} onChange={(e) => set("description", e.target.value)} />
         </Field>
       </Panel>
 
       <Panel className="space-y-5">
         <div>
-          <h2 className="text-[17px] font-semibold">Location</h2>
-          <p className="mt-0.5 text-[13px] leading-snug text-secondary">Students can only check in and out inside the circle.</p>
+          <h2 className="text-headline font-semibold">Location</h2>
         </div>
         <div className="grid gap-4 sm:grid-cols-2">
           <Field label="Place name" htmlFor="locationName">
@@ -169,15 +168,14 @@ export function EventForm({ eventId, initial }: { eventId?: string; initial: Eve
           onChange={(p) => setV((prev) => ({ ...prev, latitude: p.latitude, longitude: p.longitude }))}
           address={v.address ?? ""}
         />
-        <Field label={`Radius: ${v.radiusMeters} m`} htmlFor="radius" hint="150 m suits most Manhattan buildings; indoor GPS drifts 20–50 m.">
+        <Field label={`Radius: ${v.radiusMeters} m`} htmlFor="radius">
           <input id="radius" type="range" min={50} max={1000} step={25} value={v.radiusMeters} onChange={(e) => set("radiusMeters", Number(e.target.value))} className="w-full accent-[var(--crimson)]" />
         </Field>
       </Panel>
 
       <Panel className="space-y-5">
         <div>
-          <h2 className="text-[17px] font-semibold">Sign-ups</h2>
-          <p className="mt-0.5 text-[13px] leading-snug text-secondary">After sign-ups close you pick who goes from a suggested order.</p>
+          <h2 className="text-headline font-semibold">Sign-ups</h2>
         </div>
         <div className="grid gap-4 sm:grid-cols-2">
           <Field label="Sign-ups open" htmlFor="signupOpens">
@@ -190,18 +188,18 @@ export function EventForm({ eventId, initial }: { eventId?: string; initial: Eve
       </Panel>
 
       <Panel className="space-y-5">
-        <h2 className="text-[17px] font-semibold">Check-in</h2>
+        <h2 className="text-headline font-semibold">Check-in</h2>
         <fieldset className="grid gap-2 sm:grid-cols-2">
           <legend className="sr-only">How people check in</legend>
           {([
-            ["LINK", "Event page link", "Students check in from the event page on their phone. Use when no one from BAP is on site."],
-            ["QR", "Rotating QR code", "A committee member on site shows a QR code that changes every 20 seconds. Students scan it, then check in."],
+            ["LINK", "Event page link", "No one from BAP on site"],
+            ["QR", "Rotating QR code", "A committee member is on site"],
           ] as const).map(([value, label, description]) => (
             <label key={value} className={`flex cursor-pointer gap-3 rounded-xl p-3.5 ring-1 transition-colors duration-150 ${v.checkinMode === value ? "bg-crimson-soft ring-crimson/40" : "bg-fill/50 ring-transparent hover:bg-fill"}`}>
               <input type="radio" name="checkinMode" value={value} checked={v.checkinMode === value} onChange={() => set("checkinMode", value)} className="mt-1 accent-[var(--crimson)]" />
               <span>
-                <span className="block text-[15px] font-medium">{label}</span>
-                <span className="mt-0.5 block text-[13px] leading-snug text-secondary">{description}</span>
+                <span className="block text-body font-medium">{label}</span>
+                <span className="mt-0.5 block text-footnote leading-snug text-secondary">{description}</span>
               </span>
             </label>
           ))}
@@ -217,7 +215,7 @@ export function EventForm({ eventId, initial }: { eventId?: string; initial: Eve
       </Panel>
 
       <Panel>
-        <Toggle id="publish" label="Visible to students" description="Turn off to save as a draft." checked={v.publish} onChange={(c) => set("publish", c)} />
+        <Toggle id="publish" label="Visible to students" checked={v.publish} onChange={(c) => set("publish", c)} />
       </Panel>
 
       <div className="flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">

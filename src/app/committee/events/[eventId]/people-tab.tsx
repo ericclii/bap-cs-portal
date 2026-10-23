@@ -64,7 +64,7 @@ export function PeopleTab({ event, initialPeople, onNotice }: { event: ConsoleEv
     <div className="space-y-8">
       {error && <Notice tone="crimson">{error}</Notice>}
 
-      <p className="text-sm text-secondary">
+      <p className="text-footnote text-secondary">
         <span className="font-medium text-text">{groups.confirmed.length}</span> of {event.capacity} confirmed ·{" "}
         <span className="font-medium text-text">{checkedIn}</span> checked in · {onSite} on site now · {groups.waitlist.length} waitlisted
         {groups.applied.length > 0 && ` · ${groups.applied.length} awaiting selection`}
@@ -176,7 +176,7 @@ function Section({ title, count, action, children }: { title: string; count: num
   return (
     <section className="space-y-3">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <h2 className="text-[17px] font-semibold">
+        <h2 className="text-headline font-semibold">
           {title} <span className="text-secondary tabular-nums">{count}</span>
         </h2>
         {action}
@@ -194,11 +194,11 @@ function Row({ person: p, detail, children, busy, badge }: { person: Person; det
         <div className="min-w-0">
           <div className="flex flex-wrap items-center gap-2">
             <span className="font-medium">{p.name}</span>
-            <span className="text-sm text-secondary">{p.netId}</span>
+            <span className="text-footnote text-secondary">{p.netId}</span>
             {!p.isCandidate && <Pill>Not a candidate</Pill>}
             {badge}
           </div>
-          <div className="text-sm text-secondary">{detail}</div>
+          <div className="text-footnote text-secondary">{detail}</div>
         </div>
       </div>
       {children && <div className="flex shrink-0 flex-wrap gap-2 pl-11 md:pl-0">{children}</div>}
@@ -207,5 +207,5 @@ function Row({ person: p, detail, children, busy, badge }: { person: Person; det
 }
 
 function Empty({ children }: { children: React.ReactNode }) {
-  return <p className="px-4 py-8 text-center text-sm text-secondary">{children}</p>;
+  return <p className="px-4 py-8 text-center text-footnote text-secondary">{children}</p>;
 }

@@ -30,6 +30,7 @@ type View = {
   event: {
     id: string;
     title: string;
+    partnerOrg: string | null;
     startsAt: string;
     endsAt: string;
     capacity: number;
@@ -60,7 +61,7 @@ type View = {
 
 const PRESENCE_EVERY_MS = 3 * 60_000;
 
-export function EventActions({ view, hasVenuePass, user }: { view: View; hasVenuePass: boolean; user: { name: string } }) {
+export function EventActions({ view, hasVenuePass }: { view: View; hasVenuePass: boolean; user?: { name: string } }) {
   const router = useRouter();
   const [busy, setBusy] = useState<string | null>(null);
   const [error, setError] = useState<{ message: string; code?: string } | null>(null);
@@ -168,10 +169,8 @@ export function EventActions({ view, hasVenuePass, user }: { view: View; hasVenu
     return (
       <div className="space-y-4">
         {errorBox}
-        <p className="text-[14px] leading-snug text-secondary text-pretty">
-          {waitlistOnly
-            ? "This event is full. Join the waitlist and we'll email you if a spot opens."
-            : `Sign-ups close ${formatDateTime(timing.signupClosesAt)}. Spots go to candidates with the fewest points first, then by sign-up time.`}
+        <p className="text-body leading-snug text-secondary">
+          {waitlistOnly ? "Event full" : `Sign-ups close ${formatDateTime(timing.signupClosesAt)}`}
         </p>
         <Button size="lg" className="w-full" disabled={busy !== null} onClick={() => run("Signing you up…", () => api(`/events/${e.id}/signup`, { body: {} }))}>
           {busy ?? (waitlistOnly ? "Join waitlist" : "Sign up")}
@@ -251,10 +250,10 @@ export function EventActions({ view, hasVenuePass, user }: { view: View; hasVenu
           icon="check"
           tone="green"
           animate={celebrate}
-          title="You're all set"
-          body={`${formatTime(inAt)} – ${formatTime(outAt)} · ${formatDuration(attendedMinutes(inAt, outAt))}. Your ${e.points} points are added once the committee reviews the event.`}
+          title={`${formatDuration(attendedMinutes(inAt, outAt))} with ${e.partnerOrg ?? "your community"}`}
+          body={`Thank you. ${formatTime(inAt)} – ${formatTime(outAt)}. Your ${e.points} points are added once the committee reviews the event.`}
         />
-        {a.earlyCheckout && <Notice tone="amber">You checked out early. The committee will review your reason before confirming points.</Notice>}
+        {a.earlyCheckout && <Notice tone="amber">You checked out early. The committee will review your reason before awarding points.</Notice>}
       </div>
     );
   }
@@ -316,7 +315,6 @@ export function EventActions({ view, hasVenuePass, user }: { view: View; hasVenu
             onSubmit={() => requestReview("CHECKOUT_LOCATION")}
           />
         )}
-        <p className="text-center text-[13px] text-secondary">Keeping this page open helps confirm you stayed on site.</p>
       </div>
     );
   }
@@ -389,14 +387,11 @@ export function EventActions({ view, hasVenuePass, user }: { view: View; hasVenu
     <div className="space-y-4">
       {errorBox}
       {pendingReview ? (
-        <Status icon="clock" tone="blue" title="Waiting for the committee" body="They'll record your check-in once they review it." />
+        <Status icon="clock" tone="blue" title="Waiting for the committee" />
       ) : needsScan ? (
-        <Status icon="qr" title="Scan the QR code to check in" body="Find the BAP committee member on site and scan their code with your camera." />
+        <Status icon="qr" title="Scan the QR code to check in" body="A committee member on site has the code." />
       ) : panel !== "review-in" ? (
         <>
-          <p className="text-[14px] leading-snug text-secondary">
-            You&apos;re confirmed, {user.name.split(" ")[0]}. Tap when you arrive; your phone will confirm your location once.
-          </p>
           <Button size="lg" className="w-full" disabled={busy !== null} onClick={checkIn}>
             {busy ?? "Check in"}
           </Button>
@@ -406,7 +401,7 @@ export function EventActions({ view, hasVenuePass, user }: { view: View; hasVenu
         <ReasonForm title="Ask the committee to record your check-in" label="What's happening?" placeholder="I'm here but in the basement with no signal" text={text} setText={setText} submitLabel={busy ?? "Send"} busy={busy !== null} onCancel={() => setPanel(null)} onSubmit={() => requestReview("CHECKIN_LOCATION")} />
       )}
       {!pendingReview && panel === null && (
-        <button type="button" className="mx-auto flex items-center gap-1.5 text-[13px] font-medium text-secondary hover:text-text" onClick={() => setPanel("review-in")}>
+        <button type="button" className="mx-auto flex items-center gap-1.5 text-footnote font-medium text-secondary hover:text-text" onClick={() => setPanel("review-in")}>
           <LocateFixed className="h-3.5 w-3.5" aria-hidden />
           Location not working?
         </button>
@@ -455,8 +450,8 @@ function Status({
         )}
       </span>
       <div className="min-w-0 pt-1">
-        <p className="text-[16px] leading-snug font-semibold">{title}</p>
-        {body && <p className="mt-0.5 text-[14px] leading-snug text-secondary text-pretty">{body}</p>}
+        <p className="text-headline leading-snug font-semibold">{title}</p>
+        {body && <p className="mt-0.5 text-body leading-snug text-secondary text-pretty">{body}</p>}
       </div>
     </div>
   );
@@ -488,14 +483,14 @@ function ReasonForm(props: {
         if (ready) props.onSubmit();
       }}
     >
-      <p className="text-[16px] font-semibold">{props.title}</p>
+      <p className="text-headline font-semibold">{props.title}</p>
       {props.warning && <Notice tone="amber">{props.warning}</Notice>}
       <label className="block space-y-1.5">
-        <span className="text-[13px] font-medium text-secondary">{props.label}</span>
+        <span className="text-footnote font-medium text-secondary">{props.label}</span>
         <textarea rows={3} required minLength={3} maxLength={500} className={inputClass} placeholder={props.placeholder} value={props.text} onChange={(ev) => props.setText(ev.target.value)} />
       </label>
       {needsAck && (
-        <label className="flex items-start gap-2.5 text-[14px]">
+        <label className="flex items-start gap-2.5 text-body">
           <input type="checkbox" className="mt-0.5 h-[18px] w-[18px] accent-[var(--crimson)]" checked={props.ack} onChange={(ev) => props.setAck!(ev.target.checked)} />
           {props.ackLabel}
         </label>

@@ -29,14 +29,20 @@ typography:
     fontFamily: "-apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"Segoe UI Variable Text\", \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif"
     fontSize: "30px"
     fontWeight: 700
-    lineHeight: 1.25
+    lineHeight: 1.15
     letterSpacing: "-0.025em"
-  headline:
+  title:
     fontFamily: "-apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"Segoe UI Variable Text\", \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif"
     fontSize: "20px"
     fontWeight: 700
     lineHeight: 1.25
     letterSpacing: "-0.02em"
+  headline:
+    fontFamily: "-apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"Segoe UI Variable Text\", \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif"
+    fontSize: "17px"
+    fontWeight: 600
+    lineHeight: 1.3
+    letterSpacing: "-0.012em"
   stat:
     fontFamily: "-apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"Segoe UI Variable Text\", \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif"
     fontSize: "28px"
@@ -44,24 +50,18 @@ typography:
     lineHeight: 1
     letterSpacing: "-0.02em"
     fontFeature: "\"tnum\" 1"
-  title:
-    fontFamily: "-apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"Segoe UI Variable Text\", \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif"
-    fontSize: "15px"
-    fontWeight: 600
-    lineHeight: 1.375
-    letterSpacing: "-0.006em"
   body:
     fontFamily: "-apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"Segoe UI Variable Text\", \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif"
     fontSize: "15px"
     fontWeight: 500
-    lineHeight: 1.375
+    lineHeight: 1.45
     letterSpacing: "-0.006em"
     fontFeature: "\"tnum\" 1"
   footnote:
     fontFamily: "-apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"Segoe UI Variable Text\", \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif"
     fontSize: "13px"
     fontWeight: 400
-    lineHeight: 1.375
+    lineHeight: 1.4
     letterSpacing: "-0.006em"
   label:
     fontFamily: "-apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"Segoe UI Variable Text\", \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif"
@@ -276,13 +276,13 @@ A monochrome grouped-list palette with a single crimson accent and a small set o
 **Character:** The platform's own voice. Hierarchy comes from size and weight steps on one family, tightened slightly (-0.006em body, down to -0.025em on large titles), with tabular figures everywhere so times and point totals align.
 
 ### Hierarchy
-- **Display** (700, 30px, 1.25, -0.025em): the iOS large page title ("Hi, Jordan", "Committee"), balanced wrapping. Committee event consoles use a compact 26px variant of the same treatment.
-- **Headline** (700, 20px, 1.25, -0.02em): the event title on the pass.
-- **Stat** (700, 28px, line-height 1, -0.02em, tabular): the points total; the date-tile day number scales 17/20/28px semibold with tile size.
-- **Title** (600, 15px): group headers, empty-state titles, logo wordmark.
-- **Body** (500, 15px, 1.375): row titles, inputs, list content. Large buttons step to 17px semibold; medium buttons 15px; small buttons 13px.
-- **Footnote** (400, 13–14px, 1.375, secondary color): row subtitles, group footers, field labels and hints, pass metadata at 14px.
-- **Label** (600, 12px): status pills. The date tile's month is the one uppercase label (700, 10px, wide tracking), as on a printed calendar.
+Six named roles, defined once as Tailwind theme tokens in `globals.css` (`text-display`, `text-title`, `text-headline`, `text-body`, `text-footnote`, `text-caption`); screens use the role class, never a literal size.
+- **Display** (700, 30px, 1.15, -0.025em): page titles ("Hi, Jordan", "Points", the event console title, the sign-in title). Balanced wrapping.
+- **Title** (700, 20px, 1.25, -0.02em): the event title on the pass; centered titles on the 404 and error screens.
+- **Headline** (600, 17px, 1.3): every section heading ("Your events", "Confirmed 4", form sections), status titles on the pass, large buttons.
+- **Body** (500 for rows, 400 for prose; 15px, 1.45): row titles, inputs, notices, pass metadata, table cells, prose.
+- **Footnote** (400, 13px, 1.4, secondary color): row subtitles, field labels and hints, status lines, metadata.
+- **Caption** (600, 12px): status pills and counts. The date tile's month (700, 10px, uppercase) and its day number, and the points total (Stat, 28px), are the only literal sizes.
 
 ### Named Rules
 **The System Voice Rule.** Use the system UI stack only. No Poppins and no web display face; the app should feel like part of the phone.

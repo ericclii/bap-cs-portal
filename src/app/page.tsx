@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import { AppShell } from "@/components/app-shell";
 import { EventPass } from "@/components/event-pass";
 import { DateTile, Empty, Group, LinkButton, PageTitle, Pill, Progress, Row, Section } from "@/components/ui";
-import { checkinWindowState, signupWindowState } from "@/lib/event-window";
+import { attendedMinutes, checkinWindowState, formatDuration, signupWindowState } from "@/lib/event-window";
 import { formatDate, formatDateTime, formatEventRange, formatTime, relativeDay } from "@/lib/time";
 import { getCurrentUser } from "@/server/session";
 import { listEventsForStudent } from "@/server/services/events";
@@ -51,6 +51,12 @@ export default async function HomePage() {
   const soon = active.filter((i) => !i.mine && signupWindowState(i.event, now) === "before");
   const pending = history.signups.filter((s) => s.status === "SELECTED" && !s.outcome && s.attendance);
   const required = term.requiredPoints;
+  // Time actually given, from completed check-ins this term.
+  const minutesServed = history.signups.reduce((sum, s) => {
+    const a = s.attendance;
+    if (!a?.checkedOutAt || s.event.canceledAt || s.outcome === "NO_SHOW") return sum;
+    return sum + (attendedMinutes(a.checkedInAt, a.checkedOutAt) ?? 0);
+  }, 0);
 
   return (
     <AppShell user={user}>
@@ -60,22 +66,28 @@ export default async function HomePage() {
         <Group>
           <div className="space-y-3 px-4 py-4">
             <div className="flex items-baseline justify-between gap-3">
-              <span className="text-[15px] font-medium">CS points</span>
-              <span className="text-[15px] text-secondary tabular-nums">
+              <span className="text-body font-medium">CS points</span>
+              <span className="text-body text-secondary tabular-nums">
                 <span className="text-[28px] leading-none font-bold tracking-[-0.02em] text-text">{points}</span>
                 {required != null && <> / {required}</>}
               </span>
             </div>
             {required != null && <Progress value={points} max={required} label="CS points toward the requirement" />}
-            <p className="text-[13px] leading-snug text-secondary">
-              {required != null && points >= required
-                ? "Requirement met for this term. Nice work."
-                : pending.length > 0
-                  ? `${pending.length} attended ${pending.length === 1 ? "event is" : "events are"} waiting for points from the committee.`
-                  : candidate
-                    ? "Points are added after the committee reviews each event."
-                    : "You're not on this term's candidate list, so you rank after candidates for spots."}
-            </p>
+            <StandingNote>
+              {required != null && points >= required ? (
+                <span className="font-medium text-gold">
+                  Requirement met{minutesServed > 0 ? `. Thank you for ${formatDuration(minutesServed)} of service.` : ". Thank you."}
+                </span>
+              ) : (
+                [
+                  minutesServed > 0 ? `${formatDuration(minutesServed)} of service this term` : null,
+                  pending.length > 0 ? `${pending.length} ${pending.length === 1 ? "event" : "events"} awaiting points` : null,
+                  !candidate ? "Not on this term's candidate list" : null,
+                ]
+                  .filter(Boolean)
+                  .join(" · ") || null
+              )}
+            </StandingNote>
           </div>
         </Group>
 
@@ -102,7 +114,7 @@ export default async function HomePage() {
 
         <Section
           title="Open for sign-up"
-          footer={open.length > 0 && soon.length > 0 ? `More opening soon: ${soon.map((i) => `${i.event.title} (${formatDateTime(i.event.signupOpensAt)})`).join(", ")}.` : undefined}
+          footer={open.length > 0 && soon.length > 0 ? `Opening soon: ${soon.map((i) => i.event.title).join(", ")}` : undefined}
         >
           {open.length === 0 ? (
             <Empty icon={<CalendarPlus className="h-7 w-7" aria-hidden />} title="Nothing open right now">
@@ -157,14 +169,18 @@ function NextPass({ item, now }: { item: Item; now: Date }) {
   );
 }
 
+function StandingNote({ children }: { children: React.ReactNode }) {
+  return children ? <p className="text-footnote leading-snug text-secondary">{children}</p> : null;
+}
+
 function StatusLine({ tone, label, detail }: { tone: "green" | "crimson"; label: string; detail: string }) {
   return (
     <div className="flex items-center justify-between gap-3">
-      <span className={`flex items-center gap-2 text-[15px] font-semibold ${tone === "green" ? "text-green" : "text-crimson"}`}>
+      <span className={`flex items-center gap-2 text-body font-semibold ${tone === "green" ? "text-green" : "text-crimson"}`}>
         <span className={`h-2 w-2 rounded-full ${tone === "green" ? "bg-green" : "bg-crimson"}`} aria-hidden />
         {label}
       </span>
-      <span className="text-[13px] text-secondary">{detail}</span>
+      <span className="text-footnote text-secondary">{detail}</span>
     </div>
   );
 }
@@ -186,8 +202,8 @@ function History({ history }: { history: Awaited<ReturnType<typeof personHistory
       detail: s.outcome
         ? { ATTENDED: "Attended", NO_SHOW: s.status === "DROPPED" ? "Late drop" : "No-show", EXCUSED: "Excused" }[s.outcome]
         : s.attendance
-          ? "Attended · points pending"
-          : "Points pending",
+          ? "Attended"
+          : "Not checked in",
       points: s.outcome ? (s.points ?? 0) : null,
     })),
     ...history.adjustments.map((a) => ({ key: a.id, date: a.createdAt, title: a.reason, detail: "Added by the committee", points: a.points })),
@@ -207,7 +223,7 @@ function History({ history }: { history: Awaited<ReturnType<typeof personHistory
               title={r.title}
               subtitle={`${formatDate(r.date)} · ${r.detail}`}
               trailing={
-                <span className={`text-[15px] font-semibold tabular-nums ${r.points == null ? "text-secondary" : r.points > 0 ? "text-green" : r.points < 0 ? "text-amber" : "text-secondary"}`}>
+                <span className={`text-body font-semibold tabular-nums ${r.points == null ? "text-secondary" : r.points > 0 ? "text-green" : r.points < 0 ? "text-amber" : "text-secondary"}`}>
                   {r.points == null ? "Pending" : `${r.points > 0 ? "+" : ""}${r.points}`}
                 </span>
               }
