@@ -11,7 +11,7 @@ export default async function EditEventPage({ params }: { params: Promise<{ even
   const { eventId } = await params;
   const e = await orNotFound(getEventForCommittee(eventId));
   return (
-    <div className="mx-auto max-w-2xl space-y-6">
+    <div className="max-w-2xl space-y-6">
       <PageTitle title={`Edit ${e.title}`} />
       <EventForm
         eventId={e.id}

@@ -25,7 +25,7 @@ export function EventPass({
     <div className="flex items-start gap-3.5">
       <DateTile date={event.startsAt} size="lg" />
       <div className="min-w-0 flex-1 pt-0.5">
-        <h2 className="text-title font-bold text-balance">{event.title}</h2>
+        <h2 className="text-title font-bold text-balance break-words">{event.title}</h2>
         {event.partnerOrg && <p className="mt-0.5 text-body text-secondary">{event.partnerOrg}</p>}
       </div>
     </div>

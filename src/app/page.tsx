@@ -60,85 +60,90 @@ export default async function HomePage() {
 
   return (
     <AppShell user={user}>
-      <div className="space-y-8">
-        <PageTitle title={`Hi, ${user.name.split(" ")[0]}`} subtitle={`${term.name}${candidate ? " · Candidate" : ""}`} />
+      <div className="space-y-8 lg:grid lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:items-start lg:gap-x-10 lg:space-y-0">
+        <div className="space-y-8 lg:sticky lg:top-20">
+          <PageTitle title={`Hi, ${user.name.split(" ")[0]}`} subtitle={`${term.name}${candidate ? " · Candidate" : ""}`} />
 
-        <Group>
-          <div className="space-y-3 px-4 py-4">
-            <div className="flex items-baseline justify-between gap-3">
-              <span className="text-body font-medium">CS points</span>
-              <span className="text-body text-secondary tabular-nums">
-                <span className="text-[28px] leading-none font-bold tracking-[-0.02em] text-text">{points}</span>
-                {required != null && <> / {required}</>}
-              </span>
-            </div>
-            {required != null && <Progress value={points} max={required} label="CS points toward the requirement" />}
-            <StandingNote>
-              {required != null && points >= required ? (
-                <span className="font-medium text-gold">
-                  Requirement met{minutesServed > 0 ? `. Thank you for ${formatDuration(minutesServed)} of service.` : ". Thank you."}
+          <Group>
+            <div className="space-y-3 px-4 py-4">
+              <div className="flex items-baseline justify-between gap-3">
+                <span className="text-body font-medium">CS points</span>
+                <span className="text-body text-secondary tabular-nums">
+                  <span className="text-[28px] leading-none font-bold tracking-[-0.02em] text-text">{points}</span>
+                  {required != null && <> / {required}</>}
                 </span>
-              ) : (
-                [
-                  minutesServed > 0 ? `${formatDuration(minutesServed)} of service this term` : null,
-                  pending.length > 0 ? `${pending.length} ${pending.length === 1 ? "event" : "events"} awaiting points` : null,
-                  !candidate ? "Not on this term's candidate list" : null,
-                ]
-                  .filter(Boolean)
-                  .join(" · ") || null
-              )}
-            </StandingNote>
-          </div>
-        </Group>
+              </div>
+              {required != null && <Progress value={points} max={required} label="CS points toward the requirement" />}
+              <StandingNote>
+                {required != null && points >= required ? (
+                  <span className="font-medium text-gold">
+                    Requirement met{minutesServed > 0 ? `. Thank you for ${formatDuration(minutesServed)} of service.` : ". Thank you."}
+                  </span>
+                ) : (
+                  [
+                    minutesServed > 0 ? `${formatDuration(minutesServed)} of service this term` : null,
+                    pending.length > 0 ? `${pending.length} ${pending.length === 1 ? "event" : "events"} awaiting points` : null,
+                    !candidate ? "Not on this term's candidate list" : null,
+                  ]
+                    .filter(Boolean)
+                    .join(" · ") || null
+                )}
+              </StandingNote>
+            </div>
+          </Group>
 
-        {next && <NextPass item={next} now={now} />}
+          {next && <NextPass item={next} now={now} />}
+        </div>
 
-        {rest.length > 0 && (
-          <Section title="Your events">
-            <Group>
-              {rest.map((i) => (
-                <Row
-                  key={i.event.id}
-                  href={`/events/${i.event.slug}`}
-                  leading={<DateTile date={i.event.startsAt} size="sm" />}
-                  title={i.event.title}
-                  subtitle={formatEventRange(i.event.startsAt, i.event.endsAt)}
-                  trailing={<MyStatus item={i} />}
-                  stackTrailing
-                  chevron
-                />
-              ))}
-            </Group>
-          </Section>
-        )}
+        <div className="space-y-8">
 
-        <Section
-          title="Open for sign-up"
-          footer={open.length > 0 && soon.length > 0 ? `Opening soon: ${soon.map((i) => i.event.title).join(", ")}` : undefined}
-        >
-          {open.length === 0 ? (
-            <Empty icon={<CalendarPlus className="h-7 w-7" aria-hidden />} title="Nothing open right now">
-              {soon.length > 0
-                ? `${soon.length} ${soon.length === 1 ? "event opens" : "events open"} soon. Next: ${soon[0].event.title}, ${formatDateTime(soon[0].event.signupOpensAt)}.`
-                : "New events are posted each week."}
-            </Empty>
-          ) : (
-            <Group>
-              {open.map((i) => (
-                <Row
-                  key={i.event.id}
-                  href={`/events/${i.event.slug}`}
-                  leading={<DateTile date={i.event.startsAt} size="sm" />}
-                  title={i.event.title}
-                  subtitle={`${i.event.points} pts · closes ${relativeDay(i.event.signupClosesAt, now)}`}
-                  chevron
-                />
-              ))}
-            </Group>
+          {rest.length > 0 && (
+            <Section title="Your events">
+              <Group>
+                {rest.map((i) => (
+                  <Row
+                    key={i.event.id}
+                    href={`/events/${i.event.slug}`}
+                    leading={<DateTile date={i.event.startsAt} size="sm" />}
+                    title={i.event.title}
+                    subtitle={formatEventRange(i.event.startsAt, i.event.endsAt)}
+                    trailing={<MyStatus item={i} />}
+                    stackTrailing
+                    chevron
+                  />
+                ))}
+              </Group>
+            </Section>
           )}
-        </Section>
 
-        <History history={history} />
+          <Section
+            title="Open for sign-up"
+            footer={open.length > 0 && soon.length > 0 ? `Opening soon: ${soon.map((i) => i.event.title).join(", ")}` : undefined}
+          >
+            {open.length === 0 ? (
+              <Empty icon={<CalendarPlus className="h-7 w-7" aria-hidden />} title="Nothing open right now">
+                {soon.length > 0
+                  ? `${soon.length} ${soon.length === 1 ? "event opens" : "events open"} soon. Next: ${soon[0].event.title}, ${formatDateTime(soon[0].event.signupOpensAt)}.`
+                  : "New events are posted each week."}
+              </Empty>
+            ) : (
+              <Group>
+                {open.map((i) => (
+                  <Row
+                    key={i.event.id}
+                    href={`/events/${i.event.slug}`}
+                    leading={<DateTile date={i.event.startsAt} size="sm" />}
+                    title={i.event.title}
+                    subtitle={`${i.event.points} pts · closes ${relativeDay(i.event.signupClosesAt, now)}`}
+                    chevron
+                  />
+                ))}
+              </Group>
+            )}
+          </Section>
+
+          <History history={history} />
+        </div>
       </div>
     </AppShell>
   );

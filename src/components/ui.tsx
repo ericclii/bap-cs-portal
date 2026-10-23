@@ -26,7 +26,7 @@ const sizeClass: Record<Size, string> = {
 
 export function buttonClass(variant: Variant = "primary", size: Size = "md", extra?: string) {
   return cx(
-    "inline-flex shrink-0 select-none items-center justify-center gap-2 rounded-full font-semibold whitespace-nowrap",
+    "hit inline-flex shrink-0 select-none items-center justify-center gap-2 rounded-full font-semibold whitespace-nowrap",
     "transition-[background-color,transform] duration-150 active:scale-[0.98]",
     "disabled:pointer-events-none disabled:opacity-40",
     variantClass[variant],
@@ -237,7 +237,7 @@ export function Select({ className, size = "md", ...props }: Omit<ComponentProps
         {...props}
         className={cx(
           "w-full appearance-none rounded-xl bg-fill pr-9 pl-3.5 text-text outline-none transition-shadow duration-150 focus:bg-surface focus:ring-2 focus:ring-crimson/40 disabled:opacity-50",
-          size === "sm" ? "h-8 text-footnote" : "h-10 text-body",
+          size === "sm" ? "h-8 text-footnote pointer-coarse:h-10" : "h-10 text-body pointer-coarse:h-11",
         )}
       />
       <svg viewBox="0 0 16 16" className="pointer-events-none absolute top-1/2 right-3 h-3.5 w-3.5 -translate-y-1/2 text-secondary" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
@@ -299,7 +299,7 @@ export function Segmented<T extends string>({
           disabled={o.disabled}
           onClick={() => onChange(o.value)}
           className={cx(
-            "h-8 rounded-lg px-3.5 text-footnote font-semibold whitespace-nowrap transition-[background-color,color,box-shadow] duration-150 disabled:opacity-35",
+            "h-8 rounded-lg px-3.5 text-footnote font-semibold whitespace-nowrap pointer-coarse:h-10 transition-[background-color,color,box-shadow] duration-150 disabled:opacity-35",
             value === o.value ? "bg-surface text-text shadow-[0_1px_3px_rgb(0_0_0/0.12)]" : "text-secondary hover:text-text",
           )}
         >
@@ -319,7 +319,7 @@ export function PageTitle({ title, subtitle, actions }: { title: ReactNode; subt
   return (
     <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
       <div className="min-w-0">
-        <h1 className="text-display font-bold text-balance">{title}</h1>
+        <h1 className="text-display font-bold text-balance break-words">{title}</h1>
         {subtitle && <div className="mt-1 text-body text-secondary">{subtitle}</div>}
       </div>
       {actions && <div className="flex flex-wrap gap-2">{actions}</div>}

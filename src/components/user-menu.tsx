@@ -42,7 +42,7 @@ export function UserMenu({ user }: Props) {
         aria-haspopup="menu"
         aria-expanded={open}
         onClick={() => setOpen((o) => !o)}
-        className="flex rounded-full transition-opacity duration-150 hover:opacity-80"
+        className="hit flex rounded-full transition-opacity duration-150 hover:opacity-80"
       >
         <Avatar name={user.name} image={user.image} size={32} />
         <span className="sr-only">Account</span>

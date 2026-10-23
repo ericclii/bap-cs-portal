@@ -36,34 +36,36 @@ export default async function StudentEventPage({
         {scan === "expired" && <Notice tone="amber">That QR code expired. Scan the code on the screen again.</Notice>}
         {event.canceledAt && <Notice tone="crimson">This event was canceled. You don&apos;t need to do anything.</Notice>}
 
-        <EventPass event={event}>
-          <div className="mt-4 border-t border-dashed border-separator pt-4">
-            <EventActions user={{ name: user.name }} hasVenuePass={hasVenuePass} view={JSON.parse(JSON.stringify(view))} />
-          </div>
-        </EventPass>
+        <div className="space-y-6 lg:grid lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:items-start lg:gap-x-10 lg:space-y-0">
+          <EventPass event={event}>
+            <div className="mt-4 border-t border-dashed border-separator pt-4">
+              <EventActions user={{ name: user.name }} hasVenuePass={hasVenuePass} view={JSON.parse(JSON.stringify(view))} />
+            </div>
+          </EventPass>
 
-        <Section title="Details">
-          <Group>
-            <DetailRow icon={<Award className="h-[18px] w-[18px]" aria-hidden />} title={`${event.points} CS points`}>
-              Stay at least {formatDuration(event.minMinutes)} to check out normally.
-            </DetailRow>
-            <a href={mapsUrl} target="_blank" rel="noreferrer" className="block transition-colors duration-150 hover:bg-fill/60">
-              <DetailRow icon={<Map className="h-[18px] w-[18px]" aria-hidden />} title={event.address ?? "Directions"} link>
-                Open in Google Maps
+          <Section title="Details">
+            <Group>
+              <DetailRow icon={<Award className="h-[18px] w-[18px]" aria-hidden />} title={`${event.points} CS points`}>
+                Stay at least {formatDuration(event.minMinutes)} to check out normally.
               </DetailRow>
-            </a>
-            {event.instructions && (
-              <DetailRow icon={<ListChecks className="h-[18px] w-[18px]" aria-hidden />} title="What to know">
-                <span className="whitespace-pre-line">{event.instructions}</span>
-              </DetailRow>
-            )}
-            {event.description && (
-              <DetailRow icon={<Info className="h-[18px] w-[18px]" aria-hidden />} title="About">
-                <span className="whitespace-pre-line">{event.description}</span>
-              </DetailRow>
-            )}
-          </Group>
-        </Section>
+              <a href={mapsUrl} target="_blank" rel="noreferrer" className="block transition-colors duration-150 hover:bg-fill/60">
+                <DetailRow icon={<Map className="h-[18px] w-[18px]" aria-hidden />} title={event.address ?? "Directions"} link>
+                  Open in Google Maps
+                </DetailRow>
+              </a>
+              {event.instructions && (
+                <DetailRow icon={<ListChecks className="h-[18px] w-[18px]" aria-hidden />} title="What to know">
+                  <span className="whitespace-pre-line">{event.instructions}</span>
+                </DetailRow>
+              )}
+              {event.description && (
+                <DetailRow icon={<Info className="h-[18px] w-[18px]" aria-hidden />} title="About">
+                  <span className="whitespace-pre-line">{event.description}</span>
+                </DetailRow>
+              )}
+            </Group>
+          </Section>
+        </div>
       </div>
     </AppShell>
   );

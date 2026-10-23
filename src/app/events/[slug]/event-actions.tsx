@@ -87,7 +87,13 @@ export function EventActions({ view, hasVenuePass }: { view: View; hasVenuePass:
 
   useEffect(() => {
     const id = setInterval(() => setNow(new Date()), 20_000);
-    return () => clearInterval(id);
+    // Phones suspend background tabs; catch the clock up as soon as the page is back in view.
+    const onShow = () => document.visibilityState === "visible" && setNow(new Date());
+    document.addEventListener("visibilitychange", onShow);
+    return () => {
+      clearInterval(id);
+      document.removeEventListener("visibilitychange", onShow);
+    };
   }, []);
 
   // Best-effort presence while the page is open between check-in and check-out.

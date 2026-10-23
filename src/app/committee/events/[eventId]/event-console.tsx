@@ -39,11 +39,11 @@ export function EventConsole({ event, initialPeople, initialTab }: { event: Cons
       <BackLink href="/committee/events">Events</BackLink>
 
       <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
-        <div className="flex min-w-0 items-start gap-4">
+        <div className="flex min-w-0 flex-col items-start gap-3 sm:flex-row sm:gap-4">
           <DateTile date={new Date(event.startsAt)} size="lg" />
           <div className="min-w-0 space-y-1">
             <div className="flex flex-wrap items-center gap-2">
-              <h1 className="text-display font-bold">{event.title}</h1>
+              <h1 className="text-display font-bold text-balance break-words">{event.title}</h1>
               <PhasePill phase={event.phase} />
             </div>
             <p className="text-body text-secondary">

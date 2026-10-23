@@ -11,7 +11,7 @@ export function NavLink({ href, exact, children, badge }: { href: string; exact?
   const ref = useRef<HTMLAnchorElement>(null);
   // Keep the current section visible in the horizontally scrolling subnav.
   useEffect(() => {
-    if (active) ref.current?.scrollIntoView({ block: "nearest", inline: "nearest" });
+    if (active) ref.current?.scrollIntoView({ block: "nearest", inline: "center" });
   }, [active]);
   return (
     <Link
@@ -19,7 +19,7 @@ export function NavLink({ href, exact, children, badge }: { href: string; exact?
       href={href}
       aria-current={active ? "page" : undefined}
       className={cx(
-        "inline-flex h-8 items-center gap-1.5 rounded-full px-3 text-body font-medium whitespace-nowrap transition-colors duration-150",
+        "hit inline-flex h-8 items-center gap-1.5 rounded-full px-3 text-body font-medium whitespace-nowrap transition-colors duration-150",
         active ? "bg-text text-ground" : "text-secondary hover:bg-fill hover:text-text",
       )}
     >

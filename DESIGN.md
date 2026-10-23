@@ -226,7 +226,7 @@ The category standard played straight. BAP Community Service looks and behaves l
 
 The world is a neutral grey grouped ground carrying white inset groups divided by hairlines, charcoal text on a five-step neutral ramp, and exactly one voice of color: the crimson of nyubap.com, reserved for the action and for "today". Sand and gold appear only to mark an exception or a met requirement. Type is the platform's own system UI with tabular figures. Restraint is the aesthetic: less is more, one primary action per view, one authored animation in the whole product.
 
-Density is phone-first and comfortable: a single 576px column for students, widening to 1024px only for committee tables and consoles. Dark mode is a full peer of light mode, inverted to an iOS-style black ground with raised dark-grey groups.
+Density is phone-first and comfortable: one column on phones, and on desktop one 1024px frame for every signed-in page, so the bar and content edge never move between sections. Dark mode is a full peer of light mode, inverted to an iOS-style black ground with raised dark-grey groups.
 
 **Key Characteristics:**
 - Grey ground, white inset groups, hairline separators; no card grids.
@@ -291,9 +291,9 @@ Six named roles, defined once as Tailwind theme tokens in `globals.css` (`text-d
 
 ## Layout
 
-A single centered column with 16px gutters: 576px wide for student and sign-in screens, 1024px for committee screens that hold tables and consoles. A sticky 56px top bar on the grouped ground carries the logo and account; committee screens add a horizontally scrolling subnav of pill links beneath it, faded out at the right edge. Main content starts 24px under the bar and leaves room for the bottom safe area.
+One 1024px frame for every signed-in page (header and content alike), with 16px gutters that respect the landscape safe area. On phones everything is one column; from 1024px the student home and event page split into two columns (5:7): title, points and pass on the left, lists and details on the right, the home column sticky. Committee forms sit left-aligned at 672px inside the frame. Sign-in, privacy, 404 and error are standalone centered pages with no bar. A sticky 56px top bar on the grouped ground carries the logo and account; committee screens add a horizontally scrolling subnav of pill links beneath it, faded out at the right edge. Main content starts 24px under the bar and leaves room for the bottom safe area.
 
-Vertical rhythm is section-based: 32px between sections, 8px between a group header and its group, 8px between a group and its footer. Rows are at least 56px tall with 12px/16px padding and 12px between leading tile, text and trailing content. Panels pad 16px on phones and 20px from the small breakpoint (640px). On phones, row trailing status stacks under the subtitle instead of taking width; page-title actions wrap below the title.
+Vertical rhythm is section-based: 32px between sections, 8px between a group header and its group, 8px between a group and its footer. On touch screens every control has a 44px target: small pills keep their look and gain an invisible hit area (`.hit`), segmented and select controls grow to 40px, and fields render at 16px so iOS never zooms on focus. Rows are at least 56px tall with 12px/16px padding and 12px between leading tile, text and trailing content. Panels pad 16px on phones and 20px from the small breakpoint (640px). On phones, row trailing status stacks under the subtitle instead of taking width; page-title actions wrap below the title.
 
 **The Next Thing First Rule.** Every screen opens with the large title and then the single most relevant object (the pass, the points row, "Needs attention"), followed by grouped lists. Never open with a grid of summary cards.
 

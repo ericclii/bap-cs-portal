@@ -10,7 +10,6 @@ export default async function CommitteeLayout({ children }: { children: React.Re
   return (
     <AppShell
       user={user}
-      wide
       subnav={
         <>
           <NavLink href="/committee" exact>Overview</NavLink>
