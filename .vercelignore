@@ -1,0 +1,10 @@
+# Never upload local env files; Vercel's environment variables are the source of truth.
+.env
+.env.*
+!.env.example
+.impeccable/review
+.impeccable/decision
+.impeccable/questions
+.claude/project-context
+.claude/settings.local.json
+.claude/skills/impeccable/scripts/bin
