@@ -3,7 +3,9 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { AppShell } from "@/components/app-shell";
 import { EventPass } from "@/components/event-pass";
-import { DateTile, Empty, Group, LinkButton, PageTitle, Pill, Progress, Row, Section } from "@/components/ui";
+import { Mark } from "@/components/app-shell";
+import { type StampMark, StampGrid, signed } from "@/components/stamp";
+import { DateTile, Empty, Group, LinkButton, Pill, Row, Section } from "@/components/ui";
 import { attendedMinutes, checkinWindowState, formatDuration, signupWindowState } from "@/lib/event-window";
 import { formatDate, formatDateTime, formatEventRange, formatTime, relativeDay } from "@/lib/time";
 import { getCurrentUser } from "@/server/session";
@@ -52,6 +54,11 @@ export default async function HomePage() {
   const pending = history.signups.filter((s) => s.status === "SELECTED" && !s.outcome && s.attendance);
   const required = term.requiredPoints;
   // Time actually given, from completed check-ins this term.
+  const met = required != null && points >= required;
+  const marks = stampMarks(history);
+  // Dashed boxes for the events still needed, assuming the term's default points each.
+  const stillNeeded = required != null && !met ? Math.ceil((required - points) / Math.max(1, term.defaultEventPoints)) : 0;
+  const emptyBoxes = Math.min(12, Math.max(0, stillNeeded - marks.filter((m) => m.kind === "pending").length));
   const minutesServed = history.signups.reduce((sum, s) => {
     const a = s.attendance;
     if (!a?.checkedOutAt || s.event.canceledAt || s.outcome === "NO_SHOW") return sum;
@@ -62,35 +69,34 @@ export default async function HomePage() {
     <AppShell user={user}>
       <div className="space-y-8 lg:grid lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:items-start lg:gap-x-10 lg:space-y-0">
         <div className="space-y-8 lg:sticky lg:top-20">
-          <PageTitle title={`Hi, ${user.name.split(" ")[0]}`} subtitle={`${term.name}${candidate ? " · Candidate" : ""}`} />
-
-          <Group>
-            <div className="space-y-3 px-4 py-4">
-              <div className="flex items-baseline justify-between gap-3">
-                <span className="text-body font-medium">CS points</span>
-                <span className="text-body text-secondary tabular-nums">
-                  <span className="text-[28px] leading-none font-bold tracking-[-0.02em] text-text">{points}</span>
-                  {required != null && <> / {required}</>}
+          <section aria-labelledby="standing">
+            <div className="flex items-start justify-between gap-4">
+              <h1 id="standing" className="flex items-baseline gap-2.5">
+                <span className="text-figure tabular-nums">{points}</span>
+                <span className="text-headline font-semibold text-secondary">
+                  {required != null ? `of ${required} points` : points === 1 ? "point" : "points"}
                 </span>
-              </div>
-              {required != null && <Progress value={points} max={required} label="CS points toward the requirement" />}
-              <StandingNote>
-                {required != null && points >= required ? (
-                  <span className="font-medium text-gold">
-                    Requirement met{minutesServed > 0 ? `. Thank you for ${formatDuration(minutesServed)} of service.` : ". Thank you."}
-                  </span>
-                ) : (
-                  [
-                    minutesServed > 0 ? `${formatDuration(minutesServed)} of service this term` : null,
-                    pending.length > 0 ? `${pending.length} ${pending.length === 1 ? "event" : "events"} awaiting points` : null,
-                    !candidate ? "Not on this term's candidate list" : null,
-                  ]
-                    .filter(Boolean)
-                    .join(" · ") || null
-                )}
-              </StandingNote>
+              </h1>
+              {met && <Mark size={56} />}
             </div>
-          </Group>
+            <StandingNote>
+              {[
+                `${term.name}${candidate ? "" : " · Not on the candidate list"}`,
+                met
+                  ? `Requirement met${minutesServed > 0 ? ` · ${formatDuration(minutesServed)} of service` : ""}`
+                  : required != null
+                    ? `${required - points} to go`
+                    : null,
+              ]
+                .filter(Boolean)
+                .join(" · ")}
+            </StandingNote>
+            {(marks.length > 0 || emptyBoxes > 0) && (
+              <div className="mt-5">
+                <StampGrid marks={marks} empty={emptyBoxes} />
+              </div>
+            )}
+          </section>
 
           {next && <NextPass item={next} now={now} />}
         </div>
@@ -169,13 +175,35 @@ function NextPass({ item, now }: { item: Item; now: Date }) {
   }
   return (
     <section aria-label="Your next event">
-      <EventPass event={e} href={href} status={status} action={action} />
+      <h2 className="mb-3 text-title">Next</h2>
+      <EventPass event={e} href={href} status={status} action={action} accent titleAs="h3" checkedInAt={a?.checkedInAt ?? null} />
     </section>
   );
 }
 
 function StandingNote({ children }: { children: React.ReactNode }) {
-  return children ? <p className="text-footnote leading-snug text-secondary">{children}</p> : null;
+  return children ? <p className="mt-2 text-body text-secondary">{children}</p> : null;
+}
+
+function stampMarks(history: Awaited<ReturnType<typeof personHistory>>): StampMark[] {
+  const marks: StampMark[] = [];
+  for (const s of history.signups) {
+    if (s.event.canceledAt) continue;
+    const date = s.event.startsAt;
+    if (s.outcome === "ATTENDED" && (s.points ?? 0) !== 0) {
+      marks.push({ kind: "stamp", key: s.id, points: s.points ?? 0, date, title: s.event.title });
+    } else if (s.outcome === "NO_SHOW") {
+      const reason = s.status === "DROPPED" ? "Late drop" : "No-show";
+      marks.push({ kind: "struck", key: s.id, points: s.points ?? 0, date, title: `${s.event.title} (${reason})`, reason });
+    } else if (!s.outcome && s.status === "SELECTED" && s.attendance) {
+      marks.push({ kind: "pending", key: s.id, date, title: s.event.title });
+    }
+  }
+  for (const a of history.adjustments) {
+    if (a.points > 0) marks.push({ kind: "stamp", key: a.id, points: a.points, date: a.createdAt, title: a.reason });
+    else if (a.points < 0) marks.push({ kind: "struck", key: a.id, points: a.points, date: a.createdAt, title: a.reason, reason: "Adjusted" });
+  }
+  return marks.sort((x, y) => x.date.getTime() - y.date.getTime());
 }
 
 function StatusLine({ tone, label, detail }: { tone: "green" | "crimson"; label: string; detail: string }) {
@@ -228,8 +256,8 @@ function History({ history }: { history: Awaited<ReturnType<typeof personHistory
               title={r.title}
               subtitle={`${formatDate(r.date)} · ${r.detail}`}
               trailing={
-                <span className={`text-body font-semibold tabular-nums ${r.points == null ? "text-secondary" : r.points > 0 ? "text-green" : r.points < 0 ? "text-amber" : "text-secondary"}`}>
-                  {r.points == null ? "Pending" : `${r.points > 0 ? "+" : ""}${r.points}`}
+                <span className={`text-body font-semibold tabular-nums ${r.points == null ? "text-secondary" : r.points > 0 ? "text-text" : r.points < 0 ? "text-amber" : "text-secondary"}`}>
+                  {r.points == null ? "Pending" : signed(r.points)}
                 </span>
               }
             />

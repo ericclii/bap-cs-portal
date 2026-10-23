@@ -1,615 +1,558 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-22T00:00:00Z",
+  "generatedAt": "2026-10-23T00:00:00Z",
   "title": "Design System: BAP Community Service",
   "extensions": {
     "colorMeta": {
       "crimson": {
         "role": "primary",
-        "displayName": "BAP Crimson",
+        "displayName": "Crest Crimson",
         "canonical": "#bc202f",
-        "dark": "#f0606c",
         "tonalRamp": [
-          "#410b10",
-          "#6d131b",
-          "#9d1b27",
-          "#cd2333",
-          "#e04857",
-          "#e97c87",
-          "#f2b5bb",
-          "#fbe9eb"
+          "#3a0a0f",
+          "#5e1018",
+          "#821722",
+          "#a11b28",
+          "#bc202f",
+          "#d9535f",
+          "#eda7ad",
+          "#f9e9ea"
         ],
-        "note": "The only action color and the today marker."
+        "note": "Actions, the next or today's date box, stamps, alerts, focus."
       },
       "crimson-hover": {
         "role": "primary",
-        "displayName": "Crimson Pressed",
+        "displayName": "Pressed Crimson",
         "canonical": "#a11b28",
-        "dark": "#f47b85",
         "tonalRamp": [
-          "#410b10",
-          "#6d131b",
-          "#9d1b27",
-          "#cd2333",
-          "#e04857",
-          "#e97c87",
-          "#f2b5bb",
-          "#fbe9eb"
+          "#3a0a0f",
+          "#5e1018",
+          "#821722",
+          "#a11b28",
+          "#bc202f",
+          "#d9535f",
+          "#eda7ad",
+          "#f9e9ea"
         ]
       },
       "crimson-soft": {
         "role": "primary",
-        "displayName": "Crimson Wash",
-        "canonical": "#fbe9eb",
-        "dark": "#3a1418",
+        "displayName": "Crimson Blush",
+        "canonical": "#f9e9ea",
         "tonalRamp": [
-          "#410b10",
-          "#6d131b",
-          "#9d1b27",
-          "#cd2333",
-          "#e04857",
-          "#e97c87",
-          "#f2b5bb",
-          "#fbe9eb"
-        ]
+          "#3a0a0f",
+          "#5e1018",
+          "#821722",
+          "#a11b28",
+          "#bc202f",
+          "#d9535f",
+          "#eda7ad",
+          "#f9e9ea"
+        ],
+        "note": "Plain-button hover and text selection only."
       },
       "on-crimson": {
         "role": "primary",
         "displayName": "On Crimson",
         "canonical": "#ffffff",
-        "dark": "#1a0507",
         "tonalRamp": [
-          "#252528",
-          "#3d3d42",
-          "#58585f",
-          "#73737d",
-          "#909098",
-          "#afafb6",
-          "#d2d2d5",
-          "#f2f2f3"
-        ]
-      },
-      "sand": {
-        "role": "secondary",
-        "displayName": "Chapter Sand",
-        "canonical": "#e1d6b7",
-        "dark": "#4a4231",
-        "tonalRamp": [
-          "#362e17",
-          "#5a4c26",
-          "#826e36",
-          "#a98f46",
-          "#c0a968",
-          "#d2c293",
-          "#e6dcc2",
-          "#f7f5ed"
-        ]
-      },
-      "sand-soft": {
-        "role": "secondary",
-        "displayName": "Chapter Sand Soft",
-        "canonical": "#f3eedf",
-        "dark": "#2a261c",
-        "tonalRamp": [
-          "#362e17",
-          "#5a4c26",
-          "#826e36",
-          "#a98f46",
-          "#c0a968",
-          "#d2c293",
-          "#e6dcc2",
-          "#f7f5ed"
+          "#141414",
+          "#2e2e2e",
+          "#474747",
+          "#636363",
+          "#808080",
+          "#a3a3a3",
+          "#d1d1d1",
+          "#ffffff"
         ]
       },
       "gold": {
         "role": "secondary",
         "displayName": "Requirement Gold",
-        "canonical": "#8a6d12",
-        "dark": "#e8cb6a",
+        "canonical": "#7d6514",
         "tonalRamp": [
-          "#443509",
-          "#71590f",
-          "#a28015",
-          "#d4a71c",
-          "#e6be42",
-          "#edd178",
-          "#f5e5b2",
-          "#fcf7e8"
+          "#2e250a",
+          "#4d3e0f",
+          "#7d6514",
+          "#a3841b",
+          "#c9a227",
+          "#dcc066",
+          "#ecdca6",
+          "#f9f3e0"
         ],
-        "note": "Text-safe gold for met totals and sand pills."
+        "note": "Text of a met total."
       },
       "gold-bright": {
         "role": "secondary",
-        "displayName": "Gold Bright",
-        "canonical": "#dec050",
-        "dark": "#dec050",
+        "displayName": "Bright Gold",
+        "canonical": "#c9a227",
         "tonalRamp": [
-          "#40350c",
-          "#6b5914",
-          "#9a801d",
-          "#caa726",
-          "#ddbe4b",
-          "#e7d17e",
-          "#f1e5b6",
-          "#fbf7ea"
+          "#2e250a",
+          "#4d3e0f",
+          "#7d6514",
+          "#a3841b",
+          "#c9a227",
+          "#dcc066",
+          "#ecdca6",
+          "#f9f3e0"
         ],
-        "note": "Progress fill once the requirement is met."
+        "note": "Met progress bar and the exception pill dot."
       },
       "green": {
         "role": "tertiary",
         "displayName": "Confirmed Green",
         "canonical": "#1f7a45",
-        "dark": "#5fd38d",
         "tonalRamp": [
-          "#0f3d22",
-          "#1a6639",
-          "#259253",
-          "#31bf6c",
-          "#54d489",
-          "#85e0ab",
-          "#baedcf",
-          "#ebfaf1"
-        ]
-      },
-      "green-soft": {
-        "role": "tertiary",
-        "displayName": "Confirmed Green Soft",
-        "canonical": "#e3f3e9",
-        "dark": "#12301f",
-        "tonalRamp": [
-          "#0f3d22",
-          "#1a6639",
-          "#259253",
-          "#31bf6c",
-          "#54d489",
-          "#85e0ab",
-          "#baedcf",
-          "#ebfaf1"
-        ]
+          "#0b2c19",
+          "#12472a",
+          "#1a6339",
+          "#1f7a45",
+          "#3f9a63",
+          "#78bf93",
+          "#b9dfc6",
+          "#e5f2e8"
+        ],
+        "note": "Dots, words, icons and figures only."
       },
       "amber": {
         "role": "tertiary",
-        "displayName": "Warning Amber",
-        "canonical": "#a14800",
-        "dark": "#ff9e57",
+        "displayName": "Burnt Amber",
+        "canonical": "#9a4700",
         "tonalRamp": [
-          "#4c2200",
-          "#803900",
-          "#b85200",
-          "#f06b00",
-          "#ff8929",
-          "#ffaa66",
-          "#ffcfa8",
-          "#fff1e5"
+          "#341800",
+          "#562800",
+          "#7a3900",
+          "#9a4700",
+          "#c06618",
+          "#de9a5c",
+          "#f1cba5",
+          "#fbecdc"
         ],
-        "note": "Distinct orange warning tone; not burnt orange #C94817."
-      },
-      "amber-soft": {
-        "role": "tertiary",
-        "displayName": "Warning Amber Soft",
-        "canonical": "#fdeadb",
-        "dark": "#3a2010",
-        "tonalRamp": [
-          "#4c2200",
-          "#803900",
-          "#b85200",
-          "#f06b00",
-          "#ff8929",
-          "#ffaa66",
-          "#ffcfa8",
-          "#fff1e5"
-        ]
+        "note": "Dots, words, icons and figures only."
       },
       "blue": {
         "role": "tertiary",
-        "displayName": "Info Blue",
+        "displayName": "Notice Blue",
         "canonical": "#1f5fae",
-        "dark": "#7fb0f5",
         "tonalRamp": [
-          "#0c2341",
-          "#133b6c",
-          "#1c559c",
-          "#246fcb",
-          "#498cdf",
-          "#7dade8",
-          "#b5d0f2",
-          "#e9f1fb"
-        ]
-      },
-      "blue-soft": {
-        "role": "tertiary",
-        "displayName": "Info Blue Soft",
-        "canonical": "#e6eefa",
-        "dark": "#172538",
-        "tonalRamp": [
-          "#0c2341",
-          "#133b6c",
-          "#1c559c",
-          "#246fcb",
-          "#498cdf",
-          "#7dade8",
-          "#b5d0f2",
-          "#e9f1fb"
-        ]
-      },
-      "charcoal": {
-        "role": "neutral",
-        "displayName": "Charcoal",
-        "canonical": "#2e2e2e",
-        "dark": "#f2f2f3",
-        "tonalRamp": [
-          "#262626",
-          "#404040",
-          "#5c5c5c",
-          "#787878",
-          "#949494",
-          "#b2b2b2",
-          "#d4d4d4",
-          "#f2f2f2"
+          "#0b2240",
+          "#123766",
+          "#1a4c8c",
+          "#1f5fae",
+          "#4a82c8",
+          "#86ace0",
+          "#c1d4f0",
+          "#e8eef8"
         ],
-        "note": "CSS variable --text."
+        "note": "Dots, words, icons and figures only."
+      },
+      "text": {
+        "role": "neutral",
+        "displayName": "Charcoal Ink",
+        "canonical": "#2e2e2e",
+        "tonalRamp": [
+          "#141414",
+          "#2e2e2e",
+          "#474747",
+          "#636363",
+          "#808080",
+          "#a3a3a3",
+          "#d1d1d1",
+          "#ffffff"
+        ]
       },
       "secondary": {
         "role": "neutral",
-        "displayName": "Slate Secondary",
-        "canonical": "#6b6b70",
-        "dark": "#a1a1a6",
+        "displayName": "Khaki Secondary",
+        "canonical": "#6b6658",
         "tonalRamp": [
-          "#252528",
-          "#3d3d42",
-          "#58585f",
-          "#73737d",
-          "#909098",
-          "#afafb6",
-          "#d2d2d5",
-          "#f2f2f3"
+          "#2b281f",
+          "#4a4535",
+          "#6b6658",
+          "#8f8770",
+          "#a29c88",
+          "#c6bf9c",
+          "#e8e1cc",
+          "#fdfcf8"
+        ]
+      },
+      "placeholder": {
+        "role": "neutral",
+        "displayName": "Placeholder Khaki",
+        "canonical": "#7a7464",
+        "tonalRamp": [
+          "#2b281f",
+          "#4a4535",
+          "#6b6658",
+          "#8f8770",
+          "#a29c88",
+          "#c6bf9c",
+          "#e8e1cc",
+          "#fdfcf8"
         ]
       },
       "tertiary": {
         "role": "neutral",
-        "displayName": "Mist Tertiary",
-        "canonical": "#9a9a9f",
-        "dark": "#75757a",
+        "displayName": "Faint Khaki",
+        "canonical": "#a29c88",
         "tonalRamp": [
-          "#252528",
-          "#3d3d42",
-          "#58585f",
-          "#73737d",
-          "#909098",
-          "#afafb6",
-          "#d2d2d5",
-          "#f2f2f3"
+          "#2b281f",
+          "#4a4535",
+          "#6b6658",
+          "#8f8770",
+          "#a29c88",
+          "#c6bf9c",
+          "#e8e1cc",
+          "#fdfcf8"
         ],
-        "note": "Glyphs and placeholders only."
+        "note": "Chevrons and empty-state icons only."
+      },
+      "rule": {
+        "role": "neutral",
+        "displayName": "Crest Khaki",
+        "canonical": "#c6bf9c",
+        "tonalRamp": [
+          "#2b281f",
+          "#4a4535",
+          "#6b6658",
+          "#8f8770",
+          "#a29c88",
+          "#c6bf9c",
+          "#e8e1cc",
+          "#fdfcf8"
+        ],
+        "note": "The 1px frame on every entry; the crest's khaki-gold."
+      },
+      "separator": {
+        "role": "neutral",
+        "displayName": "Warm Hairline",
+        "canonical": "#ebe5d3",
+        "tonalRamp": [
+          "#2b281f",
+          "#4a4535",
+          "#6b6658",
+          "#8f8770",
+          "#a29c88",
+          "#c6bf9c",
+          "#e8e1cc",
+          "#fdfcf8"
+        ]
       },
       "fill-strong": {
         "role": "neutral",
-        "displayName": "Fill Strong",
-        "canonical": "#dcdcdf",
-        "dark": "#3a3a3c",
+        "displayName": "Parchment Strong",
+        "canonical": "#e8e1cc",
         "tonalRamp": [
-          "#252528",
-          "#3d3d42",
-          "#58585f",
-          "#73737d",
-          "#909098",
-          "#afafb6",
-          "#d2d2d5",
-          "#f2f2f3"
+          "#2b281f",
+          "#4a4535",
+          "#6b6658",
+          "#8f8770",
+          "#a29c88",
+          "#c6bf9c",
+          "#e8e1cc",
+          "#fdfcf8"
         ]
       },
       "fill": {
         "role": "neutral",
-        "displayName": "Fill",
-        "canonical": "#e9e9eb",
-        "dark": "#2c2c2e",
+        "displayName": "Parchment Fill",
+        "canonical": "#f3efe3",
         "tonalRamp": [
-          "#252528",
-          "#3d3d42",
-          "#58585f",
-          "#73737d",
-          "#909098",
-          "#afafb6",
-          "#d2d2d5",
-          "#f2f2f3"
+          "#2b281f",
+          "#4a4535",
+          "#6b6658",
+          "#8f8770",
+          "#a29c88",
+          "#c6bf9c",
+          "#e8e1cc",
+          "#fdfcf8"
         ]
       },
       "ground": {
         "role": "neutral",
-        "displayName": "Grouped Ground",
-        "canonical": "#f2f2f3",
-        "dark": "#000000",
+        "displayName": "Paper Ground",
+        "canonical": "#fdfcf8",
         "tonalRamp": [
-          "#252528",
-          "#3d3d42",
-          "#58585f",
-          "#73737d",
-          "#909098",
-          "#afafb6",
-          "#d2d2d5",
-          "#f2f2f3"
-        ]
+          "#2b281f",
+          "#4a4535",
+          "#6b6658",
+          "#8f8770",
+          "#a29c88",
+          "#c6bf9c",
+          "#e8e1cc",
+          "#fdfcf8"
+        ],
+        "note": "Light only; also the theme colour."
       },
       "surface": {
         "role": "neutral",
-        "displayName": "Group Surface",
+        "displayName": "Entry White",
         "canonical": "#ffffff",
-        "dark": "#1c1c1e",
         "tonalRamp": [
-          "#252528",
-          "#3d3d42",
-          "#58585f",
-          "#73737d",
-          "#909098",
-          "#afafb6",
-          "#d2d2d5",
-          "#f2f2f3"
-        ]
-      },
-      "separator": {
-        "role": "neutral",
-        "displayName": "Hairline",
-        "canonical": "rgb(46 46 46 / 0.12)",
-        "dark": "rgb(255 255 255 / 0.12)",
-        "tonalRamp": [
-          "#252528",
-          "#3d3d42",
-          "#58585f",
-          "#73737d",
-          "#909098",
-          "#afafb6",
-          "#d2d2d5",
-          "#f2f2f3"
+          "#2b281f",
+          "#4a4535",
+          "#6b6658",
+          "#8f8770",
+          "#a29c88",
+          "#c6bf9c",
+          "#e8e1cc",
+          "#fdfcf8"
         ]
       }
     },
     "typographyMeta": {
+      "figure": {
+        "displayName": "Figure",
+        "purpose": "The student's points total only; the one large number."
+      },
       "display": {
-        "displayName": "Large Title",
-        "purpose": "iOS large page title; 26px compact variant on committee event consoles."
-      },
-      "headline": {
-        "displayName": "Pass Title",
-        "purpose": "Event title on the event pass."
-      },
-      "stat": {
-        "displayName": "Stat",
-        "purpose": "Points total; date-tile day numbers scale 17/20/28px semibold."
+        "displayName": "Display",
+        "purpose": "Page titles."
       },
       "title": {
         "displayName": "Title",
-        "purpose": "Group headers, empty-state titles, wordmark."
+        "purpose": "Section headings and the event title on the pass."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Wordmark, 'of 12 points', status titles, large buttons."
       },
       "body": {
         "displayName": "Body",
-        "purpose": "Row titles, inputs, list content; buttons 13/15/17px semibold by size."
+        "purpose": "Row titles, inputs, notices, prose."
       },
       "footnote": {
         "displayName": "Footnote",
-        "purpose": "Subtitles, footers, labels, hints (13px); pass metadata at 14px."
+        "purpose": "Subtitles, labels, hints, time-on-site labels, small buttons."
       },
-      "label": {
-        "displayName": "Pill Label",
-        "purpose": "Status pills. Date-tile month is the only uppercase label (700, 10px, wide tracking)."
+      "caption": {
+        "displayName": "Caption",
+        "purpose": "Pill labels and count badges."
+      },
+      "seal": {
+        "displayName": "Seal",
+        "purpose": "Cinzel inside stamps only; sized by container units."
       }
     },
     "shadows": [
       {
-        "name": "pass-lift",
-        "value": "0 1px 2px rgb(0 0 0 / 0.04), 0 8px 24px rgb(0 0 0 / 0.06)",
-        "dark": "0 0 0 1px rgb(255 255 255 / 0.06)",
-        "purpose": "The event pass only (CSS variable --shadow-pass)."
-      },
-      {
         "name": "menu-float",
-        "value": "0 10px 40px rgb(0 0 0 / 0.16)",
-        "purpose": "Account dropdown, paired with a hairline ring."
+        "value": "0 12px 32px rgb(46 46 46 / 0.12)",
+        "purpose": "Account and console menus, with a 1px khaki ring."
       },
       {
         "name": "segment-thumb",
-        "value": "0 1px 3px rgb(0 0 0 / 0.12)",
+        "value": "0 1px 2px rgb(46 46 46 / 0.1)",
         "purpose": "Selected segment in the segmented control."
       },
       {
         "name": "switch-knob",
         "value": "0 2px 4px rgb(0 0 0 / 0.18)",
-        "purpose": "Toggle switch knob."
+        "purpose": "Switch knob."
+      },
+      {
+        "name": "stamp-inner-ring",
+        "value": "inset 0 0 0 3px var(--surface), inset 0 0 0 4.5px var(--crimson)",
+        "purpose": "Draws the stamp's second ring; ink, not elevation."
       }
     ],
     "motion": [
       {
-        "name": "state-transition",
+        "name": "stamp-land",
+        "value": "420ms cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "The check-in/out stamp landing, once, from 1.9x and -24deg to rest at -9deg; none under reduced motion."
+      },
+      {
+        "name": "state",
         "value": "150ms",
-        "purpose": "Background, color and shadow changes on buttons, rows, inputs, nav; press scales to 0.98."
+        "purpose": "Background, colour and press (scale 0.98) transitions on buttons, rows, fields and nav."
       },
       {
-        "name": "switch-transition",
+        "name": "switch",
         "value": "200ms",
-        "purpose": "Toggle track color and knob travel."
-      },
-      {
-        "name": "progress-fill",
-        "value": "500ms ease-out",
-        "purpose": "Points progress bar width."
-      },
-      {
-        "name": "confirm-pop",
-        "value": "320ms cubic-bezier(0.2, 0.9, 0.3, 1.2)",
-        "purpose": "Check-in confirmation circle scales 0.6 to 1 and fades in. Part of the one authored animation."
-      },
-      {
-        "name": "confirm-draw",
-        "value": "360ms 140ms cubic-bezier(0.22, 1, 0.36, 1)",
-        "purpose": "Check stroke draws itself (dashoffset 24 to 0). Disabled under prefers-reduced-motion."
+        "purpose": "Switch track and knob."
       }
     ],
     "breakpoints": [
       {
         "name": "sm",
-        "value": "640px"
+        "value": "640px",
+        "purpose": "Panels pad 20px; row trailing status leaves the stack."
       },
       {
-        "name": "column",
-        "value": "576px"
-      },
-      {
-        "name": "column-wide",
-        "value": "1024px"
+        "name": "lg",
+        "value": "1024px",
+        "purpose": "5:7 two columns on student home and event page; frame max width."
       }
     ],
-    "focus": {
-      "value": "2px solid crimson, offset 2px",
-      "purpose": "Global :focus-visible ring; inputs use a 2px crimson ring at 40%."
-    }
+    "fonts": [
+      {
+        "name": "Hanken Grotesk",
+        "source": "next/font/google",
+        "variable": "--font-hanken"
+      },
+      {
+        "name": "Cinzel 700",
+        "source": "next/font/google",
+        "variable": "--font-cinzel",
+        "purpose": "Stamps only."
+      }
+    ],
+    "assets": [
+      {
+        "name": "Crest seal",
+        "path": "public/seal.png",
+        "sizes": "30px bar, 56px met requirement and QR, 96px sign-in; app/icon.png and app/apple-icon.png"
+      }
+    ]
   },
   "components": [
     {
       "name": "Primary Button",
       "kind": "button",
       "refersTo": "button-primary",
-      "description": "The one crimson action per view; large size goes full width on the pass.",
-      "html": "<button class=\"ds-btn ds-btn-primary\">Check in</button>",
-      "css": ".ds-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 16px;border:none;border-radius:9999px;font:600 15px/1 -apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"Segoe UI Variable Text\", \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif;letter-spacing:-0.006em;white-space:nowrap;cursor:pointer;transition:background-color 150ms,transform 150ms;}.ds-btn:active{transform:scale(0.98);}.ds-btn:focus-visible{outline:2px solid var(--crimson,#bc202f);outline-offset:2px;}.ds-btn-primary{background:var(--crimson,#bc202f);color:var(--on-crimson,#fff);}.ds-btn-primary:hover{background:var(--crimson-hover,#a11b28);}"
+      "description": "Crimson pill; one per view.",
+      "html": "<button class=\"ds-btn-primary\">Check in</button>",
+      "css": ".ds-btn-primary{font-family: var(--font-hanken), -apple-system, 'Segoe UI', Roboto, sans-serif;display:inline-flex;align-items:center;justify-content:center;height:50px;padding:0 24px;border:0;border-radius:9999px;background:var(--crimson,#bc202f);color:var(--on-crimson,#fff);font-size:17px;font-weight:600;letter-spacing:-0.012em;cursor:pointer;transition:background-color 150ms,transform 150ms}.ds-btn-primary:hover{background:var(--crimson-hover,#a11b28)}.ds-btn-primary:active{transform:scale(.98)}.ds-btn-primary:focus-visible{outline:2px solid var(--crimson,#bc202f);outline-offset:2px}"
     },
     {
       "name": "Secondary Button",
       "kind": "button",
       "refersTo": "button-secondary",
-      "description": "Grey pill for every non-primary action.",
-      "html": "<button class=\"ds-btn ds-btn-secondary\">Open to check out</button>",
-      "css": ".ds-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 16px;border:none;border-radius:9999px;font:600 15px/1 -apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"Segoe UI Variable Text\", \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif;letter-spacing:-0.006em;white-space:nowrap;cursor:pointer;transition:background-color 150ms,transform 150ms;}.ds-btn:active{transform:scale(0.98);}.ds-btn:focus-visible{outline:2px solid var(--crimson,#bc202f);outline-offset:2px;}.ds-btn-secondary{background:var(--fill,#e9e9eb);color:var(--text,#2e2e2e);}.ds-btn-secondary:hover{background:var(--fill-strong,#dcdcdf);}"
+      "description": "White pill with an inset khaki ring.",
+      "html": "<button class=\"ds-btn-secondary\">Open to check out</button>",
+      "css": ".ds-btn-secondary{font-family: var(--font-hanken), -apple-system, 'Segoe UI', Roboto, sans-serif;display:inline-flex;align-items:center;height:40px;padding:0 16px;border:0;border-radius:9999px;background:var(--surface,#fff);color:var(--text,#2e2e2e);box-shadow:inset 0 0 0 1px var(--rule,#c6bf9c);font-size:15px;font-weight:600;cursor:pointer;transition:background-color 150ms,transform 150ms}.ds-btn-secondary:hover{background:var(--fill,#f3efe3)}.ds-btn-secondary:active{transform:scale(.98)}.ds-btn-secondary:focus-visible{outline:2px solid var(--crimson,#bc202f);outline-offset:2px}"
     },
     {
       "name": "Plain Button",
       "kind": "button",
       "refersTo": "button-plain",
-      "description": "Crimson label without fill for inline row actions.",
-      "html": "<button class=\"ds-btn ds-btn-plain\">Undo check-in</button>",
-      "css": ".ds-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 16px;border:none;border-radius:9999px;font:600 15px/1 -apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"Segoe UI Variable Text\", \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif;letter-spacing:-0.006em;white-space:nowrap;cursor:pointer;transition:background-color 150ms,transform 150ms;}.ds-btn:active{transform:scale(0.98);}.ds-btn:focus-visible{outline:2px solid var(--crimson,#bc202f);outline-offset:2px;}.ds-btn-plain{background:transparent;color:var(--crimson,#bc202f);}.ds-btn-plain:hover{background:var(--crimson-soft,#fbe9eb);}"
+      "description": "Crimson label, blush on hover; inline actions.",
+      "html": "<button class=\"ds-btn-plain\">Undo check-in</button>",
+      "css": ".ds-btn-plain{font-family: var(--font-hanken), -apple-system, 'Segoe UI', Roboto, sans-serif;height:40px;padding:0 16px;border:0;border-radius:9999px;background:transparent;color:var(--crimson,#bc202f);font-size:15px;font-weight:600;cursor:pointer;transition:background-color 150ms}.ds-btn-plain:hover{background:var(--crimson-soft,#f9e9ea)}.ds-btn-plain:focus-visible{outline:2px solid var(--crimson,#bc202f);outline-offset:2px}"
     },
     {
-      "name": "Inline Confirmation",
-      "kind": "custom",
-      "refersTo": "button-destructive",
-      "description": "Armed state of the two-step Confirm Button that replaces confirm() dialogs.",
-      "html": "<span class=\"ds-confirm\"><button class=\"ds-btn ds-btn-sm ds-btn-secondary\">Cancel</button><button class=\"ds-btn ds-btn-sm ds-btn-destructive\">Remove</button></span>",
-      "css": ".ds-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 16px;border:none;border-radius:9999px;font:600 15px/1 -apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"Segoe UI Variable Text\", \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif;letter-spacing:-0.006em;white-space:nowrap;cursor:pointer;transition:background-color 150ms,transform 150ms;}.ds-btn:active{transform:scale(0.98);}.ds-btn:focus-visible{outline:2px solid var(--crimson,#bc202f);outline-offset:2px;}.ds-confirm{display:inline-flex;gap:6px;align-items:center;}.ds-btn-sm{height:32px;padding:0 14px;font-size:13px;}.ds-btn-secondary{background:var(--fill,#e9e9eb);color:var(--text,#2e2e2e);}.ds-btn-secondary:hover{background:var(--fill-strong,#dcdcdf);}.ds-btn-destructive{background:var(--fill,#e9e9eb);color:var(--crimson,#bc202f);}.ds-btn-destructive:hover{background:var(--crimson-soft,#fbe9eb);}"
-    },
-    {
-      "name": "Filled Input",
+      "name": "Field",
       "kind": "input",
       "refersTo": "input",
-      "description": "Borderless filled field; lifts to surface with a crimson ring on focus.",
-      "html": "<input class=\"ds-input\" placeholder=\"Add by NetID\" />",
-      "css": ".ds-input{display:block;width:100%;border:none;border-radius:12px;background:var(--fill,#e9e9eb);padding:10px 14px;font:400 15px/1.3 -apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"Segoe UI Variable Text\", \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif;color:var(--text,#2e2e2e);outline:none;transition:box-shadow 150ms;}.ds-input::placeholder{color:var(--tertiary,#9a9a9f);}.ds-input:focus{background:var(--surface,#fff);box-shadow:0 0 0 2px rgb(188 32 47 / 0.4);}"
+      "description": "White field, khaki ring, crimson focus.",
+      "html": "<label class=\"ds-field\"><span>Location</span><input placeholder=\"Washington Square\"></label>",
+      "css": ".ds-field{font-family: var(--font-hanken), -apple-system, 'Segoe UI', Roboto, sans-serif;display:block}.ds-field span{display:block;margin-bottom:6px;font-size:13px;font-weight:500;color:var(--secondary,#6b6658)}.ds-field input{width:100%;box-sizing:border-box;padding:10px 14px;border:0;border-radius:12px;background:var(--surface,#fff);color:var(--text,#2e2e2e);box-shadow:inset 0 0 0 1px var(--rule,#c6bf9c);font:inherit;font-size:15px;outline:none;transition:box-shadow 150ms}.ds-field input::placeholder{color:var(--placeholder,#7a7464)}.ds-field input:focus{box-shadow:inset 0 0 0 2px rgb(188 32 47/.6)}"
     },
     {
-      "name": "Status Pills",
-      "kind": "chip",
-      "refersTo": "pill-green",
-      "description": "Soft-tinted 24px pills for status by tone.",
-      "html": "<span class=\"ds-pill ds-pill-green\">Confirmed</span> <span class=\"ds-pill ds-pill-amber\">Waitlist #1</span> <span class=\"ds-pill ds-pill-blue\">Signed up</span> <span class=\"ds-pill ds-pill-crimson\">Live</span> <span class=\"ds-pill ds-pill-neutral\">Not a candidate</span>",
-      "css": ".ds-pill{display:inline-flex;align-items:center;height:24px;padding:0 10px;border-radius:9999px;font:600 12px/1 -apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"Segoe UI Variable Text\", \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif;white-space:nowrap;}.ds-pill-green{background:var(--green-soft,#e3f3e9);color:var(--green,#1f7a45);}.ds-pill-amber{background:var(--amber-soft,#fdeadb);color:var(--amber,#a14800);}.ds-pill-blue{background:var(--blue-soft,#e6eefa);color:var(--blue,#1f5fae);}.ds-pill-crimson{background:var(--crimson-soft,#fbe9eb);color:var(--crimson,#bc202f);}.ds-pill-neutral{background:var(--fill,#e9e9eb);color:var(--secondary,#6b6b70);}"
-    },
-    {
-      "name": "Grouped List",
-      "kind": "card",
-      "refersTo": "group",
-      "description": "White inset group with hairline-separated rows, date tiles and chevrons.",
-      "html": "<div class=\"ds-group\"><a class=\"ds-row\" href=\"#\"><span class=\"ds-tile ds-tile-today\"><b>Oct</b><i>22</i></span><span class=\"ds-row-text\"><span class=\"ds-row-title\">Food pantry packing</span><span class=\"ds-row-sub\">Thu, Oct 22 · 9:44 PM – 12:44 AM</span></span><svg viewBox=\"0 0 16 16\" width=\"16\" height=\"16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"ds-chev\"><path d=\"M6 3.5 10.5 8 6 12.5\"/></svg></a><a class=\"ds-row\" href=\"#\"><span class=\"ds-tile\"><b>Oct</b><i>26</i></span><span class=\"ds-row-text\"><span class=\"ds-row-title\">Park cleanup</span><span class=\"ds-row-sub\">3 pts · closes tomorrow</span></span><svg viewBox=\"0 0 16 16\" width=\"16\" height=\"16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"ds-chev\"><path d=\"M6 3.5 10.5 8 6 12.5\"/></svg></a></div>",
-      "css": ".ds-group{overflow:hidden;border-radius:16px;background:var(--surface,#fff);font-family:-apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"Segoe UI Variable Text\", \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif;color:var(--text,#2e2e2e);font-feature-settings:'tnum' 1;}.ds-row{display:flex;align-items:center;gap:12px;min-height:56px;padding:12px 16px;color:inherit;text-decoration:none;transition:background-color 150ms;}.ds-row+.ds-row{border-top:1px solid var(--separator,rgb(46 46 46 / 0.12));}.ds-row:hover{background:rgb(233 233 235 / 0.6);}.ds-row:focus-visible{outline:2px solid var(--crimson,#bc202f);outline-offset:-2px;}.ds-row-text{flex:1;min-width:0;display:flex;flex-direction:column;}.ds-row-title{font-size:15px;font-weight:500;line-height:1.375;}.ds-row-sub{margin-top:2px;font-size:13px;line-height:1.375;color:var(--secondary,#6b6b70);}.ds-chev{color:var(--tertiary,#9a9a9f);flex-shrink:0;}.ds-tile{display:flex;flex-direction:column;align-items:center;justify-content:center;width:40px;height:40px;border-radius:12px;background:var(--surface,#fff);box-shadow:0 0 0 1px var(--separator,rgb(46 46 46 / 0.12));line-height:1;flex-shrink:0;}.ds-tile b{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.025em;color:var(--secondary,#6b6b70);}.ds-tile i{font-style:normal;margin-top:2px;font-size:17px;font-weight:600;}.ds-tile-today{box-shadow:0 0 0 1px rgb(188 32 47 / 0.35);}.ds-tile-today b,.ds-tile-today i{color:var(--crimson,#bc202f);}"
-    },
-    {
-      "name": "Event Pass",
-      "kind": "custom",
-      "refersTo": "event-pass",
-      "description": "Wallet-style pass: date tile, title, time and place, stub status, one full-width action.",
-      "html": "<article class=\"ds-pass\"><div class=\"ds-pass-head\"><span class=\"ds-ptile\"><b>Oct</b><i>22</i></span><div><h2>Food pantry packing</h2><p>Father's Heart Ministries</p></div></div><dl><div><svg viewBox=\"0 0 24 24\" width=\"16\" height=\"16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"M12 6v6l4 2\"/></svg><dd>Thu, Oct 22 · 9:22 PM – 12:22 AM</dd></div><div><svg viewBox=\"0 0 24 24\" width=\"16\" height=\"16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z\"/><circle cx=\"12\" cy=\"10\" r=\"3\"/></svg><dd>Father's Heart food pantry</dd></div></dl><div class=\"ds-pass-status\"><span class=\"ds-dot\"></span>Check-in is open<span class=\"ds-pass-detail\">Tap when you arrive</span></div><button class=\"ds-pass-btn\">Check in</button></article>",
-      "css": ".ds-pass{border-radius:22px;background:var(--surface,#fff);padding:16px;box-shadow:var(--shadow-pass,0 1px 2px rgb(0 0 0 / 0.04),0 8px 24px rgb(0 0 0 / 0.06));font-family:-apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"Segoe UI Variable Text\", \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif;color:var(--text,#2e2e2e);font-feature-settings:'tnum' 1;}.ds-pass-head{display:flex;gap:14px;align-items:flex-start;}.ds-pass h2{margin:2px 0 0;font-size:20px;font-weight:700;line-height:1.25;letter-spacing:-0.02em;}.ds-pass p{margin:2px 0 0;font-size:14px;color:var(--secondary,#6b6b70);}.ds-ptile{display:flex;flex-direction:column;align-items:center;justify-content:center;width:64px;height:64px;border-radius:12px;box-shadow:0 0 0 1px rgb(188 32 47 / 0.35);line-height:1;color:var(--crimson,#bc202f);flex-shrink:0;}.ds-ptile b{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.025em;}.ds-ptile i{font-style:normal;margin-top:2px;font-size:28px;font-weight:600;}.ds-pass dl{margin:16px 0 0;font-size:14px;}.ds-pass dl div{display:flex;align-items:center;gap:10px;margin-top:8px;}.ds-pass dl svg{color:var(--tertiary,#9a9a9f);flex-shrink:0;}.ds-pass dd{margin:0;}.ds-pass-status{display:flex;align-items:center;gap:8px;margin-top:16px;padding-top:16px;border-top:1px dashed var(--separator,rgb(46 46 46 / 0.12));font-size:15px;font-weight:600;color:var(--crimson,#bc202f);}.ds-dot{width:8px;height:8px;border-radius:9999px;background:currentColor;}.ds-pass-detail{margin-left:auto;font-size:13px;font-weight:400;color:var(--secondary,#6b6b70);}.ds-pass-btn{display:flex;width:100%;margin-top:16px;height:50px;align-items:center;justify-content:center;border:none;border-radius:9999px;background:var(--crimson,#bc202f);color:var(--on-crimson,#fff);font:600 17px/1 inherit;font-family:inherit;cursor:pointer;transition:background-color 150ms,transform 150ms;}.ds-pass-btn:hover{background:var(--crimson-hover,#a11b28);}.ds-pass-btn:active{transform:scale(0.98);}.ds-pass-btn:focus-visible{outline:2px solid var(--crimson,#bc202f);outline-offset:2px;}"
-    },
-    {
-      "name": "Committee Subnav",
+      "name": "Nav Links",
       "kind": "nav",
       "refersTo": "nav-link-active",
-      "description": "Pill section links; charcoal active pill; crimson count badge.",
-      "html": "<nav class=\"ds-nav\"><a href=\"#\">Overview</a><a href=\"#\" aria-current=\"page\">Events</a><a href=\"#\">Reviews <span class=\"ds-badge\">10</span></a><a href=\"#\">Points</a></nav>",
-      "css": ".ds-nav{display:flex;gap:4px;font-family:-apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"Segoe UI Variable Text\", \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif;}.ds-nav a{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 12px;border-radius:9999px;font-size:14px;font-weight:500;color:var(--secondary,#6b6b70);text-decoration:none;white-space:nowrap;transition:background-color 150ms,color 150ms;}.ds-nav a:hover{background:var(--fill,#e9e9eb);color:var(--text,#2e2e2e);}.ds-nav a[aria-current=page]{background:var(--text,#2e2e2e);color:var(--ground,#f2f2f3);}.ds-nav a:focus-visible{outline:2px solid var(--crimson,#bc202f);outline-offset:2px;}.ds-badge{min-width:20px;padding:0 6px;border-radius:9999px;background:var(--crimson,#bc202f);color:var(--on-crimson,#fff);font-size:11px;font-weight:700;line-height:20px;text-align:center;}"
+      "description": "Pill links; active is a white khaki-ringed pill; crimson count badge.",
+      "html": "<nav class=\"ds-nav\"><a class=\"is-active\">Overview</a><a>Events</a><a>Reviews <b>10</b></a></nav>",
+      "css": ".ds-nav{font-family: var(--font-hanken), -apple-system, 'Segoe UI', Roboto, sans-serif;display:flex;gap:4px}.ds-nav a{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 12px;border-radius:9999px;font-size:15px;font-weight:500;color:var(--secondary,#6b6658);cursor:pointer;transition:background-color 150ms,color 150ms}.ds-nav a:hover{background:var(--fill,#f3efe3);color:var(--text,#2e2e2e)}.ds-nav a.is-active{background:var(--surface,#fff);color:var(--text,#2e2e2e);font-weight:600;box-shadow:inset 0 0 0 1px var(--rule,#c6bf9c)}.ds-nav b{min-width:20px;padding:0 6px;border-radius:9999px;background:var(--crimson,#bc202f);color:#fff;font-size:12px;line-height:20px;text-align:center}"
     },
     {
-      "name": "Segmented Control",
-      "kind": "nav",
-      "refersTo": "segmented",
-      "description": "In-page view switcher with a white thumb.",
-      "html": "<div class=\"ds-seg\" role=\"tablist\"><button aria-selected=\"true\">People</button><button>Selection</button><button disabled>Confirm points</button></div>",
-      "css": ".ds-seg{display:inline-flex;padding:2px;border-radius:10px;background:var(--fill,#e9e9eb);font-family:-apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"Segoe UI Variable Text\", \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif;}.ds-seg button{height:32px;padding:0 14px;border:none;border-radius:8px;background:transparent;font-size:13px;font-weight:600;color:var(--secondary,#6b6b70);cursor:pointer;transition:background-color 150ms,color 150ms,box-shadow 150ms;}.ds-seg button:hover{color:var(--text,#2e2e2e);}.ds-seg button[aria-selected=true]{background:var(--surface,#fff);color:var(--text,#2e2e2e);box-shadow:0 1px 3px rgb(0 0 0 / 0.12);}.ds-seg button:disabled{opacity:0.35;}.ds-seg button:focus-visible{outline:2px solid var(--crimson,#bc202f);outline-offset:2px;}"
+      "name": "Status Pill",
+      "kind": "chip",
+      "refersTo": "pill",
+      "description": "Ink on white, khaki ring, state carried by a dot.",
+      "html": "<span class=\"ds-pill\"><i style=\"background:#1f7a45\"></i>Confirmed</span> <span class=\"ds-pill\"><i style=\"background:#1f5fae\"></i>Sign-ups open</span>",
+      "css": ".ds-pill{font-family: var(--font-hanken), -apple-system, 'Segoe UI', Roboto, sans-serif;display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 10px;border-radius:9999px;background:var(--surface,#fff);color:var(--text,#2e2e2e);box-shadow:inset 0 0 0 1px var(--rule,#c6bf9c);font-size:12px;font-weight:600}.ds-pill i{width:6px;height:6px;border-radius:9999px}"
+    },
+    {
+      "name": "Entry with Rows",
+      "kind": "card",
+      "refersTo": "entry",
+      "description": "White entry framed in khaki, warm hairlines between 56px rows, leading date box.",
+      "html": "<div class=\"ds-entry\"><a class=\"ds-row\"><span class=\"ds-date\"><small>OCT</small>25</span><span><b>Food pantry packing</b><em>3 pts · closes tomorrow</em></span></a><a class=\"ds-row\"><span class=\"ds-date ds-next\"><small>OCT</small>28</span><span><b>Park cleanup</b><em>Confirmed</em></span></a></div>",
+      "css": ".ds-entry{font-family: var(--font-hanken), -apple-system, 'Segoe UI', Roboto, sans-serif;overflow:hidden;border-radius:16px;background:var(--surface,#fff);box-shadow:0 0 0 1px var(--rule,#c6bf9c)}.ds-row{display:flex;align-items:center;gap:12px;min-height:56px;padding:12px 16px;color:var(--text,#2e2e2e);cursor:pointer;transition:background-color 150ms}.ds-row+.ds-row{border-top:1px solid var(--separator,#ebe5d3)}.ds-row:hover{background:rgb(243 239 227/.6)}.ds-row b{display:block;font-size:15px;font-weight:500}.ds-row em{display:block;margin-top:2px;font-style:normal;font-size:13px;color:var(--secondary,#6b6658)}.ds-date{display:flex;flex-direction:column;align-items:center;justify-content:center;width:40px;height:40px;border-radius:12px;background:#fff;box-shadow:0 0 0 1px var(--rule,#c6bf9c);font-size:17px;font-weight:600;line-height:1}.ds-date small{font-size:10px;font-weight:700;color:var(--secondary,#6b6658)}.ds-next{box-shadow:0 0 0 1px var(--crimson,#bc202f);color:var(--crimson,#bc202f)}.ds-next small{color:var(--crimson,#bc202f)}"
+    },
+    {
+      "name": "Stamp Grid",
+      "kind": "custom",
+      "refersTo": "stamp-box",
+      "description": "The passbook page: crimson Cinzel double-ring stamps, a pending stamp, dashed boxes still to fill.",
+      "html": "<ul class=\"ds-stamps\"><li><span class=\"ds-stamp\" style=\"transform:rotate(-9deg)\"><b>+3</b>OCT 22</span></li><li><span class=\"ds-stamp\" style=\"transform:rotate(5deg)\"><b>+6</b>OCT 24</span></li><li><span class=\"ds-stamp ds-faint\">PENDING</span></li><li class=\"ds-empty\"></li></ul>",
+      "css": ".ds-stamps{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;max-width:360px;margin:0;padding:0;list-style:none}.ds-stamps li{display:grid;place-items:center;aspect-ratio:1;border:1px solid var(--rule,#c6bf9c);border-radius:10px;background:#fff}.ds-stamps li.ds-empty{border-style:dashed;background:transparent}.ds-stamp{display:grid;place-content:center;width:76%;aspect-ratio:1;border:2px solid var(--crimson,#bc202f);border-radius:9999px;box-shadow:inset 0 0 0 3px #fff,inset 0 0 0 4.5px var(--crimson,#bc202f);color:var(--crimson,#bc202f);font-family:var(--font-cinzel),'Cinzel','Times New Roman',serif;font-weight:700;font-size:9px;letter-spacing:.06em;text-align:center;line-height:1}.ds-stamp b{display:block;font-size:22px;letter-spacing:0;margin-bottom:2px}.ds-stamp.ds-faint{border-style:dashed;border-color:var(--rule,#c6bf9c);box-shadow:none;color:var(--secondary,#6b6658);font-size:8px}"
+    },
+    {
+      "name": "Check-in Stamp",
+      "kind": "custom",
+      "refersTo": "stamp",
+      "description": "The one authored motion: the IN/OUT stamp lands once (420ms, ease-out-expo), reduced motion respected.",
+      "html": "<span class=\"ds-landing\"><span><b>IN</b>9:02 AM<br>OCT 25</span></span>",
+      "css": "@keyframes ds-stamp-land{0%{transform:scale(1.9) rotate(-24deg);opacity:0}60%{opacity:1}100%{transform:scale(1) rotate(-9deg);opacity:1}}.ds-landing{display:grid;place-items:center;width:80px;height:80px;border:2px solid var(--crimson,#bc202f);border-radius:9999px;box-shadow:inset 0 0 0 3px #fff,inset 0 0 0 4.5px var(--crimson,#bc202f);color:var(--crimson,#bc202f);font-family:var(--font-cinzel),'Cinzel','Times New Roman',serif;font-weight:700;font-size:10px;text-align:center;line-height:1.1;animation:ds-stamp-land 420ms cubic-bezier(.16,1,.3,1) both}.ds-landing b{display:block;font-size:21px}@media (prefers-reduced-motion:reduce){.ds-landing{animation:none;transform:rotate(-9deg)}}"
     }
   ],
   "narrative": {
-    "northStar": "The Native Pass",
-    "overview": "The category standard played straight. BAP Community Service looks and behaves like a well-made native event app: benchmarked against Luma for the event list and against Apple Wallet and iOS Settings for the pass, grouped lists, switches and segmented controls. Nothing on screen is there to be noticed; every screen leads with the one thing to do next, and the rest sits in quiet grouped lists below it.\n\nThe world is a neutral grey grouped ground carrying white inset groups divided by hairlines, charcoal text on a five-step neutral ramp, and exactly one voice of color: the crimson of nyubap.com, reserved for the action and for \"today\". Sand and gold appear only to mark an exception or a met requirement. Type is the platform's own system UI with tabular figures. Restraint is the aesthetic: less is more, one primary action per view, one authored animation in the whole product.\n\nDensity is phone-first and comfortable: a single 576px column for students, widening to 1024px only for committee tables and consoles. Dark mode is a full peer of light mode, inverted to an iOS-style black ground with raised dark-grey groups.",
+    "northStar": "The Service Passbook",
+    "overview": "The semester is a passbook. Every event a student serves leaves a crimson stamp on the page until the page is full; everything else is ink on paper. The colours are the chapter crest's: a barely-beige paper ground, white entries framed in 1px khaki rules, charcoal ink on a warm ramp, and crimson reserved for what acts, what is next, and what was earned. Grey grouped-list chrome and dashboards of tinted cards are rejected; three quiet chrome values (ground, white entry, khaki rule) and one crimson carry every screen.\n\nHierarchy is scale, not decoration. One family, Hanken Grotesk, runs the whole interface on a steep ramp where the points figure (64px, 800) is the only large type; Cinzel appears only inside stamps, where an inked seal is the native material. Time is drawn to length: the event pass shows the time on site as a bar with the check-out moment marked. The crest seal recurs at three sizes (the bar, a met requirement, sign-in) and is the browser-tab and home-screen icon.\n\nStudents use it on phones on the day; the committee works the same ink-and-khaki ledger on phones and laptops. Density is comfortable and phone-first, flat, and calm. There is exactly one authored motion: the check-in or check-out stamp landing on the entry.",
     "keyCharacteristics": [
-      "Grey ground, white inset groups, hairline separators; no card grids.",
-      "One crimson: primary buttons, today's date tile, live and focus state.",
-      "System UI type with tabular figures throughout; no web display face.",
-      "Pill buttons, filled inputs, segmented controls, iOS switches.",
-      "The event pass is the signature surface; its check-in confirmation mark is the only authored animation.",
+      "Paper ground, white entries, 1px khaki frames, warm hairlines between rows; no grey chrome, no tinted card grounds.",
+      "Crimson only for actions, the next (or today's) date, stamps, alerts and focus.",
+      "State hues (green, amber, blue, gold) appear small: dots, short status words and signed figures in ink-on-white pills, notices and tables; never as fills.",
+      "Hanken Grotesk on a steep role ramp with tabular figures; the 64px points figure is the only large type; Cinzel only in stamps.",
+      "The stamp grid and the event pass are the signature surfaces; the stamp landing is the only authored animation.",
       "Inline two-step confirmation; never the browser's confirm() dialog."
     ],
     "rules": [
       {
-        "name": "The One Crimson Rule",
-        "body": "Crimson means \"act here\" or \"this is today\". Exactly one crimson-filled primary button per view; everything else that acts is a plain crimson label or a grey secondary pill.",
+        "name": "The Three Chrome Values Rule",
+        "body": "Chrome is paper ground, white entry and a 1px khaki rule. Depth, grouping and emphasis come from those three; do not add grey grounds, tinted card grounds or shadows to say \"this is a group\".",
         "section": "colors"
       },
       {
-        "name": "The Earned Gold Rule",
-        "body": "Sand and gold never decorate. They appear only for an exception or a met requirement; the progress bar is charcoal at 70% until the requirement is met, then turns gold-bright.",
+        "name": "The Crimson Burns Once Rule",
+        "body": "Crimson means act here, this is next, or this was stamped. Exactly one crimson-filled primary per view; only the next event's (or today's) date box is crimson; nothing decorative, no headings, no category colour.",
         "section": "colors"
       },
       {
-        "name": "The No Burnt Orange Rule",
-        "body": "nyubap.com's burnt orange (#C94817) is not part of this palette. Warnings use amber, which is its own tone.",
+        "name": "The Small State Rule",
+        "body": "State colour is carried by a dot, a short word or a figure in ink-on-white, never by a filled or tinted block.",
         "section": "colors"
       },
       {
-        "name": "The System Voice Rule",
-        "body": "Use the system UI stack only. No Poppins and no web display face; the app should feel like part of the phone.",
+        "name": "The One Large Number Rule",
+        "body": "The points figure is the only large type on any screen; everything else lives at 30px or below.",
+        "section": "typography"
+      },
+      {
+        "name": "The Seal Stays In The Stamp Rule",
+        "body": "Cinzel appears only inside stamps; never for headings, the wordmark or labels.",
         "section": "typography"
       },
       {
         "name": "The Tabular Rule",
-        "body": "Every number (times, points, counts, dates) renders with tabular figures; it is set on the body, so do not turn it off.",
+        "body": "Every number renders with tabular figures; it is set on the body, so do not turn it off.",
         "section": "typography"
       },
       {
         "name": "The Next Thing First Rule",
-        "body": "Every screen opens with the large title and then the single most relevant object (the pass, the points row, \"Needs attention\"), followed by grouped lists. Never open with a grid of summary cards.",
+        "body": "Every screen opens with its title or figure and then the single most relevant object (the stamp grid and next pass, \"Needs attention\"), followed by lists. Never open with a grid of summary cards.",
         "section": "layout"
       },
       {
-        "name": "The Only The Pass Lifts Rule",
-        "body": "Groups, panels, empty states and date tiles never carry a shadow. If a new surface wants one, it is either a pass or a floating menu, or it stays flat.",
+        "name": "The Rule Not Shadow Rule",
+        "body": "Entries, panels, passes, notices and stamp boxes never cast a shadow. If a new surface needs separation, frame it in khaki.",
         "section": "elevation"
       }
     ],
     "dos": [
-      "Do put exactly one crimson primary button in a view; make every other action a secondary pill or a plain crimson label.",
-      "Do build lists as white inset groups on the grey ground with hairline separators and 56px rows.",
-      "Do mark today on the date tile with crimson type and ring, never a crimson fill.",
+      "Do frame every entry, panel, pass, field, pill and date box in a 1px khaki (rule) ring on white, on the paper ground.",
+      "Do put exactly one crimson-filled primary in a view; every other action is a secondary khaki-ringed pill or a plain crimson label.",
+      "Do mark only the next event's (or today's) date box in crimson ring and type, never a crimson fill.",
+      "Do carry state with a small dot, word or signed figure in green, amber, blue or gold on white.",
+      "Do keep the 64px points figure the only large type, and Cinzel inside stamps only.",
+      "Do use dashed khaki for what is still to fill and the hatch for what was struck.",
       "Do confirm risky actions inline with the two-step Confirm Button (Cancel / confirm label, 5-second disarm).",
-      "Do use amber for warnings and pending exceptions, green for confirmed, blue for neutral info.",
-      "Do reserve gold-bright and gold for a met requirement and sand for exception marks.",
-      "Do keep every number tabular and every icon a 2px line icon.",
-      "Do define every new color as a light and dark token pair in the global stylesheet."
+      "Do give small controls `.hit` and keep fields at 16px on coarse pointers.",
+      "Do respect reduced motion on the stamp landing."
     ],
     "donts": [
-      "Don't use the browser's confirm() or alert() dialogs.",
-      "Don't introduce burnt orange (#C94817), Poppins, or any web display face.",
-      "Don't add a second authored animation or decorative motion; state transitions stay at 150–200ms.",
-      "Don't lay out dashboards of summary cards or put shadows on groups and panels.",
-      "Don't use crimson for decoration, headings or category color.",
-      "Don't put small uppercase kickers or eyebrows above titles; the date tile's month is the only uppercase label.",
-      "Don't set readable text in the tertiary grey; it is for glyphs and placeholders."
+      "Don't use grey grouped grounds, a dark mode, or the system font stack as the display face; this world is light paper only.",
+      "Don't fill or tint a surface with a state colour (no green, amber or blue soft-tinted pills, notices or cards).",
+      "Don't put shadows on entries, panels, passes or stamp boxes; shadows are for floating menus and control thumbs.",
+      "Don't add a second authored animation or decorative motion.",
+      "Don't use crimson for headings, decoration or category colour.",
+      "Don't put small uppercase kickers or eyebrows above titles; uppercase belongs to the date box month and the stamp's ink.",
+      "Don't set readable text in the faint khaki (tertiary); it is for chevrons and empty-state icons.",
+      "Don't use the browser's confirm() or alert() dialogs."
     ]
   }
 }

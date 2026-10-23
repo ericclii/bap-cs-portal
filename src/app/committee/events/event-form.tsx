@@ -195,7 +195,7 @@ export function EventForm({ eventId, initial }: { eventId?: string; initial: Eve
             ["LINK", "Event page link", "No one from BAP on site"],
             ["QR", "Rotating QR code", "A committee member is on site"],
           ] as const).map(([value, label, description]) => (
-            <label key={value} className={`flex cursor-pointer gap-3 rounded-xl p-3.5 ring-1 transition-colors duration-150 ${v.checkinMode === value ? "bg-crimson-soft ring-crimson/40" : "bg-fill/50 ring-transparent hover:bg-fill"}`}>
+            <label key={value} className={`flex cursor-pointer gap-3 rounded-xl p-3.5 ring-1 transition-colors duration-150 ${v.checkinMode === value ? "bg-surface ring-crimson" : "bg-surface ring-rule hover:bg-fill"}`}>
               <input type="radio" name="checkinMode" value={value} checked={v.checkinMode === value} onChange={() => set("checkinMode", value)} className="mt-1 accent-[var(--crimson)]" />
               <span>
                 <span className="block text-body font-medium">{label}</span>

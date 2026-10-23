@@ -116,7 +116,7 @@ function MoreMenu({ event, onError, onNotice }: { event: ConsoleEvent; onError: 
     <div className="relative">
       <Button size="sm" variant="secondary" aria-label="More actions" aria-haspopup="menu" aria-expanded={open} onClick={() => { setOpen((o) => !o); setArmed(null); }}><Ellipsis className="h-4 w-4" aria-hidden /></Button>
       {open && (
-        <div role="menu" className="absolute right-0 z-40 mt-2 w-72 rounded-2xl bg-surface p-1.5 shadow-[0_10px_40px_rgb(0_0_0/0.16)] ring-1 ring-separator">
+        <div role="menu" className="absolute right-0 z-40 mt-2 w-72 rounded-2xl bg-surface p-1.5 shadow-[0_12px_32px_rgb(46_46_46/0.12)] ring-1 ring-rule">
           {!duplicating ? (
             <>
               <a role="menuitem" href={`/api/v1/committee/events/${event.id}/export`} className="block rounded-lg px-3 py-2 text-body hover:bg-fill">Download CSV</a>

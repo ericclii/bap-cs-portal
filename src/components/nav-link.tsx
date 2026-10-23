@@ -20,7 +20,7 @@ export function NavLink({ href, exact, children, badge }: { href: string; exact?
       aria-current={active ? "page" : undefined}
       className={cx(
         "hit inline-flex h-8 items-center gap-1.5 rounded-full px-3 text-body font-medium whitespace-nowrap transition-colors duration-150",
-        active ? "bg-text text-ground" : "text-secondary hover:bg-fill hover:text-text",
+        active ? "bg-surface font-semibold text-text ring-1 ring-inset ring-rule" : "text-secondary hover:bg-fill hover:text-text",
       )}
     >
       {children}

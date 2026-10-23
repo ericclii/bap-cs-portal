@@ -24,7 +24,7 @@ export default async function SignInPage({
   return (
     <main className="mx-auto flex w-full max-w-sm flex-1 flex-col justify-center px-5 pt-[calc(env(safe-area-inset-top)+3rem)] pb-[calc(env(safe-area-inset-bottom)+2rem)]">
       <div className="flex flex-col items-center text-center">
-        <Mark size={64} />
+        <Mark size={96} />
         <h1 className="mt-6 text-display font-bold">BAP Community Service</h1>
         <p className="mt-1 text-body text-secondary">Beta Alpha Psi · Mu Chapter</p>
       </div>

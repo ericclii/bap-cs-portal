@@ -14,9 +14,9 @@ type Size = "sm" | "md" | "lg";
 
 const variantClass: Record<Variant, string> = {
   primary: "bg-crimson text-on-crimson hover:bg-crimson-hover",
-  secondary: "bg-fill text-text hover:bg-fill-strong",
+  secondary: "bg-surface text-text ring-1 ring-inset ring-rule hover:bg-fill",
   plain: "text-crimson hover:bg-crimson-soft",
-  destructive: "bg-fill text-crimson hover:bg-crimson-soft",
+  destructive: "bg-surface text-crimson ring-1 ring-inset ring-crimson/40 hover:bg-crimson-soft",
 };
 const sizeClass: Record<Size, string> = {
   sm: "h-8 px-3.5 text-footnote",
@@ -47,10 +47,10 @@ export function LinkButton({ variant, size, className, ...props }: ComponentProp
 // Grouped lists (iOS inset grouped style).
 // ---------------------------------------------------------------------------
 
-/** A white inset group on the grey ground. Children are separated by hairlines. */
+/** A white passbook entry framed in a khaki rule. Children are separated by hairlines. */
 export function Group({ className, children, ...props }: ComponentProps<"div">) {
   return (
-    <div className={cx("overflow-hidden rounded-2xl bg-surface [&>*+*]:border-t [&>*+*]:border-separator", className)} {...props}>
+    <div className={cx("overflow-hidden rounded-2xl bg-surface ring-1 ring-rule [&>*+*]:border-t [&>*+*]:border-separator", className)} {...props}>
       {children}
     </div>
   );
@@ -59,15 +59,15 @@ export function Group({ className, children, ...props }: ComponentProps<"div">) 
 /** Small header above a group, with an optional trailing action. */
 export function GroupHeader({ children, action }: { children: ReactNode; action?: ReactNode }) {
   return (
-    <div className="flex min-h-7 items-end justify-between gap-3 px-1 pb-2">
-      <h2 className="text-headline">{children}</h2>
+    <div className="flex min-h-7 items-end justify-between gap-3 pb-2.5">
+      <h2 className="text-title">{children}</h2>
       {action}
     </div>
   );
 }
 
 export function GroupFooter({ children }: { children: ReactNode }) {
-  return <p className="px-1 pt-2 text-footnote leading-snug text-secondary">{children}</p>;
+  return <p className="pt-2 text-footnote leading-snug text-secondary">{children}</p>;
 }
 
 export function Section({ title, action, footer, children, className }: { title?: ReactNode; action?: ReactNode; footer?: ReactNode; children: ReactNode; className?: string }) {
@@ -137,18 +137,25 @@ function ChevronRight({ className }: { className?: string }) {
 // ---------------------------------------------------------------------------
 
 export type Tone = "neutral" | "crimson" | "green" | "amber" | "blue" | "sand";
-const toneClass: Record<Tone, string> = {
-  neutral: "bg-fill text-secondary",
-  crimson: "bg-crimson-soft text-crimson",
-  green: "bg-green-soft text-green",
-  amber: "bg-amber-soft text-amber",
-  blue: "bg-blue-soft text-blue",
-  sand: "bg-sand-soft text-gold",
+const dotClass: Record<Tone, string> = {
+  neutral: "",
+  crimson: "bg-crimson",
+  green: "bg-green",
+  amber: "bg-amber",
+  blue: "bg-blue",
+  sand: "bg-gold-bright",
 };
 
+/** A khaki-ruled status pill: ink text, with a coloured dot carrying the state. */
 export function Pill({ tone = "neutral", children }: { tone?: Tone; children: ReactNode }) {
   return (
-    <span className={cx("inline-flex h-6 items-center rounded-full px-2.5 text-caption font-semibold whitespace-nowrap", toneClass[tone])}>
+    <span
+      className={cx(
+        "inline-flex h-6 items-center gap-1.5 rounded-full bg-surface px-2.5 text-caption font-semibold whitespace-nowrap ring-1 ring-inset ring-rule",
+        tone === "neutral" ? "text-secondary" : "text-text",
+      )}
+    >
+      {tone !== "neutral" && <span className={cx("h-1.5 w-1.5 shrink-0 rounded-full", dotClass[tone])} aria-hidden />}
       {children}
     </span>
   );
@@ -156,8 +163,17 @@ export function Pill({ tone = "neutral", children }: { tone?: Tone; children: Re
 
 export function Notice({ tone = "blue", children, action }: { tone?: Exclude<Tone, "neutral" | "sand">; children: ReactNode; action?: ReactNode }) {
   return (
-    <div role={tone === "crimson" ? "alert" : "status"} className={cx("flex flex-col gap-2 rounded-2xl px-4 py-3 text-body leading-snug sm:flex-row sm:items-center sm:justify-between", toneClass[tone])}>
-      <div>{children}</div>
+    <div
+      role={tone === "crimson" ? "alert" : "status"}
+      className={cx(
+        "flex flex-col gap-2 rounded-2xl bg-surface px-4 py-3 text-body leading-snug ring-1 sm:flex-row sm:items-center sm:justify-between",
+        tone === "crimson" ? "text-crimson ring-crimson/50" : "text-text ring-rule",
+      )}
+    >
+      <div className="flex gap-2.5">
+        <span className={cx("mt-[0.45em] h-2 w-2 shrink-0 rounded-full", dotClass[tone])} aria-hidden />
+        <div>{children}</div>
+      </div>
       {action}
     </div>
   );
@@ -204,13 +220,14 @@ const YMD = new Intl.DateTimeFormat("en-CA", { timeZone: "America/New_York" });
  * crimson block, which would compete with the primary action). Pass
  * `today={false}` where something else already says it, like a Live pill.
  */
-export function DateTile({ date, size = "md", muted, today: todayProp }: { date: Date; size?: "sm" | "md" | "lg"; muted?: boolean; today?: boolean }) {
+export function DateTile({ date, size = "md", muted, today: todayProp, accent }: { date: Date; size?: "sm" | "md" | "lg"; muted?: boolean; today?: boolean; accent?: boolean }) {
   const dims = { sm: "h-10 w-10", md: "h-12 w-12", lg: "h-16 w-16" }[size];
   const day = { sm: "text-[17px]", md: "text-[20px]", lg: "text-[28px]" }[size];
-  const today = !muted && (todayProp ?? YMD.format(date) === YMD.format(new Date()));
+  // The next event and today's date are the only dates drawn in crimson.
+  const today = !muted && (accent || (todayProp ?? YMD.format(date) === YMD.format(new Date())));
   return (
     <div
-      className={cx("flex shrink-0 flex-col items-center justify-center rounded-xl bg-surface leading-none ring-1", today ? "ring-crimson/35" : "ring-separator", dims)}
+      className={cx("flex shrink-0 flex-col items-center justify-center rounded-xl bg-surface leading-none ring-1", today ? "ring-crimson" : "ring-rule", dims)}
       aria-hidden
     >
       <span className={cx("text-[10px] font-bold uppercase tracking-wide", today ? "text-crimson" : "text-secondary")}>{MONTH.format(date)}</span>
@@ -225,7 +242,7 @@ export function DateTile({ date, size = "md", muted, today: todayProp }: { date:
 
 /** Filled input without a width, for controls that set their own. */
 export const inputBase =
-  "block rounded-xl bg-fill px-3.5 py-2.5 text-body text-text placeholder:text-tertiary outline-none transition-shadow duration-150 focus:bg-surface focus:ring-2 focus:ring-crimson/40 disabled:opacity-50";
+  "block rounded-xl bg-surface px-3.5 py-2.5 text-body text-text ring-1 ring-inset ring-rule placeholder:text-placeholder outline-none transition-shadow duration-150 focus:ring-2 focus:ring-crimson/60 disabled:opacity-50";
 
 export const inputClass = `${inputBase} w-full`;
 
@@ -236,7 +253,7 @@ export function Select({ className, size = "md", ...props }: Omit<ComponentProps
       <select
         {...props}
         className={cx(
-          "w-full appearance-none rounded-xl bg-fill pr-9 pl-3.5 text-text outline-none transition-shadow duration-150 focus:bg-surface focus:ring-2 focus:ring-crimson/40 disabled:opacity-50",
+          "w-full appearance-none rounded-xl bg-surface pr-9 pl-3.5 text-text ring-1 ring-inset ring-rule outline-none transition-shadow duration-150 focus:ring-2 focus:ring-crimson/60 disabled:opacity-50",
           size === "sm" ? "h-8 text-footnote pointer-coarse:h-10" : "h-10 text-body pointer-coarse:h-11",
         )}
       />
@@ -300,7 +317,7 @@ export function Segmented<T extends string>({
           onClick={() => onChange(o.value)}
           className={cx(
             "h-8 rounded-lg px-3.5 text-footnote font-semibold whitespace-nowrap pointer-coarse:h-10 transition-[background-color,color,box-shadow] duration-150 disabled:opacity-35",
-            value === o.value ? "bg-surface text-text shadow-[0_1px_3px_rgb(0_0_0/0.12)]" : "text-secondary hover:text-text",
+            value === o.value ? "bg-surface text-text shadow-[0_1px_2px_rgb(46_46_46/0.1)] ring-1 ring-rule" : "text-secondary hover:text-text",
           )}
         >
           {o.label}
@@ -329,7 +346,7 @@ export function PageTitle({ title, subtitle, actions }: { title: ReactNode; subt
 
 export function Empty({ icon, title, children, action }: { icon?: ReactNode; title: string; children?: ReactNode; action?: ReactNode }) {
   return (
-    <div className="flex flex-col items-center rounded-2xl bg-surface px-6 py-10 text-center">
+    <div className="flex flex-col items-center rounded-2xl border border-dashed border-rule px-6 py-10 text-center">
       {icon && <div className="mb-3 text-tertiary">{icon}</div>}
       <p className="text-body font-semibold">{title}</p>
       {children && <div className="mt-1 max-w-sm text-body leading-snug text-secondary">{children}</div>}
@@ -351,5 +368,5 @@ export function BackLink({ href, children }: { href: string; children: ReactNode
 
 /** A plain white panel for forms and composite content. */
 export function Panel({ className, ...props }: ComponentProps<"div">) {
-  return <div className={cx("rounded-2xl bg-surface p-4 sm:p-5", className)} {...props} />;
+  return <div className={cx("rounded-2xl bg-surface p-4 ring-1 ring-rule sm:p-5", className)} {...props} />;
 }

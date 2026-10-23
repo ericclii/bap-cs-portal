@@ -56,7 +56,7 @@ export function SelectionTab({ event, onNotice }: { event: ConsoleEvent; onNotic
   if (error && !rows) return <Notice tone="crimson">{error}</Notice>;
   if (!rows) return <div className="h-40 animate-pulse rounded-xl bg-fill" />;
   if (rows.size === 0) {
-    return <p className="rounded-2xl bg-surface px-6 py-10 text-center text-footnote text-secondary">No one has signed up yet.</p>;
+    return <p className="rounded-2xl border border-dashed border-rule px-6 py-10 text-center text-footnote text-secondary">No one has signed up yet.</p>;
   }
 
   function move(id: string, to: "selected" | "waitlist") {

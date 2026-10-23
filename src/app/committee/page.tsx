@@ -44,11 +44,7 @@ export default async function CommitteeOverview() {
         actions={<LinkButton href="/committee/events/new">New event</LinkButton>}
       />
 
-      {!emailConfigured && (
-        <Notice tone="amber">Email isn&apos;t connected yet, so confirmations and reminders are saved but not sent. Whoever set up the portal can connect the committee Gmail account.</Notice>
-      )}
-
-      <Section title="Needs you">
+      <Section title="Needs attention">
         {todo.length === 0 ? (
           <Empty icon={<CheckCircle2 className="h-7 w-7" aria-hidden />} title="All caught up" />
         ) : (
@@ -59,6 +55,10 @@ export default async function CommitteeOverview() {
           </Group>
         )}
       </Section>
+
+      {!emailConfigured && (
+        <Notice tone="amber">Email isn&apos;t connected yet, so confirmations and reminders are saved but not sent. Whoever set up the portal can connect the committee Gmail account.</Notice>
+      )}
 
       {live.length > 0 && <EventGroup title="Happening now" events={live} />}
       <EventGroup title="Coming up" events={upcoming} empty="No upcoming events." />

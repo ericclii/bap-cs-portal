@@ -48,7 +48,7 @@ export function UserMenu({ user }: Props) {
         <span className="sr-only">Account</span>
       </button>
       {open && (
-        <div role="menu" className="absolute right-0 z-40 mt-2 w-64 rounded-2xl bg-surface p-1.5 shadow-[0_10px_40px_rgb(0_0_0/0.16)] ring-1 ring-separator">
+        <div role="menu" className="absolute right-0 z-40 mt-2 w-64 rounded-2xl bg-surface p-1.5 shadow-[0_12px_32px_rgb(46_46_46/0.12)] ring-1 ring-rule">
           <div className="px-3 pt-2 pb-2.5">
             <div className="truncate text-body font-semibold">{user.name}</div>
             <div className="truncate text-footnote text-secondary">{user.netId}@nyu.edu</div>

@@ -37,8 +37,8 @@ export default async function StudentEventPage({
         {event.canceledAt && <Notice tone="crimson">This event was canceled. You don&apos;t need to do anything.</Notice>}
 
         <div className="space-y-6 lg:grid lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:items-start lg:gap-x-10 lg:space-y-0">
-          <EventPass event={event}>
-            <div className="mt-4 border-t border-dashed border-separator pt-4">
+          <EventPass event={event} titleAs="h1" checkedInAt={view.mine?.attendance?.checkedInAt ?? null}>
+            <div className="mt-4 border-t border-separator pt-4">
               <EventActions user={{ name: user.name }} hasVenuePass={hasVenuePass} view={JSON.parse(JSON.stringify(view))} />
             </div>
           </EventPass>

@@ -4,6 +4,7 @@ import { ConfirmButton } from "@/components/confirm-button";
 import { Check, Clock, LocateFixed, QrCode, TriangleAlert } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { Stamp } from "@/components/stamp";
 import { Button, Notice, cx, inputClass } from "@/components/ui";
 import { ApiClientError, api, errorMessage } from "@/lib/api-client";
 import {
@@ -256,6 +257,7 @@ export function EventActions({ view, hasVenuePass }: { view: View; hasVenuePass:
           icon="check"
           tone="green"
           animate={celebrate}
+          stamp={{ word: "Out", at: outAt }}
           title={`${formatDuration(attendedMinutes(inAt, outAt))} with ${e.partnerOrg ?? "your community"}`}
           body={`Thank you. ${formatTime(inAt)} – ${formatTime(outAt)}. Your ${e.points} points are added once the committee reviews the event.`}
         />
@@ -276,6 +278,7 @@ export function EventActions({ view, hasVenuePass }: { view: View; hasVenuePass:
           icon="check"
           tone="green"
           animate={celebrate}
+          stamp={{ word: "In", at: inAt }}
           title={`Checked in at ${formatTime(inAt)}`}
           body={closed ? "Check-out has closed. The committee will review your attendance." : early ? `Check out at ${formatTime(unlocks)} or later.` : "You can check out whenever you're done."}
         />
@@ -422,6 +425,8 @@ function outcomeText(o: "ATTENDED" | "NO_SHOW" | "EXCUSED", points: number | nul
   return `${p > 0 ? "+" : ""}${p} ${Math.abs(p) === 1 ? "point" : "points"} recorded by the committee.`;
 }
 
+const STAMP_DAY = new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric", timeZone: "America/New_York" });
+
 const ICONS = { check: Check, clock: Clock, warn: TriangleAlert, info: Clock, qr: QrCode } as const;
 
 function Status({
@@ -430,31 +435,39 @@ function Status({
   icon,
   tone,
   animate,
+  stamp,
 }: {
   title: string;
   body?: string;
   icon: keyof typeof ICONS;
   tone?: "green" | "blue" | "amber" | "crimson";
   animate?: boolean;
+  /** A crimson passbook stamp for check-in and check-out, in place of the icon. */
+  stamp?: { word: "In" | "Out"; at: Date };
 }) {
   const ring = {
-    green: "bg-green text-ground",
-    blue: "bg-blue-soft text-blue",
-    amber: "bg-amber-soft text-amber",
-    crimson: "bg-crimson-soft text-crimson",
+    green: "bg-surface text-green ring-1 ring-inset ring-rule",
+    blue: "bg-surface text-blue ring-1 ring-inset ring-rule",
+    amber: "bg-surface text-amber ring-1 ring-inset ring-rule",
+    crimson: "bg-surface text-crimson ring-1 ring-inset ring-rule",
   }[tone ?? "blue"];
   const Icon = ICONS[icon];
   return (
-    <div className="flex items-start gap-3">
-      <span className={cx("grid h-9 w-9 shrink-0 place-items-center rounded-full", tone ? ring : "bg-fill text-secondary", animate && icon === "check" && "confirm-mark")} aria-hidden>
-        {animate && icon === "check" ? (
-          <svg viewBox="0 0 20 20" className="h-[18px] w-[18px]" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M4.5 10.5l3.5 3.5 7.5-8" />
-          </svg>
-        ) : (
+    <div className={cx("flex gap-3", stamp ? "items-center gap-4" : "items-start")}>
+      {stamp ? (
+        // Attendance is stamped into the passbook; it lands once, right after the tap.
+        <span className={cx("w-20 shrink-0", animate ? "stamp-land" : "-rotate-[9deg]")}>
+          <Stamp>
+            <span className="block text-[26cqw] font-bold">{stamp.word.toUpperCase()}</span>
+            <span className="mt-[3cqw] block text-[13cqw] font-bold">{formatTime(stamp.at)}</span>
+            <span className="mt-[2cqw] block text-[11cqw] font-bold tracking-[0.06em] uppercase">{STAMP_DAY.format(stamp.at)}</span>
+          </Stamp>
+        </span>
+      ) : (
+        <span className={cx("grid h-9 w-9 shrink-0 place-items-center rounded-full", tone ? ring : "bg-fill text-secondary")} aria-hidden>
           <Icon className="h-[18px] w-[18px]" strokeWidth={icon === "check" ? 2.75 : 2} />
-        )}
-      </span>
+        </span>
+      )}
       <div className="min-w-0 pt-1">
         <p className="text-headline leading-snug font-semibold">{title}</p>
         {body && <p className="mt-0.5 text-body leading-snug text-secondary text-pretty">{body}</p>}

@@ -51,7 +51,7 @@ export function FinalizeTab({ event, onNotice }: { event: ConsoleEvent; onNotice
 
   if (error && !rows) return <Notice tone="crimson">{error}</Notice>;
   if (!rows) return <div className="h-40 animate-pulse rounded-xl bg-fill" />;
-  if (rows.length === 0) return <p className="rounded-2xl bg-surface px-6 py-10 text-center text-footnote text-secondary">No one was confirmed for this event.</p>;
+  if (rows.length === 0) return <p className="rounded-2xl border border-dashed border-rule px-6 py-10 text-center text-footnote text-secondary">No one was confirmed for this event.</p>;
 
   const defaultPoints = (o: Outcome) => (o === "ATTENDED" ? event.points : o === "NO_SHOW" ? penalty : 0);
   const update = (id: string, patch: Partial<Draft>) => setDrafts((d) => ({ ...d, [id]: { ...d[id], ...patch } }));

@@ -2,6 +2,7 @@
 
 import QRCode from "qrcode";
 import { useCallback, useEffect, useState } from "react";
+import { Mark } from "@/components/mark";
 import { api } from "@/lib/api-client";
 
 type VenueCode = { code: string; url: string; rotatesAt: string; stepSeconds: number; checkedIn: number; confirmed: number };
@@ -61,34 +62,35 @@ export function QrDisplay({ eventId, title }: { eventId: string; title: string }
   }, []);
 
   return (
-    <main className="flex min-h-dvh flex-col items-center justify-center gap-6 bg-white px-6 py-8 text-[#2e2e2e]">
-      <div className="text-center">
+    <main className="flex min-h-dvh flex-col items-center justify-center gap-6 bg-ground px-6 py-8 text-text">
+      <div className="flex flex-col items-center gap-4 text-center">
+        <Mark size={56} />
         <h1 className="text-2xl font-semibold tracking-tight text-balance sm:text-4xl">{title}</h1>
       </div>
       <div className="w-full max-w-[min(56vh,520px)]">
-        <div className="relative aspect-square rounded-3xl border border-[#dcdcdf] p-4 shadow-[0_2px_12px_rgba(0,0,0,0.06)]">
+        <div className="relative aspect-square rounded-3xl bg-surface p-4 ring-1 ring-rule">
           {svg ? (
             <div className="h-full w-full [&>svg]:h-full [&>svg]:w-full" dangerouslySetInnerHTML={{ __html: svg }} />
           ) : (
-            <div className="h-full w-full animate-pulse rounded-2xl bg-[#e9e9eb]" />
+            <div className="h-full w-full animate-pulse rounded-2xl bg-fill" />
           )}
           {offline && (
-            <div className="absolute inset-0 grid place-items-center rounded-3xl bg-white/90 text-center text-lg font-medium text-[#bc202f]">
+            <div className="absolute inset-0 grid place-items-center rounded-3xl bg-surface/90 text-center text-lg font-medium text-crimson">
               No connection. Reconnecting…
             </div>
           )}
         </div>
-        <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-[#e9e9eb]" aria-hidden>
-          <div className="h-full bg-[#bc202f] transition-[width] duration-200 ease-linear" style={{ width: `${remaining * 100}%` }} />
+        <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-fill" aria-hidden>
+          <div className="h-full bg-text transition-[width] duration-200 ease-linear" style={{ width: `${remaining * 100}%` }} />
         </div>
       </div>
       <div className="text-center">
         <p className="text-xl font-medium sm:text-2xl">Scan with your phone camera to check in</p>
-        <p className="mt-1 text-[#6b6b70]">The code changes every few seconds.</p>
+        <p className="mt-1 text-secondary">The code changes every few seconds.</p>
       </div>
       {data && (
-        <p className="text-lg text-[#6b6b70] tabular-nums">
-          <span className="font-semibold text-[#2e2e2e]">{data.checkedIn}</span> of {data.confirmed} checked in
+        <p className="text-lg text-secondary tabular-nums">
+          <span className="font-semibold text-text">{data.checkedIn}</span> of {data.confirmed} checked in
         </p>
       )}
     </main>

@@ -1,27 +1,18 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import type { CurrentUser } from "@/server/session";
+import { Mark } from "./mark";
 import { NavLink } from "./nav-link";
 import { RefreshOnReturn } from "./refresh-on-return";
 import { UserMenu } from "./user-menu";
 
-export function Mark({ size = 30 }: { size?: number }) {
-  return (
-    <span
-      aria-hidden
-      className="grid shrink-0 place-items-center rounded-[9px] bg-crimson font-bold tracking-[-0.02em] text-on-crimson"
-      style={{ width: size, height: size, fontSize: Math.round(size * 0.37) }}
-    >
-      ΒΑΨ
-    </span>
-  );
-}
+export { Mark };
 
 export function Logo() {
   return (
     <Link href="/" className="flex items-center gap-2.5 rounded-lg">
       <Mark />
-      <span className="text-body font-semibold tracking-[-0.01em]">Community Service</span>
+      <span className="text-headline font-bold tracking-[-0.01em]">Community Service</span>
     </Link>
   );
 }
@@ -39,7 +30,7 @@ export function AppShell({
   const width = "max-w-5xl px-[max(1rem,env(safe-area-inset-left))]";
   return (
     <>
-      <header className="sticky top-0 z-30 border-b border-separator bg-ground/95 pt-[env(safe-area-inset-top)] backdrop-saturate-150">
+      <header className="sticky top-0 z-30 border-b border-rule bg-ground/95 pt-[env(safe-area-inset-top)] backdrop-saturate-150">
         <div className={`mx-auto flex h-14 items-center justify-between gap-4 ${width}`}>
           <Logo />
           {user ? (
@@ -58,10 +49,8 @@ export function AppShell({
         </div>
         {subnav && (
           <div className={`mx-auto pb-1 ${width}`}>
-            <div
-              className="-mx-1 flex gap-1 overflow-x-auto px-1 py-1.5 pr-8 [scrollbar-width:none] sm:pr-1 [&::-webkit-scrollbar]:hidden"
-              style={{ maskImage: "linear-gradient(to right, black calc(100% - 32px), transparent)" }}
-            >
+            {/* On phones the strip runs to the screen edges and fades there, so a cut-off tab reads as "scroll for more". */}
+            <div className="-mx-4 flex scroll-px-4 gap-1 overflow-x-auto px-4 pr-8 py-1.5 [mask-image:linear-gradient(to_right,transparent,black_16px,black_calc(100%-32px),transparent)] [scrollbar-width:none] sm:-mx-1 sm:px-1 sm:[mask-image:none] [&::-webkit-scrollbar]:hidden">
               {subnav}
             </div>
           </div>
