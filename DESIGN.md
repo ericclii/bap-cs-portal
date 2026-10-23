@@ -346,7 +346,7 @@ Quiet, confident pills; one loud one per view.
 ### Navigation
 - **Top bar:** sticky, grouped ground at 95%, hairline bottom border. Left: the crimson rounded-square ΒΑΨ mark and "Community Service" in 15px semibold. Right: section links (desktop) and the avatar menu.
 - **Nav links / subnav:** 32px pills, 14px medium secondary text; active is a charcoal pill with ground-colored text; a crimson count badge for items needing attention. The subnav scrolls horizontally on phones and keeps the active pill in view.
-- **Segmented control:** fill track, white selected segment with a thumb shadow, 13px semibold; for in-page views (People / Selection / Confirm points).
+- **Segmented control:** fill track, white selected segment with a thumb shadow, 13px semibold; for in-page views (People / Pick who goes / Award points).
 - **Back link:** crimson 15px label with a line chevron.
 
 ### Date Tile

@@ -252,7 +252,7 @@ export function EventActions({ view, hasVenuePass, user }: { view: View; hasVenu
           tone="green"
           animate={celebrate}
           title="You're all set"
-          body={`${formatTime(inAt)} – ${formatTime(outAt)} · ${formatDuration(attendedMinutes(inAt, outAt))}. Your ${e.points} points are recorded and will be confirmed by the committee after the event.`}
+          body={`${formatTime(inAt)} – ${formatTime(outAt)} · ${formatDuration(attendedMinutes(inAt, outAt))}. Your ${e.points} points are added once the committee reviews the event.`}
         />
         {a.earlyCheckout && <Notice tone="amber">You checked out early. The committee will review your reason before confirming points.</Notice>}
       </div>

@@ -3,7 +3,7 @@
 import { ConfirmButton } from "@/components/confirm-button";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { Avatar, Button, Group, inputBase, inputClass, Notice, Pill, Select } from "@/components/ui";
+import { Avatar, Button, Group, inputClass, Notice, Pill, Select } from "@/components/ui";
 import { api, errorMessage } from "@/lib/api-client";
 
 type Member = { id: string; netId: string; role: "CHAIR" | "MEMBER"; name: string | null; image: string | null; signedIn: boolean };

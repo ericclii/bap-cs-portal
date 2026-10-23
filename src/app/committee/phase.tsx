@@ -9,7 +9,7 @@ const PHASES: Record<EventPhase, { label: string; tone: Tone }> = {
   needs_selection: { label: "Pick who goes", tone: "amber" },
   confirmed: { label: "Confirmed", tone: "green" },
   live: { label: "Live", tone: "crimson" },
-  needs_finalize: { label: "Confirm points", tone: "amber" },
+  needs_finalize: { label: "Award points", tone: "amber" },
   finalized: { label: "Done", tone: "neutral" },
 };
 

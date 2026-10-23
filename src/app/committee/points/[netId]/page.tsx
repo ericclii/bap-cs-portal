@@ -48,7 +48,7 @@ export default async function PersonPointsPage({ params }: { params: Promise<{ n
                 <Pill tone={s.outcome === "ATTENDED" ? "green" : s.outcome === "EXCUSED" ? "neutral" : "amber"}>
                   {s.outcome === "ATTENDED" ? "Attended" : s.outcome === "EXCUSED" ? "Excused" : "No-show"} · {(s.points ?? 0) > 0 ? "+" : ""}{s.points}
                 </Pill>
-              ) : s.wasSelected && s.event.endsAt < new Date() ? <Pill tone="amber">Not confirmed yet</Pill> : null}
+              ) : s.wasSelected && s.event.endsAt < new Date() ? <Pill tone="amber">Points not awarded</Pill> : null}
             </div>
           ))}
         </Group>

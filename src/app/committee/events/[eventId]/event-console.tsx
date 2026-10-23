@@ -31,7 +31,7 @@ export function EventConsole({ event, initialPeople, initialTab }: { event: Cons
   const tabs: { key: Tab; label: string; disabled?: boolean }[] = [
     { key: "people", label: "People" },
     { key: "selection", label: event.selectionPublishedAt ? "Selection" : "Pick who goes" },
-    { key: "finalize", label: event.finalizedAt ? "Points" : "Confirm points", disabled: !ended },
+    { key: "finalize", label: event.finalizedAt ? "Points" : "Award points", disabled: !ended },
   ];
 
   return (

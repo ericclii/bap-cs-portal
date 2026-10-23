@@ -28,7 +28,7 @@ type Review = {
 const KIND = {
   CHECKIN_LOCATION: { label: "Couldn't check in", approve: "Record check-in" },
   CHECKOUT_LOCATION: { label: "Couldn't check out", approve: "Record check-out" },
-  EARLY_CHECKOUT: { label: "Left early", approve: "Approve (full points)" },
+  EARLY_CHECKOUT: { label: "Left early", approve: "Allow (full points)" },
 } as const;
 
 export function ReviewList({ reviews }: { reviews: Review[] }) {
@@ -76,7 +76,7 @@ export function ReviewList({ reviews }: { reviews: Review[] }) {
                     {r.message && <p className="max-w-prose text-sm">&ldquo;{r.message}&rdquo;</p>}
                     <p className="text-sm text-secondary">
                       {r.kind === "EARLY_CHECKOUT"
-                        ? `Stayed ${formatDuration(stayed)} of the ${formatDuration(r.event.minMinutes)} minimum (in ${formatTime(new Date(a!.checkedInAt))}).`
+                        ? `Checked in ${formatTime(new Date(a!.checkedInAt))}, left after ${formatDuration(stayed)} (minimum ${formatDuration(r.event.minMinutes)}).`
                         : r.distanceM != null
                           ? `Phone reported ${r.distanceM} m from the venue (±${Math.round(r.accuracyM ?? 0)} m); the fence is ${r.event.radiusMeters} m.`
                           : "No location was shared."}
@@ -90,12 +90,19 @@ export function ReviewList({ reviews }: { reviews: Review[] }) {
                   </div>
                 </div>
               </div>
-              <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
-                <label className="sr-only" htmlFor={`note-${r.id}`}>Note</label>
-                <input id={`note-${r.id}`} className={`${inputClass} sm:max-w-sm`} placeholder="Note (optional, saved with the decision)" value={notes[r.id] ?? ""} onChange={(e) => setNotes((n) => ({ ...n, [r.id]: e.target.value }))} />
-                <div className="flex gap-2">
-                  <Button size="sm" disabled={busy !== null} onClick={() => resolve(r.id, "APPROVED")}>{KIND[r.kind].approve}</Button>
+              <div className="flex flex-col gap-2 pl-11 sm:flex-row sm:items-center">
+                {notes[r.id] !== undefined ? (
+                  <>
+                    <label className="sr-only" htmlFor={`note-${r.id}`}>Note for the record</label>
+                    <input id={`note-${r.id}`} autoFocus className={`${inputClass} sm:max-w-sm`} placeholder="Saved with your decision" value={notes[r.id]} onChange={(e) => setNotes((n) => ({ ...n, [r.id]: e.target.value }))} />
+                  </>
+                ) : null}
+                <div className="flex flex-wrap gap-2">
+                  <Button size="sm" variant="secondary" disabled={busy !== null} onClick={() => resolve(r.id, "APPROVED")}>{KIND[r.kind].approve}</Button>
                   <Button size="sm" variant="secondary" disabled={busy !== null} onClick={() => resolve(r.id, "DENIED")}>Deny</Button>
+                  {notes[r.id] === undefined && (
+                    <Button size="sm" variant="plain" onClick={() => setNotes((n) => ({ ...n, [r.id]: "" }))}>Add note</Button>
+                  )}
                 </div>
               </div>
             </div>

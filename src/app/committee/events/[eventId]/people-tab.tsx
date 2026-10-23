@@ -2,7 +2,7 @@
 
 import { ConfirmButton } from "@/components/confirm-button";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { Avatar, Button, cx, Group, inputClass, Notice, Pill, inputBase } from "@/components/ui";
+import { Avatar, Button, cx, Group, Notice, Pill, inputBase } from "@/components/ui";
 import { api, errorMessage } from "@/lib/api-client";
 import { attendedMinutes, checkinWindowState, formatDuration } from "@/lib/event-window";
 import { formatDateTime, formatTime } from "@/lib/time";

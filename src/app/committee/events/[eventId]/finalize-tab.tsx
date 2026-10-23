@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Avatar, Button, Group, inputBase, inputClass, Notice, Pill, Select } from "@/components/ui";
+import { Avatar, Button, Group, inputBase, Notice, Pill, Select } from "@/components/ui";
 import { api, errorMessage } from "@/lib/api-client";
 import { formatDuration } from "@/lib/event-window";
 import { formatTime } from "@/lib/time";
@@ -64,7 +64,7 @@ export function FinalizeTab({ event, onNotice }: { event: ConsoleEvent; onNotice
     try {
       const outcomes = rows!.map((r) => ({ signupId: r.signupId, ...drafts[r.signupId] }));
       const res = await api<{ saved: number; emailed: number }>(`/committee/events/${event.id}/finalize`, { body: { outcomes } });
-      onNotice(`Points saved for ${res.saved} people. ${res.emailed} ${res.emailed === 1 ? "person was" : "people were"} emailed their result.`);
+      onNotice(`Points awarded to ${res.saved} ${res.saved === 1 ? "person" : "people"}. ${res.emailed} ${res.emailed === 1 ? "email" : "emails"} sent.`);
       router.refresh();
     } catch (err) {
       setError(errorMessage(err));
@@ -76,8 +76,8 @@ export function FinalizeTab({ event, onNotice }: { event: ConsoleEvent; onNotice
   return (
     <div className="space-y-6">
       <p className="max-w-prose text-sm text-secondary">
-        Everyone who was confirmed, with a suggested result from their check-in data: attended = +{event.points}, no-show or late drop = {penalty}, excused = 0.
-        {flagged > 0 && <> <span className="font-medium text-amber">{flagged} need a look.</span></>} Saving emails each person their result{event.finalizedAt ? " (only if it changed)" : ""}.
+        Results are suggested from check-ins: attended +{event.points}, no-show or late drop {penalty}, excused 0.
+        {flagged > 0 && <> <span className="font-medium text-amber">{flagged} need a look.</span></>} Everyone is emailed their result{event.finalizedAt ? " if it changed" : ""}.
       </p>
       {error && <Notice tone="crimson">{error}</Notice>}
 
@@ -134,7 +134,7 @@ export function FinalizeTab({ event, onNotice }: { event: ConsoleEvent; onNotice
       </Group>
 
       <div className="flex flex-wrap items-center gap-3">
-        <Button size="lg" disabled={busy} onClick={save}>{busy ? "Saving…" : event.finalizedAt ? "Save changes" : "Save points & email results"}</Button>
+        <Button size="lg" disabled={busy} onClick={save}>{busy ? "Saving…" : event.finalizedAt ? "Save changes" : "Award points & email results"}</Button>
         <span className="text-sm text-secondary tabular-nums">{total >= 0 ? "+" : ""}{total} points total across {rows.length} people</span>
       </div>
     </div>

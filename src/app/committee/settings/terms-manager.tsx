@@ -101,7 +101,7 @@ export function TermsManager({ terms, isChair }: { terms: Term[]; isChair: boole
             <Field label="Points required" htmlFor="term-required">
               <input id="term-required" type="number" min={0} max={500} className={inputClass} value={required} onChange={(e) => setRequired(e.target.value)} placeholder="e.g. 12" />
             </Field>
-            <Button type="submit" disabled={busy || !name.trim()}>Create</Button>
+            <Button type="submit" variant={terms.length === 0 ? "primary" : "secondary"} disabled={busy || !name.trim()}>Create term</Button>
           </form>
         </Panel>
       ) : (

@@ -17,7 +17,7 @@ export default async function CommitteeEventsPage() {
 
   return (
     <div className="space-y-8">
-      <PageTitle title="Events" subtitle={term.name} actions={<LinkButton href="/committee/events/new">New event</LinkButton>} />
+      <PageTitle title="Events" subtitle={term.name} actions={events.length > 0 ? <LinkButton href="/committee/events/new">New event</LinkButton> : undefined} />
       {events.length === 0 ? (
         <Empty icon={<CalendarPlus className="h-7 w-7" aria-hidden />} title="No events yet" action={<LinkButton href="/committee/events/new">Create an event</LinkButton>}>
           Each event has its own sign-up window, spots, points and check-in location.

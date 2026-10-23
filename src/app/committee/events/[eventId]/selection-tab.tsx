@@ -99,17 +99,16 @@ export function SelectionTab({ event, onNotice }: { event: ConsoleEvent; onNotic
 
   return (
     <div className="space-y-6">
-      {signupsOpen && !published && (
-        <Notice tone="blue">Sign-ups are still open until {formatDateTime(new Date(event.signupClosesAt))}. You can publish early, and anyone who signs up afterwards joins the waitlist.</Notice>
-      )}
       <p className="max-w-prose text-sm text-secondary">
-        Ranked by: candidates first, then fewest points this term, then earliest sign-up. People already confirmed for another event the same day are moved to the end of the waitlist. Adjust anything before {published ? "saving" : "publishing"}.
+        Suggested order: candidates first, then fewest points, then earliest sign-up. Anyone already going to another event that day is at the end.
+        {signupsOpen && !published && ` Sign-ups are still open until ${formatDateTime(new Date(event.signupClosesAt))}; later sign-ups join the waitlist.`}
       </p>
       {error && <Notice tone="crimson">{error}</Notice>}
 
       <List
         title={`Confirmed ${selected.length} / ${event.capacity}`}
-        warn={over ? `${selected.length - event.capacity} over capacity` : undefined}
+        warn={over ? `${selected.length - event.capacity} over the limit` : undefined}
+        empty="No one yet. Use Confirm on the waitlist below."
         ids={selected}
         rows={rows}
         actionLabel="Waitlist"
@@ -121,6 +120,7 @@ export function SelectionTab({ event, onNotice }: { event: ConsoleEvent; onNotic
         ids={waitlist}
         rows={rows}
         numbered
+        empty="No one on the waitlist."
         actionLabel="Confirm"
         onAction={(id) => move(id, "selected")}
         onShift={(id, d) => shift("waitlist", id, d)}
@@ -130,7 +130,7 @@ export function SelectionTab({ event, onNotice }: { event: ConsoleEvent; onNotic
         <Button size="lg" disabled={busy || over} onClick={publish}>
           {busy ? "Sending…" : published ? "Save changes & email anyone affected" : `Confirm & email ${selected.length + waitlist.length} people`}
         </Button>
-        <span className="text-sm text-secondary">Confirmed people get the details and check-in instructions; the waitlist gets their position.</span>
+        <span className="text-sm text-secondary">Everyone gets an email with their result.</span>
       </div>
     </div>
   );
@@ -139,6 +139,7 @@ export function SelectionTab({ event, onNotice }: { event: ConsoleEvent; onNotic
 function List({
   title,
   warn,
+  empty,
   ids,
   rows,
   numbered,
@@ -148,6 +149,7 @@ function List({
 }: {
   title: string;
   warn?: string;
+  empty: string;
   ids: string[];
   rows: Map<string, Ranked>;
   numbered?: boolean;
@@ -162,7 +164,7 @@ function List({
         {warn && <Pill tone="amber">{warn}</Pill>}
       </div>
       <Group>
-        {ids.length === 0 && <p className="px-4 py-6 text-center text-sm text-secondary">Empty</p>}
+        {ids.length === 0 && <p className="px-4 py-6 text-center text-sm text-secondary">{empty}</p>}
         {ids.map((id, i) => {
           const r = rows.get(id)!;
           return (
@@ -175,7 +177,7 @@ function List({
                     <span className="font-medium">{r.name}</span>
                     <span className="text-sm text-secondary">{r.netId}</span>
                     {!r.isCandidate && <Pill>Not a candidate</Pill>}
-                    {r.conflict && <Pill tone="amber">Booked same day: {r.conflict}</Pill>}
+                    {r.conflict && <Pill tone="amber">Also going: {r.conflict}</Pill>}
                   </div>
                   <div className="text-sm text-secondary">
                     {r.points} pts · signed up {formatDateTime(new Date(r.signedUpAt))}

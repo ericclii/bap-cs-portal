@@ -138,11 +138,11 @@ export function EventForm({ eventId, initial }: { eventId?: string; initial: Eve
           <Field label="Points for attending" htmlFor="points">
             <input id="points" type="number" min={0} max={50} required className={inputClass} value={v.points} onChange={(e) => set("points", Number(e.target.value))} />
           </Field>
-          <Field label="Minimum time on site (min)" htmlFor="minMinutes" hint={`Earlier check-outs need a reason. ${formatDuration(v.minMinutes)}.`}>
+          <Field label="Minimum time on site (min)" htmlFor="minMinutes" hint={`${formatDuration(v.minMinutes)}. Leaving earlier needs a reason.`}>
             <input id="minMinutes" type="number" min={0} max={duration || 1440} required className={inputClass} value={v.minMinutes} onChange={(e) => { setMinTouched(true); set("minMinutes", Number(e.target.value)); }} />
           </Field>
         </div>
-        <Field label="What to know" htmlFor="instructions" hint="Shown on the event page and in confirmation and reminder emails.">
+        <Field label="What to know" htmlFor="instructions" hint="Shown on the event page and in emails.">
           <textarea id="instructions" rows={3} className={inputClass} maxLength={3000} value={v.instructions ?? ""} onChange={(e) => set("instructions", e.target.value)} placeholder="Wear closed-toe shoes and clothes that can get dirty. Meet at the side entrance on 3rd Ave." />
         </Field>
         <Field label="Description" htmlFor="description" hint="Optional. What the work is and who it helps.">
@@ -153,7 +153,7 @@ export function EventForm({ eventId, initial }: { eventId?: string; initial: Eve
       <Panel className="space-y-5">
         <div>
           <h2 className="text-[17px] font-semibold">Location</h2>
-          <p className="mt-0.5 text-[13px] leading-snug text-secondary">Check-in and check-out only work inside this circle. If a phone can&apos;t get a fix (basements), the student can ask you to review it instead.</p>
+          <p className="mt-0.5 text-[13px] leading-snug text-secondary">Students can only check in and out inside the circle.</p>
         </div>
         <div className="grid gap-4 sm:grid-cols-2">
           <Field label="Place name" htmlFor="locationName">
@@ -167,9 +167,9 @@ export function EventForm({ eventId, initial }: { eventId?: string; initial: Eve
           value={v.latitude != null && v.longitude != null ? { latitude: v.latitude, longitude: v.longitude } : null}
           radiusMeters={v.radiusMeters}
           onChange={(p) => setV((prev) => ({ ...prev, latitude: p.latitude, longitude: p.longitude }))}
-          initialQuery={v.address ?? ""}
+          address={v.address ?? ""}
         />
-        <Field label={`Radius: ${v.radiusMeters} m`} htmlFor="radius" hint="Phones indoors are often off by 20–50 m. 150 m works for most buildings in Manhattan.">
+        <Field label={`Radius: ${v.radiusMeters} m`} htmlFor="radius" hint="150 m suits most Manhattan buildings; indoor GPS drifts 20–50 m.">
           <input id="radius" type="range" min={50} max={1000} step={25} value={v.radiusMeters} onChange={(e) => set("radiusMeters", Number(e.target.value))} className="w-full accent-[var(--crimson)]" />
         </Field>
       </Panel>
@@ -177,7 +177,7 @@ export function EventForm({ eventId, initial }: { eventId?: string; initial: Eve
       <Panel className="space-y-5">
         <div>
           <h2 className="text-[17px] font-semibold">Sign-ups</h2>
-          <p className="mt-0.5 text-[13px] leading-snug text-secondary">When sign-ups close, you&apos;ll get a ranked list (candidates first, fewest points, earliest sign-up) to confirm and send.</p>
+          <p className="mt-0.5 text-[13px] leading-snug text-secondary">After sign-ups close you pick who goes from a suggested order.</p>
         </div>
         <div className="grid gap-4 sm:grid-cols-2">
           <Field label="Sign-ups open" htmlFor="signupOpens">

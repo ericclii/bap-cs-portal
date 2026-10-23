@@ -71,9 +71,9 @@ export default async function HomePage() {
               {required != null && points >= required
                 ? "Requirement met for this term. Nice work."
                 : pending.length > 0
-                  ? `${pending.length} attended ${pending.length === 1 ? "event" : "events"} waiting for the committee to confirm.`
+                  ? `${pending.length} attended ${pending.length === 1 ? "event is" : "events are"} waiting for points from the committee.`
                   : candidate
-                    ? "Points update after the committee confirms each event."
+                    ? "Points are added after the committee reviews each event."
                     : "You're not on this term's candidate list, so you rank after candidates for spots."}
             </p>
           </div>
@@ -186,8 +186,8 @@ function History({ history }: { history: Awaited<ReturnType<typeof personHistory
       detail: s.outcome
         ? { ATTENDED: "Attended", NO_SHOW: s.status === "DROPPED" ? "Late drop" : "No-show", EXCUSED: "Excused" }[s.outcome]
         : s.attendance
-          ? "Attended · awaiting confirmation"
-          : "Awaiting confirmation",
+          ? "Attended · points pending"
+          : "Points pending",
       points: s.outcome ? (s.points ?? 0) : null,
     })),
     ...history.adjustments.map((a) => ({ key: a.id, date: a.createdAt, title: a.reason, detail: "Added by the committee", points: a.points })),
@@ -197,7 +197,7 @@ function History({ history }: { history: Awaited<ReturnType<typeof personHistory
     <Section title="History">
       {rows.length === 0 ? (
         <Empty icon={<HistoryIcon className="h-7 w-7" aria-hidden />} title="No points yet">
-          Events you attend show up here once the committee confirms them.
+          Events show up here once the committee awards points.
         </Empty>
       ) : (
         <Group>

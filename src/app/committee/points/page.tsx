@@ -18,7 +18,7 @@ export default async function PointsPage() {
     <div className="space-y-6">
       <PageTitle
         title="Points"
-        subtitle={`${term.name}${term.requiredPoints != null ? ` · ${term.requiredPoints} required` : ""}. Event points come from confirmed results; adjustments cover everything else.`}
+        subtitle={`${term.name}${term.requiredPoints != null ? ` · ${term.requiredPoints} required` : ""}`}
         actions={<a href="/api/v1/committee/points/export" className={buttonClass("secondary")}>Download CSV</a>}
       />
       <PointsManager

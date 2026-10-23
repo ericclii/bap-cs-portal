@@ -102,7 +102,7 @@ export function pointsRecordedEmail(
 ): OutgoingEmail {
   const what =
     outcome === "ATTENDED"
-      ? `Your attendance is confirmed: ${points >= 0 ? "+" : ""}${points} points.`
+      ? `You attended: ${points >= 0 ? "+" : ""}${points} points awarded.`
       : outcome === "EXCUSED"
         ? "Your absence was excused: no points added or removed."
         : `You were marked as a no-show: ${points} point${Math.abs(points) === 1 ? "" : "s"}.`;
@@ -110,7 +110,7 @@ export function pointsRecordedEmail(
     to,
     eventId: e.id,
     kind: "points_recorded",
-    subject: `Points recorded: ${e.title}`,
+    subject: `Points awarded: ${e.title}`,
     text: `${what}\n\n${eventBlock(e)}\n\nYour total this term: ${termTotal}${required ? ` of ${required} required` : ""} points.\nSee your history: ${appUrl("/")}\n\nThink this is wrong? Reply to this email.${SIGNOFF}`,
   };
 }

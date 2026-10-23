@@ -9,7 +9,7 @@ export default async function ReviewsPage() {
   const reviews = await openReviews();
   return (
     <div className="space-y-6">
-      <PageTitle title="Reviews" subtitle="Students whose location couldn't be verified, and early check-outs. Approving a location request records the check-in or check-out at the time they asked." />
+      <PageTitle title="Reviews" subtitle="Location problems and early check-outs. Approving a location request records the check-in or check-out at the time it was asked." />
       <ReviewList reviews={JSON.parse(JSON.stringify(reviews))} />
     </div>
   );

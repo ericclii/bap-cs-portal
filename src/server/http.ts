@@ -34,10 +34,10 @@ export function route<P = Record<string, never>>(handler: Handler<P>): Handler<P
       }
       if (err instanceof z.ZodError) {
         const first = err.issues[0];
-        return errorResponse(400, "invalid_input", first?.message ?? "Invalid input", z.flattenError(err));
+        return errorResponse(400, "invalid_input", first?.message ?? "Some details are missing or invalid. Check the form and try again.", z.flattenError(err));
       }
       console.error(err);
-      return errorResponse(500, "internal", "Something went wrong");
+      return errorResponse(500, "internal", "Something went wrong on our end. Try again in a moment.");
     }
   };
 }

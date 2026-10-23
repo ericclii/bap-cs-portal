@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
-import { Button, cx, Field, Group, inputClass, Notice, Panel, Pill, inputBase } from "@/components/ui";
+import { Button, cx, Field, Group, inputBase, inputClass, Notice, Panel, Pill, Row } from "@/components/ui";
 import { api, errorMessage } from "@/lib/api-client";
 import { parsePointsImport, parseRoster } from "@/lib/netid";
 
@@ -65,22 +65,39 @@ export function PointsManager({ standings, required, isChair, feedUrl }: { stand
         <input aria-label="Search people" className={`${inputBase} w-full sm:w-64`} placeholder="Search name or NetID" value={query} onChange={(e) => setQuery(e.target.value)} />
       </div>
 
-      <Group className="overflow-x-auto">
-        <table className="w-full min-w-[720px] text-sm">
+      {/* Phones: one row per person; the full table from the small breakpoint up. */}
+      <Group className="sm:hidden">
+        {visible.length === 0 && <p className="px-4 py-8 text-center text-sm text-secondary">No one matches.</p>}
+        {visible.map((s) => (
+          <Row
+            key={s.netId}
+            href={`/committee/points/${s.netId}`}
+            title={s.name ?? s.netId}
+            subtitle={`${s.netId} · attended ${s.attended}${s.noShows ? ` · ${s.noShows} no-show${s.noShows === 1 ? "" : "s"}` : ""}${s.pendingEvents ? ` · ${s.pendingEvents} not awarded yet` : ""}`}
+            trailing={
+              <span className={cx("text-[15px] font-semibold tabular-nums", required != null && s.isCandidate && s.total >= required ? "text-gold" : "text-text")}>
+                {s.total}
+                {required != null && <span className="font-normal text-secondary">/{required}</span>}
+              </span>
+            }
+            chevron
+          />
+        ))}
+      </Group>
+      <Group className="hidden overflow-x-auto sm:block">
+        <table className="w-full min-w-[560px] text-sm">
           <thead className="border-b border-separator text-left text-secondary">
             <tr>
               <th className="px-4 py-2 font-medium">Person</th>
               <th className="px-4 py-2 text-right font-medium">Total</th>
-              <th className="px-4 py-2 text-right font-medium">Events</th>
-              <th className="px-4 py-2 text-right font-medium">Adjustments</th>
               <th className="px-4 py-2 text-right font-medium">Attended</th>
               <th className="px-4 py-2 text-right font-medium">No-shows</th>
-              <th className="px-4 py-2 text-right font-medium">Pending</th>
+              <th className="px-4 py-2 text-right font-medium">Not awarded yet</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-separator">
             {visible.length === 0 && (
-              <tr><td colSpan={7} className="px-4 py-8 text-center text-secondary">No one matches.</td></tr>
+              <tr><td colSpan={5} className="px-4 py-8 text-center text-secondary">No one matches.</td></tr>
             )}
             {visible.map((s) => (
               <tr key={s.netId} className="hover:bg-fill">
@@ -92,8 +109,6 @@ export function PointsManager({ standings, required, isChair, feedUrl }: { stand
                 <td className={cx("px-4 py-2.5 text-right font-semibold tabular-nums", required != null && s.isCandidate && (s.total >= required ? "text-gold" : "text-text"))}>
                   {s.total}{required != null && <span className="font-normal text-secondary"> / {required}</span>}
                 </td>
-                <td className="px-4 py-2.5 text-right tabular-nums">{s.eventPoints}</td>
-                <td className="px-4 py-2.5 text-right tabular-nums">{s.adjustmentPoints}</td>
                 <td className="px-4 py-2.5 text-right tabular-nums">{s.attended}</td>
                 <td className={cx("px-4 py-2.5 text-right tabular-nums", s.noShows > 0 && "text-amber")}>{s.noShows}</td>
                 <td className="px-4 py-2.5 text-right text-secondary tabular-nums">{s.pendingEvents || ""}</td>

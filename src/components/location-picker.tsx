@@ -3,7 +3,7 @@
 import "leaflet/dist/leaflet.css";
 import { useEffect, useState } from "react";
 import { Circle, CircleMarker, MapContainer, TileLayer, useMap, useMapEvents } from "react-leaflet";
-import { Button, inputClass } from "./ui";
+import { Button } from "./ui";
 
 type Point = { latitude: number; longitude: number };
 
@@ -31,14 +31,15 @@ export default function LocationPicker({
   value,
   radiusMeters,
   onChange,
-  initialQuery = "",
+  address,
 }: {
   value: Point | null;
   radiusMeters: number;
   onChange: (p: Point) => void;
-  initialQuery?: string;
+  /** The form's address field; "Find on map" searches for it. */
+  address: string;
 }) {
-  const [query, setQuery] = useState(initialQuery);
+  const query = address;
   const [status, setStatus] = useState<string | null>(null);
   const [focus, setFocus] = useState<Point | null>(value);
 
@@ -87,22 +88,9 @@ export default function LocationPicker({
 
   return (
     <div className="space-y-2">
-      <div className="flex flex-col gap-2 sm:flex-row">
-        <input
-          className={inputClass}
-          placeholder="Search the address to drop the pin"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              e.preventDefault();
-              search();
-            }
-          }}
-          aria-label="Search for the venue"
-        />
-        <Button variant="secondary" onClick={() => search()}>Search</Button>
-        <Button variant="secondary" onClick={useMyLocation}>Use my location</Button>
+      <div className="flex flex-wrap gap-2">
+        <Button size="sm" variant="secondary" disabled={!query.trim()} onClick={() => search()}>Find address on map</Button>
+        <Button size="sm" variant="secondary" onClick={useMyLocation}>Use my location</Button>
       </div>
       <div className="h-72 overflow-hidden rounded-xl">
         <MapContainer
@@ -126,7 +114,7 @@ export default function LocationPicker({
         </MapContainer>
       </div>
       <p className="text-[13px] text-secondary">
-        {status ?? (value ? `Pin at ${value.latitude.toFixed(5)}, ${value.longitude.toFixed(5)}. Click the map to move it.` : "Click the map to drop the venue pin.")}
+        {status ?? (value ? "Pin placed. Tap the map to move it." : "Find the address or tap the map to place the pin.")}
       </p>
     </div>
   );
