@@ -72,7 +72,8 @@ export default function PrivacyPage() {
           <p>
             We use Vercel Web Analytics to count page views so we know which parts of the portal are used. It does not use cookies, does
             not identify you, and only records the page address (without anything after a &ldquo;?&rdquo;), the referring site, and your
-            general country, browser and device type.
+            general country, browser and device type. Vercel Speed Insights also measures how quickly pages load, using the same
+            limited, anonymous details.
           </p>
         </section>
 
