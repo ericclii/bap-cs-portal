@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { Mark } from "@/components/app-shell";
 import { SignInPanel } from "@/components/sign-in-panel";
@@ -32,6 +33,9 @@ export default async function SignInPage({
       <div className="mt-10">
         <SignInPanel next={next} googleConfigured={googleConfigured} devLoginEnabled={devLoginEnabled} initialError={error} />
       </div>
+      <p className="mt-10 text-center text-[13px] text-secondary">
+        <Link href="/privacy" className="underline underline-offset-2 hover:text-text">Privacy policy</Link>
+      </p>
     </main>
   );
 }
