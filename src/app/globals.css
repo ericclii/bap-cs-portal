@@ -1,0 +1,167 @@
+@import "tailwindcss";
+
+/*
+ * BAP Community Service design tokens.
+ * Palette from nyubap.com: charcoal #2E2E2E, crimson #BC202F, sand #E1D6B7,
+ * gold #DEC050. Neutrals are one five-step ramp; crimson is the only
+ * action color.
+ */
+:root {
+  --ground: #f2f2f3;
+  --surface: #ffffff;
+  --fill: #e9e9eb;
+  --fill-strong: #dcdcdf;
+  --separator: rgb(46 46 46 / 0.12);
+  --text: #2e2e2e;
+  --secondary: #6b6b70;
+  --tertiary: #9a9a9f;
+
+  --crimson: #bc202f;
+  --crimson-hover: #a11b28;
+  --crimson-soft: #fbe9eb;
+  --on-crimson: #ffffff;
+
+  --sand: #e1d6b7;
+  --sand-soft: #f3eedf;
+  --gold: #8a6d12;
+  --gold-bright: #dec050;
+
+  --green: #1f7a45;
+  --green-soft: #e3f3e9;
+  --amber: #a14800;
+  --amber-soft: #fdeadb;
+  --blue: #1f5fae;
+  --blue-soft: #e6eefa;
+
+  --shadow-pass: 0 1px 2px rgb(0 0 0 / 0.04), 0 8px 24px rgb(0 0 0 / 0.06);
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ground: #000000;
+    --surface: #1c1c1e;
+    --fill: #2c2c2e;
+    --fill-strong: #3a3a3c;
+    --separator: rgb(255 255 255 / 0.12);
+    --text: #f2f2f3;
+    --secondary: #a1a1a6;
+    --tertiary: #75757a;
+
+    --crimson: #f0606c;
+    --crimson-hover: #f47b85;
+    --crimson-soft: #3a1418;
+    --on-crimson: #1a0507;
+
+    --sand: #4a4231;
+    --sand-soft: #2a261c;
+    --gold: #e8cb6a;
+    --gold-bright: #dec050;
+
+    --green: #5fd38d;
+    --green-soft: #12301f;
+    --amber: #ff9e57;
+    --amber-soft: #3a2010;
+    --blue: #7fb0f5;
+    --blue-soft: #172538;
+
+    --shadow-pass: 0 0 0 1px rgb(255 255 255 / 0.06);
+    color-scheme: dark;
+  }
+}
+
+@theme inline {
+  --color-ground: var(--ground);
+  --color-surface: var(--surface);
+  --color-fill: var(--fill);
+  --color-fill-strong: var(--fill-strong);
+  --color-separator: var(--separator);
+  --color-text: var(--text);
+  --color-secondary: var(--secondary);
+  --color-tertiary: var(--tertiary);
+  --color-crimson: var(--crimson);
+  --color-crimson-hover: var(--crimson-hover);
+  --color-crimson-soft: var(--crimson-soft);
+  --color-on-crimson: var(--on-crimson);
+  --color-sand: var(--sand);
+  --color-sand-soft: var(--sand-soft);
+  --color-gold: var(--gold);
+  --color-gold-bright: var(--gold-bright);
+  --color-green: var(--green);
+  --color-green-soft: var(--green-soft);
+  --color-amber: var(--amber);
+  --color-amber-soft: var(--amber-soft);
+  --color-blue: var(--blue);
+  --color-blue-soft: var(--blue-soft);
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI Variable Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --shadow-pass: var(--shadow-pass);
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background: var(--ground);
+  color: var(--text);
+  caret-color: var(--crimson);
+  font-feature-settings: "tnum" 1;
+  letter-spacing: -0.006em;
+}
+
+::selection {
+  background: var(--crimson-soft);
+  color: var(--text);
+}
+
+a {
+  text-underline-offset: 3px;
+}
+
+:focus-visible {
+  outline: 2px solid var(--crimson);
+  outline-offset: 2px;
+}
+
+* {
+  scrollbar-color: var(--fill-strong) transparent;
+}
+
+/* The one authored moment: the check-in confirmation mark draws itself. */
+@keyframes draw-check {
+  from {
+    stroke-dashoffset: 24;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes pop-in {
+  from {
+    transform: scale(0.6);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+.confirm-mark {
+  animation: pop-in 320ms cubic-bezier(0.2, 0.9, 0.3, 1.2) both;
+}
+.confirm-mark path {
+  stroke-dasharray: 24;
+  animation: draw-check 360ms 140ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .confirm-mark,
+  .confirm-mark path {
+    animation: none;
+  }
+}
+
+.leaflet-container {
+  z-index: 0;
+  font: inherit;
+}

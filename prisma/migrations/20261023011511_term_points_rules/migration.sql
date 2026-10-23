@@ -1,0 +1,5 @@
+-- AlterTable
+ALTER TABLE "Term" ADD COLUMN     "defaultEventPoints" INTEGER NOT NULL DEFAULT 3,
+ADD COLUMN     "lateDropHours" INTEGER NOT NULL DEFAULT 24,
+ADD COLUMN     "noShowPenalty" INTEGER NOT NULL DEFAULT -1;
+

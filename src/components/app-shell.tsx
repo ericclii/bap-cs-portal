@@ -1,0 +1,73 @@
+import Link from "next/link";
+import type { ReactNode } from "react";
+import type { CurrentUser } from "@/server/session";
+import { NavLink } from "./nav-link";
+import { UserMenu } from "./user-menu";
+
+export function Mark({ size = 30 }: { size?: number }) {
+  return (
+    <span
+      aria-hidden
+      className="grid shrink-0 place-items-center rounded-[9px] bg-crimson font-bold tracking-[-0.02em] text-on-crimson"
+      style={{ width: size, height: size, fontSize: Math.round(size * 0.37) }}
+    >
+      ΒΑΨ
+    </span>
+  );
+}
+
+export function Logo() {
+  return (
+    <Link href="/" className="flex items-center gap-2.5 rounded-lg">
+      <Mark />
+      <span className="text-[15px] font-semibold tracking-[-0.01em]">Community Service</span>
+    </Link>
+  );
+}
+
+export function AppShell({
+  user,
+  children,
+  wide,
+  subnav,
+}: {
+  user: CurrentUser | null;
+  children: ReactNode;
+  wide?: boolean;
+  subnav?: ReactNode;
+}) {
+  const width = wide ? "max-w-5xl" : "max-w-xl";
+  return (
+    <>
+      <header className="sticky top-0 z-30 border-b border-separator bg-ground/95 pt-[env(safe-area-inset-top)] backdrop-saturate-150">
+        <div className={`mx-auto flex h-14 items-center justify-between gap-4 px-4 ${width}`}>
+          <Logo />
+          {user ? (
+            <nav className="flex items-center gap-1" aria-label="Main">
+              {user.role && (
+                <span className="hidden sm:contents">
+                  <NavLink href="/" exact>My service</NavLink>
+                  <NavLink href="/committee">Committee</NavLink>
+                </span>
+              )}
+              <UserMenu user={user} />
+            </nav>
+          ) : (
+            <Link href="/signin" className="text-[15px] font-semibold text-crimson">Sign in</Link>
+          )}
+        </div>
+        {subnav && (
+          <div className={`mx-auto px-4 pb-2.5 ${width}`}>
+            <div
+              className="-mx-1 flex gap-1 overflow-x-auto px-1 pr-8 [scrollbar-width:none] sm:pr-1 [&::-webkit-scrollbar]:hidden"
+              style={{ maskImage: "linear-gradient(to right, black calc(100% - 32px), transparent)" }}
+            >
+              {subnav}
+            </div>
+          </div>
+        )}
+      </header>
+      <main className={`mx-auto w-full flex-1 px-4 pt-6 pb-[calc(env(safe-area-inset-bottom)+3rem)] ${width}`}>{children}</main>
+    </>
+  );
+}

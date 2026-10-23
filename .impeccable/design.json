@@ -1,0 +1,615 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-22T00:00:00Z",
+  "title": "Design System: BAP Community Service",
+  "extensions": {
+    "colorMeta": {
+      "crimson": {
+        "role": "primary",
+        "displayName": "BAP Crimson",
+        "canonical": "#bc202f",
+        "dark": "#f0606c",
+        "tonalRamp": [
+          "#410b10",
+          "#6d131b",
+          "#9d1b27",
+          "#cd2333",
+          "#e04857",
+          "#e97c87",
+          "#f2b5bb",
+          "#fbe9eb"
+        ],
+        "note": "The only action color and the today marker."
+      },
+      "crimson-hover": {
+        "role": "primary",
+        "displayName": "Crimson Pressed",
+        "canonical": "#a11b28",
+        "dark": "#f47b85",
+        "tonalRamp": [
+          "#410b10",
+          "#6d131b",
+          "#9d1b27",
+          "#cd2333",
+          "#e04857",
+          "#e97c87",
+          "#f2b5bb",
+          "#fbe9eb"
+        ]
+      },
+      "crimson-soft": {
+        "role": "primary",
+        "displayName": "Crimson Wash",
+        "canonical": "#fbe9eb",
+        "dark": "#3a1418",
+        "tonalRamp": [
+          "#410b10",
+          "#6d131b",
+          "#9d1b27",
+          "#cd2333",
+          "#e04857",
+          "#e97c87",
+          "#f2b5bb",
+          "#fbe9eb"
+        ]
+      },
+      "on-crimson": {
+        "role": "primary",
+        "displayName": "On Crimson",
+        "canonical": "#ffffff",
+        "dark": "#1a0507",
+        "tonalRamp": [
+          "#252528",
+          "#3d3d42",
+          "#58585f",
+          "#73737d",
+          "#909098",
+          "#afafb6",
+          "#d2d2d5",
+          "#f2f2f3"
+        ]
+      },
+      "sand": {
+        "role": "secondary",
+        "displayName": "Chapter Sand",
+        "canonical": "#e1d6b7",
+        "dark": "#4a4231",
+        "tonalRamp": [
+          "#362e17",
+          "#5a4c26",
+          "#826e36",
+          "#a98f46",
+          "#c0a968",
+          "#d2c293",
+          "#e6dcc2",
+          "#f7f5ed"
+        ]
+      },
+      "sand-soft": {
+        "role": "secondary",
+        "displayName": "Chapter Sand Soft",
+        "canonical": "#f3eedf",
+        "dark": "#2a261c",
+        "tonalRamp": [
+          "#362e17",
+          "#5a4c26",
+          "#826e36",
+          "#a98f46",
+          "#c0a968",
+          "#d2c293",
+          "#e6dcc2",
+          "#f7f5ed"
+        ]
+      },
+      "gold": {
+        "role": "secondary",
+        "displayName": "Requirement Gold",
+        "canonical": "#8a6d12",
+        "dark": "#e8cb6a",
+        "tonalRamp": [
+          "#443509",
+          "#71590f",
+          "#a28015",
+          "#d4a71c",
+          "#e6be42",
+          "#edd178",
+          "#f5e5b2",
+          "#fcf7e8"
+        ],
+        "note": "Text-safe gold for met totals and sand pills."
+      },
+      "gold-bright": {
+        "role": "secondary",
+        "displayName": "Gold Bright",
+        "canonical": "#dec050",
+        "dark": "#dec050",
+        "tonalRamp": [
+          "#40350c",
+          "#6b5914",
+          "#9a801d",
+          "#caa726",
+          "#ddbe4b",
+          "#e7d17e",
+          "#f1e5b6",
+          "#fbf7ea"
+        ],
+        "note": "Progress fill once the requirement is met."
+      },
+      "green": {
+        "role": "tertiary",
+        "displayName": "Confirmed Green",
+        "canonical": "#1f7a45",
+        "dark": "#5fd38d",
+        "tonalRamp": [
+          "#0f3d22",
+          "#1a6639",
+          "#259253",
+          "#31bf6c",
+          "#54d489",
+          "#85e0ab",
+          "#baedcf",
+          "#ebfaf1"
+        ]
+      },
+      "green-soft": {
+        "role": "tertiary",
+        "displayName": "Confirmed Green Soft",
+        "canonical": "#e3f3e9",
+        "dark": "#12301f",
+        "tonalRamp": [
+          "#0f3d22",
+          "#1a6639",
+          "#259253",
+          "#31bf6c",
+          "#54d489",
+          "#85e0ab",
+          "#baedcf",
+          "#ebfaf1"
+        ]
+      },
+      "amber": {
+        "role": "tertiary",
+        "displayName": "Warning Amber",
+        "canonical": "#a14800",
+        "dark": "#ff9e57",
+        "tonalRamp": [
+          "#4c2200",
+          "#803900",
+          "#b85200",
+          "#f06b00",
+          "#ff8929",
+          "#ffaa66",
+          "#ffcfa8",
+          "#fff1e5"
+        ],
+        "note": "Distinct orange warning tone; not burnt orange #C94817."
+      },
+      "amber-soft": {
+        "role": "tertiary",
+        "displayName": "Warning Amber Soft",
+        "canonical": "#fdeadb",
+        "dark": "#3a2010",
+        "tonalRamp": [
+          "#4c2200",
+          "#803900",
+          "#b85200",
+          "#f06b00",
+          "#ff8929",
+          "#ffaa66",
+          "#ffcfa8",
+          "#fff1e5"
+        ]
+      },
+      "blue": {
+        "role": "tertiary",
+        "displayName": "Info Blue",
+        "canonical": "#1f5fae",
+        "dark": "#7fb0f5",
+        "tonalRamp": [
+          "#0c2341",
+          "#133b6c",
+          "#1c559c",
+          "#246fcb",
+          "#498cdf",
+          "#7dade8",
+          "#b5d0f2",
+          "#e9f1fb"
+        ]
+      },
+      "blue-soft": {
+        "role": "tertiary",
+        "displayName": "Info Blue Soft",
+        "canonical": "#e6eefa",
+        "dark": "#172538",
+        "tonalRamp": [
+          "#0c2341",
+          "#133b6c",
+          "#1c559c",
+          "#246fcb",
+          "#498cdf",
+          "#7dade8",
+          "#b5d0f2",
+          "#e9f1fb"
+        ]
+      },
+      "charcoal": {
+        "role": "neutral",
+        "displayName": "Charcoal",
+        "canonical": "#2e2e2e",
+        "dark": "#f2f2f3",
+        "tonalRamp": [
+          "#262626",
+          "#404040",
+          "#5c5c5c",
+          "#787878",
+          "#949494",
+          "#b2b2b2",
+          "#d4d4d4",
+          "#f2f2f2"
+        ],
+        "note": "CSS variable --text."
+      },
+      "secondary": {
+        "role": "neutral",
+        "displayName": "Slate Secondary",
+        "canonical": "#6b6b70",
+        "dark": "#a1a1a6",
+        "tonalRamp": [
+          "#252528",
+          "#3d3d42",
+          "#58585f",
+          "#73737d",
+          "#909098",
+          "#afafb6",
+          "#d2d2d5",
+          "#f2f2f3"
+        ]
+      },
+      "tertiary": {
+        "role": "neutral",
+        "displayName": "Mist Tertiary",
+        "canonical": "#9a9a9f",
+        "dark": "#75757a",
+        "tonalRamp": [
+          "#252528",
+          "#3d3d42",
+          "#58585f",
+          "#73737d",
+          "#909098",
+          "#afafb6",
+          "#d2d2d5",
+          "#f2f2f3"
+        ],
+        "note": "Glyphs and placeholders only."
+      },
+      "fill-strong": {
+        "role": "neutral",
+        "displayName": "Fill Strong",
+        "canonical": "#dcdcdf",
+        "dark": "#3a3a3c",
+        "tonalRamp": [
+          "#252528",
+          "#3d3d42",
+          "#58585f",
+          "#73737d",
+          "#909098",
+          "#afafb6",
+          "#d2d2d5",
+          "#f2f2f3"
+        ]
+      },
+      "fill": {
+        "role": "neutral",
+        "displayName": "Fill",
+        "canonical": "#e9e9eb",
+        "dark": "#2c2c2e",
+        "tonalRamp": [
+          "#252528",
+          "#3d3d42",
+          "#58585f",
+          "#73737d",
+          "#909098",
+          "#afafb6",
+          "#d2d2d5",
+          "#f2f2f3"
+        ]
+      },
+      "ground": {
+        "role": "neutral",
+        "displayName": "Grouped Ground",
+        "canonical": "#f2f2f3",
+        "dark": "#000000",
+        "tonalRamp": [
+          "#252528",
+          "#3d3d42",
+          "#58585f",
+          "#73737d",
+          "#909098",
+          "#afafb6",
+          "#d2d2d5",
+          "#f2f2f3"
+        ]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Group Surface",
+        "canonical": "#ffffff",
+        "dark": "#1c1c1e",
+        "tonalRamp": [
+          "#252528",
+          "#3d3d42",
+          "#58585f",
+          "#73737d",
+          "#909098",
+          "#afafb6",
+          "#d2d2d5",
+          "#f2f2f3"
+        ]
+      },
+      "separator": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "rgb(46 46 46 / 0.12)",
+        "dark": "rgb(255 255 255 / 0.12)",
+        "tonalRamp": [
+          "#252528",
+          "#3d3d42",
+          "#58585f",
+          "#73737d",
+          "#909098",
+          "#afafb6",
+          "#d2d2d5",
+          "#f2f2f3"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Large Title",
+        "purpose": "iOS large page title; 26px compact variant on committee event consoles."
+      },
+      "headline": {
+        "displayName": "Pass Title",
+        "purpose": "Event title on the event pass."
+      },
+      "stat": {
+        "displayName": "Stat",
+        "purpose": "Points total; date-tile day numbers scale 17/20/28px semibold."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Group headers, empty-state titles, wordmark."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Row titles, inputs, list content; buttons 13/15/17px semibold by size."
+      },
+      "footnote": {
+        "displayName": "Footnote",
+        "purpose": "Subtitles, footers, labels, hints (13px); pass metadata at 14px."
+      },
+      "label": {
+        "displayName": "Pill Label",
+        "purpose": "Status pills. Date-tile month is the only uppercase label (700, 10px, wide tracking)."
+      }
+    },
+    "shadows": [
+      {
+        "name": "pass-lift",
+        "value": "0 1px 2px rgb(0 0 0 / 0.04), 0 8px 24px rgb(0 0 0 / 0.06)",
+        "dark": "0 0 0 1px rgb(255 255 255 / 0.06)",
+        "purpose": "The event pass only (CSS variable --shadow-pass)."
+      },
+      {
+        "name": "menu-float",
+        "value": "0 10px 40px rgb(0 0 0 / 0.16)",
+        "purpose": "Account dropdown, paired with a hairline ring."
+      },
+      {
+        "name": "segment-thumb",
+        "value": "0 1px 3px rgb(0 0 0 / 0.12)",
+        "purpose": "Selected segment in the segmented control."
+      },
+      {
+        "name": "switch-knob",
+        "value": "0 2px 4px rgb(0 0 0 / 0.18)",
+        "purpose": "Toggle switch knob."
+      }
+    ],
+    "motion": [
+      {
+        "name": "state-transition",
+        "value": "150ms",
+        "purpose": "Background, color and shadow changes on buttons, rows, inputs, nav; press scales to 0.98."
+      },
+      {
+        "name": "switch-transition",
+        "value": "200ms",
+        "purpose": "Toggle track color and knob travel."
+      },
+      {
+        "name": "progress-fill",
+        "value": "500ms ease-out",
+        "purpose": "Points progress bar width."
+      },
+      {
+        "name": "confirm-pop",
+        "value": "320ms cubic-bezier(0.2, 0.9, 0.3, 1.2)",
+        "purpose": "Check-in confirmation circle scales 0.6 to 1 and fades in. Part of the one authored animation."
+      },
+      {
+        "name": "confirm-draw",
+        "value": "360ms 140ms cubic-bezier(0.22, 1, 0.36, 1)",
+        "purpose": "Check stroke draws itself (dashoffset 24 to 0). Disabled under prefers-reduced-motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "column",
+        "value": "576px"
+      },
+      {
+        "name": "column-wide",
+        "value": "1024px"
+      }
+    ],
+    "focus": {
+      "value": "2px solid crimson, offset 2px",
+      "purpose": "Global :focus-visible ring; inputs use a 2px crimson ring at 40%."
+    }
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The one crimson action per view; large size goes full width on the pass.",
+      "html": "<button class=\"ds-btn ds-btn-primary\">Check in</button>",
+      "css": ".ds-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 16px;border:none;border-radius:9999px;font:600 15px/1 -apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"Segoe UI Variable Text\", \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif;letter-spacing:-0.006em;white-space:nowrap;cursor:pointer;transition:background-color 150ms,transform 150ms;}.ds-btn:active{transform:scale(0.98);}.ds-btn:focus-visible{outline:2px solid var(--crimson,#bc202f);outline-offset:2px;}.ds-btn-primary{background:var(--crimson,#bc202f);color:var(--on-crimson,#fff);}.ds-btn-primary:hover{background:var(--crimson-hover,#a11b28);}"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Grey pill for every non-primary action.",
+      "html": "<button class=\"ds-btn ds-btn-secondary\">Open to check out</button>",
+      "css": ".ds-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 16px;border:none;border-radius:9999px;font:600 15px/1 -apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"Segoe UI Variable Text\", \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif;letter-spacing:-0.006em;white-space:nowrap;cursor:pointer;transition:background-color 150ms,transform 150ms;}.ds-btn:active{transform:scale(0.98);}.ds-btn:focus-visible{outline:2px solid var(--crimson,#bc202f);outline-offset:2px;}.ds-btn-secondary{background:var(--fill,#e9e9eb);color:var(--text,#2e2e2e);}.ds-btn-secondary:hover{background:var(--fill-strong,#dcdcdf);}"
+    },
+    {
+      "name": "Plain Button",
+      "kind": "button",
+      "refersTo": "button-plain",
+      "description": "Crimson label without fill for inline row actions.",
+      "html": "<button class=\"ds-btn ds-btn-plain\">Undo check-in</button>",
+      "css": ".ds-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 16px;border:none;border-radius:9999px;font:600 15px/1 -apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"Segoe UI Variable Text\", \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif;letter-spacing:-0.006em;white-space:nowrap;cursor:pointer;transition:background-color 150ms,transform 150ms;}.ds-btn:active{transform:scale(0.98);}.ds-btn:focus-visible{outline:2px solid var(--crimson,#bc202f);outline-offset:2px;}.ds-btn-plain{background:transparent;color:var(--crimson,#bc202f);}.ds-btn-plain:hover{background:var(--crimson-soft,#fbe9eb);}"
+    },
+    {
+      "name": "Inline Confirmation",
+      "kind": "custom",
+      "refersTo": "button-destructive",
+      "description": "Armed state of the two-step Confirm Button that replaces confirm() dialogs.",
+      "html": "<span class=\"ds-confirm\"><button class=\"ds-btn ds-btn-sm ds-btn-secondary\">Cancel</button><button class=\"ds-btn ds-btn-sm ds-btn-destructive\">Remove</button></span>",
+      "css": ".ds-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 16px;border:none;border-radius:9999px;font:600 15px/1 -apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"Segoe UI Variable Text\", \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif;letter-spacing:-0.006em;white-space:nowrap;cursor:pointer;transition:background-color 150ms,transform 150ms;}.ds-btn:active{transform:scale(0.98);}.ds-btn:focus-visible{outline:2px solid var(--crimson,#bc202f);outline-offset:2px;}.ds-confirm{display:inline-flex;gap:6px;align-items:center;}.ds-btn-sm{height:32px;padding:0 14px;font-size:13px;}.ds-btn-secondary{background:var(--fill,#e9e9eb);color:var(--text,#2e2e2e);}.ds-btn-secondary:hover{background:var(--fill-strong,#dcdcdf);}.ds-btn-destructive{background:var(--fill,#e9e9eb);color:var(--crimson,#bc202f);}.ds-btn-destructive:hover{background:var(--crimson-soft,#fbe9eb);}"
+    },
+    {
+      "name": "Filled Input",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Borderless filled field; lifts to surface with a crimson ring on focus.",
+      "html": "<input class=\"ds-input\" placeholder=\"Add by NetID\" />",
+      "css": ".ds-input{display:block;width:100%;border:none;border-radius:12px;background:var(--fill,#e9e9eb);padding:10px 14px;font:400 15px/1.3 -apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"Segoe UI Variable Text\", \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif;color:var(--text,#2e2e2e);outline:none;transition:box-shadow 150ms;}.ds-input::placeholder{color:var(--tertiary,#9a9a9f);}.ds-input:focus{background:var(--surface,#fff);box-shadow:0 0 0 2px rgb(188 32 47 / 0.4);}"
+    },
+    {
+      "name": "Status Pills",
+      "kind": "chip",
+      "refersTo": "pill-green",
+      "description": "Soft-tinted 24px pills for status by tone.",
+      "html": "<span class=\"ds-pill ds-pill-green\">Confirmed</span> <span class=\"ds-pill ds-pill-amber\">Waitlist #1</span> <span class=\"ds-pill ds-pill-blue\">Signed up</span> <span class=\"ds-pill ds-pill-crimson\">Live</span> <span class=\"ds-pill ds-pill-neutral\">Not a candidate</span>",
+      "css": ".ds-pill{display:inline-flex;align-items:center;height:24px;padding:0 10px;border-radius:9999px;font:600 12px/1 -apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"Segoe UI Variable Text\", \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif;white-space:nowrap;}.ds-pill-green{background:var(--green-soft,#e3f3e9);color:var(--green,#1f7a45);}.ds-pill-amber{background:var(--amber-soft,#fdeadb);color:var(--amber,#a14800);}.ds-pill-blue{background:var(--blue-soft,#e6eefa);color:var(--blue,#1f5fae);}.ds-pill-crimson{background:var(--crimson-soft,#fbe9eb);color:var(--crimson,#bc202f);}.ds-pill-neutral{background:var(--fill,#e9e9eb);color:var(--secondary,#6b6b70);}"
+    },
+    {
+      "name": "Grouped List",
+      "kind": "card",
+      "refersTo": "group",
+      "description": "White inset group with hairline-separated rows, date tiles and chevrons.",
+      "html": "<div class=\"ds-group\"><a class=\"ds-row\" href=\"#\"><span class=\"ds-tile ds-tile-today\"><b>Oct</b><i>22</i></span><span class=\"ds-row-text\"><span class=\"ds-row-title\">Food pantry packing</span><span class=\"ds-row-sub\">Thu, Oct 22 · 9:44 PM – 12:44 AM</span></span><svg viewBox=\"0 0 16 16\" width=\"16\" height=\"16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"ds-chev\"><path d=\"M6 3.5 10.5 8 6 12.5\"/></svg></a><a class=\"ds-row\" href=\"#\"><span class=\"ds-tile\"><b>Oct</b><i>26</i></span><span class=\"ds-row-text\"><span class=\"ds-row-title\">Park cleanup</span><span class=\"ds-row-sub\">3 pts · closes tomorrow</span></span><svg viewBox=\"0 0 16 16\" width=\"16\" height=\"16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"ds-chev\"><path d=\"M6 3.5 10.5 8 6 12.5\"/></svg></a></div>",
+      "css": ".ds-group{overflow:hidden;border-radius:16px;background:var(--surface,#fff);font-family:-apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"Segoe UI Variable Text\", \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif;color:var(--text,#2e2e2e);font-feature-settings:'tnum' 1;}.ds-row{display:flex;align-items:center;gap:12px;min-height:56px;padding:12px 16px;color:inherit;text-decoration:none;transition:background-color 150ms;}.ds-row+.ds-row{border-top:1px solid var(--separator,rgb(46 46 46 / 0.12));}.ds-row:hover{background:rgb(233 233 235 / 0.6);}.ds-row:focus-visible{outline:2px solid var(--crimson,#bc202f);outline-offset:-2px;}.ds-row-text{flex:1;min-width:0;display:flex;flex-direction:column;}.ds-row-title{font-size:15px;font-weight:500;line-height:1.375;}.ds-row-sub{margin-top:2px;font-size:13px;line-height:1.375;color:var(--secondary,#6b6b70);}.ds-chev{color:var(--tertiary,#9a9a9f);flex-shrink:0;}.ds-tile{display:flex;flex-direction:column;align-items:center;justify-content:center;width:40px;height:40px;border-radius:12px;background:var(--surface,#fff);box-shadow:0 0 0 1px var(--separator,rgb(46 46 46 / 0.12));line-height:1;flex-shrink:0;}.ds-tile b{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.025em;color:var(--secondary,#6b6b70);}.ds-tile i{font-style:normal;margin-top:2px;font-size:17px;font-weight:600;}.ds-tile-today{box-shadow:0 0 0 1px rgb(188 32 47 / 0.35);}.ds-tile-today b,.ds-tile-today i{color:var(--crimson,#bc202f);}"
+    },
+    {
+      "name": "Event Pass",
+      "kind": "custom",
+      "refersTo": "event-pass",
+      "description": "Wallet-style pass: date tile, title, time and place, stub status, one full-width action.",
+      "html": "<article class=\"ds-pass\"><div class=\"ds-pass-head\"><span class=\"ds-ptile\"><b>Oct</b><i>22</i></span><div><h2>Food pantry packing</h2><p>Father's Heart Ministries</p></div></div><dl><div><svg viewBox=\"0 0 24 24\" width=\"16\" height=\"16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"M12 6v6l4 2\"/></svg><dd>Thu, Oct 22 · 9:22 PM – 12:22 AM</dd></div><div><svg viewBox=\"0 0 24 24\" width=\"16\" height=\"16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z\"/><circle cx=\"12\" cy=\"10\" r=\"3\"/></svg><dd>Father's Heart food pantry</dd></div></dl><div class=\"ds-pass-status\"><span class=\"ds-dot\"></span>Check-in is open<span class=\"ds-pass-detail\">Tap when you arrive</span></div><button class=\"ds-pass-btn\">Check in</button></article>",
+      "css": ".ds-pass{border-radius:22px;background:var(--surface,#fff);padding:16px;box-shadow:var(--shadow-pass,0 1px 2px rgb(0 0 0 / 0.04),0 8px 24px rgb(0 0 0 / 0.06));font-family:-apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"Segoe UI Variable Text\", \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif;color:var(--text,#2e2e2e);font-feature-settings:'tnum' 1;}.ds-pass-head{display:flex;gap:14px;align-items:flex-start;}.ds-pass h2{margin:2px 0 0;font-size:20px;font-weight:700;line-height:1.25;letter-spacing:-0.02em;}.ds-pass p{margin:2px 0 0;font-size:14px;color:var(--secondary,#6b6b70);}.ds-ptile{display:flex;flex-direction:column;align-items:center;justify-content:center;width:64px;height:64px;border-radius:12px;box-shadow:0 0 0 1px rgb(188 32 47 / 0.35);line-height:1;color:var(--crimson,#bc202f);flex-shrink:0;}.ds-ptile b{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.025em;}.ds-ptile i{font-style:normal;margin-top:2px;font-size:28px;font-weight:600;}.ds-pass dl{margin:16px 0 0;font-size:14px;}.ds-pass dl div{display:flex;align-items:center;gap:10px;margin-top:8px;}.ds-pass dl svg{color:var(--tertiary,#9a9a9f);flex-shrink:0;}.ds-pass dd{margin:0;}.ds-pass-status{display:flex;align-items:center;gap:8px;margin-top:16px;padding-top:16px;border-top:1px dashed var(--separator,rgb(46 46 46 / 0.12));font-size:15px;font-weight:600;color:var(--crimson,#bc202f);}.ds-dot{width:8px;height:8px;border-radius:9999px;background:currentColor;}.ds-pass-detail{margin-left:auto;font-size:13px;font-weight:400;color:var(--secondary,#6b6b70);}.ds-pass-btn{display:flex;width:100%;margin-top:16px;height:50px;align-items:center;justify-content:center;border:none;border-radius:9999px;background:var(--crimson,#bc202f);color:var(--on-crimson,#fff);font:600 17px/1 inherit;font-family:inherit;cursor:pointer;transition:background-color 150ms,transform 150ms;}.ds-pass-btn:hover{background:var(--crimson-hover,#a11b28);}.ds-pass-btn:active{transform:scale(0.98);}.ds-pass-btn:focus-visible{outline:2px solid var(--crimson,#bc202f);outline-offset:2px;}"
+    },
+    {
+      "name": "Committee Subnav",
+      "kind": "nav",
+      "refersTo": "nav-link-active",
+      "description": "Pill section links; charcoal active pill; crimson count badge.",
+      "html": "<nav class=\"ds-nav\"><a href=\"#\">Overview</a><a href=\"#\" aria-current=\"page\">Events</a><a href=\"#\">Reviews <span class=\"ds-badge\">10</span></a><a href=\"#\">Points</a></nav>",
+      "css": ".ds-nav{display:flex;gap:4px;font-family:-apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"Segoe UI Variable Text\", \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif;}.ds-nav a{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 12px;border-radius:9999px;font-size:14px;font-weight:500;color:var(--secondary,#6b6b70);text-decoration:none;white-space:nowrap;transition:background-color 150ms,color 150ms;}.ds-nav a:hover{background:var(--fill,#e9e9eb);color:var(--text,#2e2e2e);}.ds-nav a[aria-current=page]{background:var(--text,#2e2e2e);color:var(--ground,#f2f2f3);}.ds-nav a:focus-visible{outline:2px solid var(--crimson,#bc202f);outline-offset:2px;}.ds-badge{min-width:20px;padding:0 6px;border-radius:9999px;background:var(--crimson,#bc202f);color:var(--on-crimson,#fff);font-size:11px;font-weight:700;line-height:20px;text-align:center;}"
+    },
+    {
+      "name": "Segmented Control",
+      "kind": "nav",
+      "refersTo": "segmented",
+      "description": "In-page view switcher with a white thumb.",
+      "html": "<div class=\"ds-seg\" role=\"tablist\"><button aria-selected=\"true\">People</button><button>Selection</button><button disabled>Confirm points</button></div>",
+      "css": ".ds-seg{display:inline-flex;padding:2px;border-radius:10px;background:var(--fill,#e9e9eb);font-family:-apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"Segoe UI Variable Text\", \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif;}.ds-seg button{height:32px;padding:0 14px;border:none;border-radius:8px;background:transparent;font-size:13px;font-weight:600;color:var(--secondary,#6b6b70);cursor:pointer;transition:background-color 150ms,color 150ms,box-shadow 150ms;}.ds-seg button:hover{color:var(--text,#2e2e2e);}.ds-seg button[aria-selected=true]{background:var(--surface,#fff);color:var(--text,#2e2e2e);box-shadow:0 1px 3px rgb(0 0 0 / 0.12);}.ds-seg button:disabled{opacity:0.35;}.ds-seg button:focus-visible{outline:2px solid var(--crimson,#bc202f);outline-offset:2px;}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Native Pass",
+    "overview": "The category standard played straight. BAP Community Service looks and behaves like a well-made native event app: benchmarked against Luma for the event list and against Apple Wallet and iOS Settings for the pass, grouped lists, switches and segmented controls. Nothing on screen is there to be noticed; every screen leads with the one thing to do next, and the rest sits in quiet grouped lists below it.\n\nThe world is a neutral grey grouped ground carrying white inset groups divided by hairlines, charcoal text on a five-step neutral ramp, and exactly one voice of color: the crimson of nyubap.com, reserved for the action and for \"today\". Sand and gold appear only to mark an exception or a met requirement. Type is the platform's own system UI with tabular figures. Restraint is the aesthetic: less is more, one primary action per view, one authored animation in the whole product.\n\nDensity is phone-first and comfortable: a single 576px column for students, widening to 1024px only for committee tables and consoles. Dark mode is a full peer of light mode, inverted to an iOS-style black ground with raised dark-grey groups.",
+    "keyCharacteristics": [
+      "Grey ground, white inset groups, hairline separators; no card grids.",
+      "One crimson: primary buttons, today's date tile, live and focus state.",
+      "System UI type with tabular figures throughout; no web display face.",
+      "Pill buttons, filled inputs, segmented controls, iOS switches.",
+      "The event pass is the signature surface; its check-in confirmation mark is the only authored animation.",
+      "Inline two-step confirmation; never the browser's confirm() dialog."
+    ],
+    "rules": [
+      {
+        "name": "The One Crimson Rule",
+        "body": "Crimson means \"act here\" or \"this is today\". Exactly one crimson-filled primary button per view; everything else that acts is a plain crimson label or a grey secondary pill.",
+        "section": "colors"
+      },
+      {
+        "name": "The Earned Gold Rule",
+        "body": "Sand and gold never decorate. They appear only for an exception or a met requirement; the progress bar is charcoal at 70% until the requirement is met, then turns gold-bright.",
+        "section": "colors"
+      },
+      {
+        "name": "The No Burnt Orange Rule",
+        "body": "nyubap.com's burnt orange (#C94817) is not part of this palette. Warnings use amber, which is its own tone.",
+        "section": "colors"
+      },
+      {
+        "name": "The System Voice Rule",
+        "body": "Use the system UI stack only. No Poppins and no web display face; the app should feel like part of the phone.",
+        "section": "typography"
+      },
+      {
+        "name": "The Tabular Rule",
+        "body": "Every number (times, points, counts, dates) renders with tabular figures; it is set on the body, so do not turn it off.",
+        "section": "typography"
+      },
+      {
+        "name": "The Next Thing First Rule",
+        "body": "Every screen opens with the large title and then the single most relevant object (the pass, the points row, \"Needs attention\"), followed by grouped lists. Never open with a grid of summary cards.",
+        "section": "layout"
+      },
+      {
+        "name": "The Only The Pass Lifts Rule",
+        "body": "Groups, panels, empty states and date tiles never carry a shadow. If a new surface wants one, it is either a pass or a floating menu, or it stays flat.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do put exactly one crimson primary button in a view; make every other action a secondary pill or a plain crimson label.",
+      "Do build lists as white inset groups on the grey ground with hairline separators and 56px rows.",
+      "Do mark today on the date tile with crimson type and ring, never a crimson fill.",
+      "Do confirm risky actions inline with the two-step Confirm Button (Cancel / confirm label, 5-second disarm).",
+      "Do use amber for warnings and pending exceptions, green for confirmed, blue for neutral info.",
+      "Do reserve gold-bright and gold for a met requirement and sand for exception marks.",
+      "Do keep every number tabular and every icon a 2px line icon.",
+      "Do define every new color as a light and dark token pair in the global stylesheet."
+    ],
+    "donts": [
+      "Don't use the browser's confirm() or alert() dialogs.",
+      "Don't introduce burnt orange (#C94817), Poppins, or any web display face.",
+      "Don't add a second authored animation or decorative motion; state transitions stay at 150–200ms.",
+      "Don't lay out dashboards of summary cards or put shadows on groups and panels.",
+      "Don't use crimson for decoration, headings or category color.",
+      "Don't put small uppercase kickers or eyebrows above titles; the date tile's month is the only uppercase label.",
+      "Don't set readable text in the tertiary grey; it is for glyphs and placeholders."
+    ]
+  }
+}

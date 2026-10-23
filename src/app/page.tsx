@@ -1,0 +1,220 @@
+import { CalendarPlus, History as HistoryIcon } from "lucide-react";
+import Link from "next/link";
+import { redirect } from "next/navigation";
+import { AppShell } from "@/components/app-shell";
+import { EventPass } from "@/components/event-pass";
+import { DateTile, Empty, Group, LinkButton, PageTitle, Pill, Progress, Row, Section } from "@/components/ui";
+import { checkinWindowState, signupWindowState } from "@/lib/event-window";
+import { formatDate, formatDateTime, formatEventRange, formatTime, relativeDay } from "@/lib/time";
+import { getCurrentUser } from "@/server/session";
+import { listEventsForStudent } from "@/server/services/events";
+import { personHistory, totalPoints } from "@/server/services/points";
+import { isCandidate } from "@/server/services/roster";
+import { getCurrentTerm } from "@/server/services/terms";
+
+type Item = Awaited<ReturnType<typeof listEventsForStudent>>[number];
+
+export default async function HomePage() {
+  const user = await getCurrentUser();
+  if (!user) redirect("/signin");
+  const term = await getCurrentTerm();
+
+  if (!term) {
+    return (
+      <AppShell user={user}>
+        <Empty title="Not set up for this semester yet">
+          {user.role ? (
+            <>
+              Create the current term in <Link className="font-semibold text-crimson" href="/committee/settings">committee settings</Link>.
+            </>
+          ) : (
+            "Check back once the CS committee posts this semester's events."
+          )}
+        </Empty>
+      </AppShell>
+    );
+  }
+
+  const [items, points, candidate, history] = await Promise.all([
+    listEventsForStudent(user.id),
+    totalPoints(term.id, user.netId),
+    isCandidate(term.id, user.netId),
+    personHistory(term.id, user.netId),
+  ]);
+  const now = new Date();
+  const active = items.filter((i) => !i.event.canceledAt);
+  const mine = active.filter((i) => i.mine && ["APPLIED", "SELECTED", "WAITLISTED"].includes(i.mine.status) && i.event.endsAt >= now);
+  const confirmed = mine.filter((i) => i.mine!.status === "SELECTED");
+  const next = confirmed[0] ?? null;
+  const rest = mine.filter((i) => i !== next);
+  const open = active.filter((i) => !i.mine && i.event.startsAt > now && signupWindowState(i.event, now) === "open");
+  const soon = active.filter((i) => !i.mine && signupWindowState(i.event, now) === "before");
+  const pending = history.signups.filter((s) => s.status === "SELECTED" && !s.outcome && s.attendance);
+  const required = term.requiredPoints;
+
+  return (
+    <AppShell user={user}>
+      <div className="space-y-8">
+        <PageTitle title={`Hi, ${user.name.split(" ")[0]}`} subtitle={`${term.name}${candidate ? " · Candidate" : ""}`} />
+
+        <Group>
+          <div className="space-y-3 px-4 py-4">
+            <div className="flex items-baseline justify-between gap-3">
+              <span className="text-[15px] font-medium">CS points</span>
+              <span className="text-[15px] text-secondary tabular-nums">
+                <span className="text-[28px] leading-none font-bold tracking-[-0.02em] text-text">{points}</span>
+                {required != null && <> / {required}</>}
+              </span>
+            </div>
+            {required != null && <Progress value={points} max={required} label="CS points toward the requirement" />}
+            <p className="text-[13px] leading-snug text-secondary">
+              {required != null && points >= required
+                ? "Requirement met for this term. Nice work."
+                : pending.length > 0
+                  ? `${pending.length} attended ${pending.length === 1 ? "event" : "events"} waiting for the committee to confirm.`
+                  : candidate
+                    ? "Points update after the committee confirms each event."
+                    : "You're not on this term's candidate list, so you rank after candidates for spots."}
+            </p>
+          </div>
+        </Group>
+
+        {next && <NextPass item={next} now={now} />}
+
+        {rest.length > 0 && (
+          <Section title="Your events">
+            <Group>
+              {rest.map((i) => (
+                <Row
+                  key={i.event.id}
+                  href={`/events/${i.event.slug}`}
+                  leading={<DateTile date={i.event.startsAt} size="sm" />}
+                  title={i.event.title}
+                  subtitle={formatEventRange(i.event.startsAt, i.event.endsAt)}
+                  trailing={<MyStatus item={i} />}
+                  stackTrailing
+                  chevron
+                />
+              ))}
+            </Group>
+          </Section>
+        )}
+
+        <Section
+          title="Open for sign-up"
+          footer={open.length > 0 && soon.length > 0 ? `More opening soon: ${soon.map((i) => `${i.event.title} (${formatDateTime(i.event.signupOpensAt)})`).join(", ")}.` : undefined}
+        >
+          {open.length === 0 ? (
+            <Empty icon={<CalendarPlus className="h-7 w-7" aria-hidden />} title="Nothing open right now">
+              {soon.length > 0
+                ? `${soon.length} ${soon.length === 1 ? "event opens" : "events open"} soon. Next: ${soon[0].event.title}, ${formatDateTime(soon[0].event.signupOpensAt)}.`
+                : "New events are posted each week."}
+            </Empty>
+          ) : (
+            <Group>
+              {open.map((i) => (
+                <Row
+                  key={i.event.id}
+                  href={`/events/${i.event.slug}`}
+                  leading={<DateTile date={i.event.startsAt} size="sm" />}
+                  title={i.event.title}
+                  subtitle={`${i.event.points} pts · closes ${relativeDay(i.event.signupClosesAt, now)}`}
+                  chevron
+                />
+              ))}
+            </Group>
+          )}
+        </Section>
+
+        <History history={history} />
+      </div>
+    </AppShell>
+  );
+}
+
+function NextPass({ item, now }: { item: Item; now: Date }) {
+  const e = item.event;
+  const a = item.mine?.attendance;
+  const window = checkinWindowState(e, now);
+  const href = `/events/${e.slug}`;
+  let status: React.ReactNode;
+  let action: React.ReactNode;
+  if (a?.checkedOutAt) {
+    status = <StatusLine tone="green" label="Checked out" detail={`In ${formatTime(a.checkedInAt)} · out ${formatTime(a.checkedOutAt)}`} />;
+  } else if (a) {
+    status = <StatusLine tone="green" label="Checked in" detail={`Since ${formatTime(a.checkedInAt)}`} />;
+    action = <LinkButton href={href} size="lg" variant="secondary" className="w-full">Open to check out</LinkButton>;
+  } else if (window === "open") {
+    status = <StatusLine tone="crimson" label="Check-in is open" detail="Tap when you arrive" />;
+    action = <LinkButton href={href} size="lg" className="w-full">Check in</LinkButton>;
+  } else {
+    status = <StatusLine tone="green" label="You're confirmed" detail={`Check-in opens ${formatDate(new Date(e.startsAt.getTime() - e.checkinOpensMinBefore * 60_000))}, ${formatTime(new Date(e.startsAt.getTime() - e.checkinOpensMinBefore * 60_000))}`} />;
+  }
+  return (
+    <section aria-label="Your next event">
+      <EventPass event={e} href={href} status={status} action={action} />
+    </section>
+  );
+}
+
+function StatusLine({ tone, label, detail }: { tone: "green" | "crimson"; label: string; detail: string }) {
+  return (
+    <div className="flex items-center justify-between gap-3">
+      <span className={`flex items-center gap-2 text-[15px] font-semibold ${tone === "green" ? "text-green" : "text-crimson"}`}>
+        <span className={`h-2 w-2 rounded-full ${tone === "green" ? "bg-green" : "bg-crimson"}`} aria-hidden />
+        {label}
+      </span>
+      <span className="text-[13px] text-secondary">{detail}</span>
+    </div>
+  );
+}
+
+function MyStatus({ item }: { item: Item }) {
+  const s = item.mine!;
+  if (s.status === "SELECTED") return <Pill tone="green">Confirmed</Pill>;
+  if (s.status === "WAITLISTED") return <Pill tone="amber">Waitlist #{s.waitlistPos}</Pill>;
+  return <Pill tone="blue">Signed up</Pill>;
+}
+
+function History({ history }: { history: Awaited<ReturnType<typeof personHistory>> }) {
+  const past = history.signups.filter((s) => s.outcome || (s.wasSelected && s.event.endsAt < new Date()));
+  const rows = [
+    ...past.map((s) => ({
+      key: s.id,
+      date: s.event.startsAt,
+      title: s.event.title,
+      detail: s.outcome
+        ? { ATTENDED: "Attended", NO_SHOW: s.status === "DROPPED" ? "Late drop" : "No-show", EXCUSED: "Excused" }[s.outcome]
+        : s.attendance
+          ? "Attended · awaiting confirmation"
+          : "Awaiting confirmation",
+      points: s.outcome ? (s.points ?? 0) : null,
+    })),
+    ...history.adjustments.map((a) => ({ key: a.id, date: a.createdAt, title: a.reason, detail: "Added by the committee", points: a.points })),
+  ].sort((a, b) => b.date.getTime() - a.date.getTime());
+
+  return (
+    <Section title="History">
+      {rows.length === 0 ? (
+        <Empty icon={<HistoryIcon className="h-7 w-7" aria-hidden />} title="No points yet">
+          Events you attend show up here once the committee confirms them.
+        </Empty>
+      ) : (
+        <Group>
+          {rows.map((r) => (
+            <Row
+              key={r.key}
+              title={r.title}
+              subtitle={`${formatDate(r.date)} · ${r.detail}`}
+              trailing={
+                <span className={`text-[15px] font-semibold tabular-nums ${r.points == null ? "text-secondary" : r.points > 0 ? "text-green" : r.points < 0 ? "text-amber" : "text-secondary"}`}>
+                  {r.points == null ? "Pending" : `${r.points > 0 ? "+" : ""}${r.points}`}
+                </span>
+              }
+            />
+          ))}
+        </Group>
+      )}
+    </Section>
+  );
+}

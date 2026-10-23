@@ -1,0 +1,305 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ---------------------------------------------------------------------------
+// Auth (Better Auth core tables). Only NYU Google accounts can sign in.
+// `email` is always the canonical `netid@nyu.edu`, so an @stern.nyu.edu
+// sign-in resolves to the same person.
+// ---------------------------------------------------------------------------
+
+model User {
+  id            String    @id
+  name          String
+  email         String    @unique
+  emailVerified Boolean   @default(false)
+  image         String?
+  netId         String?   @unique
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  sessions      Session[]
+  accounts      Account[]
+
+  signups       Signup[]
+
+  @@map("user")
+}
+
+model Session {
+  id        String   @id
+  expiresAt DateTime
+  token     String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ipAddress String?
+  userAgent String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("session")
+}
+
+model Account {
+  id                    String    @id
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  @@index([userId])
+  @@map("account")
+}
+
+model Verification {
+  id         String   @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([identifier])
+  @@map("verification")
+}
+
+// ---------------------------------------------------------------------------
+// Committee, terms and the candidate roster. Everything is keyed by NetID so
+// people can be added before they ever sign in.
+// ---------------------------------------------------------------------------
+
+enum CommitteeRole {
+  CHAIR // manages the committee, terms and settings
+  MEMBER // runs events, selection, attendance and points
+}
+
+model CommitteeMember {
+  id        String        @id @default(cuid())
+  netId     String        @unique
+  role      CommitteeRole @default(MEMBER)
+  createdAt DateTime      @default(now())
+}
+
+model Term {
+  id             String            @id @default(cuid())
+  name           String            @unique // "Fall 2026"
+  isCurrent      Boolean           @default(false)
+  requiredPoints Int?
+  // Points rules for the term; chairs can change them between semesters.
+  defaultEventPoints Int           @default(3)
+  noShowPenalty      Int           @default(-1) // applied to no-shows and unexcused late drops
+  lateDropHours      Int           @default(24) // drops closer than this to the start are "late"
+  createdAt      DateTime          @default(now())
+  candidates     Candidate[]
+  events         Event[]
+  adjustments    PointAdjustment[]
+}
+
+model Candidate {
+  id        String   @id @default(cuid())
+  termId    String
+  term      Term     @relation(fields: [termId], references: [id], onDelete: Cascade)
+  netId     String
+  name      String?
+  createdAt DateTime @default(now())
+
+  @@unique([termId, netId])
+}
+
+// ---------------------------------------------------------------------------
+// Events, sign-ups and attendance.
+// ---------------------------------------------------------------------------
+
+enum CheckinMode {
+  LINK // check in from the event page (geofence only)
+  QR // also requires scanning the rotating QR shown on site
+}
+
+model Event {
+  id                    String       @id @default(cuid())
+  slug                  String       @unique
+  termId                String
+  term                  Term         @relation(fields: [termId], references: [id], onDelete: Restrict)
+  title                 String
+  partnerOrg            String?
+  description           String?
+  instructions          String? // what to wear/bring, where to meet
+  locationName          String?
+  address               String?
+  latitude              Float
+  longitude             Float
+  radiusMeters          Int          @default(150)
+  startsAt              DateTime
+  endsAt                DateTime
+  capacity              Int
+  points                Int          @default(3)
+  minMinutes            Int // minimum time on site before a normal check-out
+  signupOpensAt         DateTime
+  signupClosesAt        DateTime
+  checkinMode           CheckinMode  @default(LINK)
+  qrSecret              String
+  checkinOpensMinBefore Int          @default(30)
+  checkinClosesMinAfter Int          @default(60) // latest check-in, after the start
+  publishedAt           DateTime? // visible to students
+  selectionPublishedAt  DateTime?
+  reminderSentAt        DateTime?
+  finalizedAt           DateTime?
+  canceledAt            DateTime?
+  createdById           String?
+  createdAt             DateTime     @default(now())
+  updatedAt             DateTime     @updatedAt
+  signups               Signup[]
+  reviews               ReviewItem[]
+  adjustments           PointAdjustment[]
+
+  @@index([startsAt])
+}
+
+enum SignupStatus {
+  APPLIED // signed up, selection not published yet
+  SELECTED
+  WAITLISTED
+  DROPPED // withdrew (see droppedAt / lateDrop)
+  REMOVED // removed by the committee
+}
+
+enum Outcome {
+  ATTENDED
+  NO_SHOW
+  EXCUSED
+}
+
+model Signup {
+  id            String        @id @default(cuid())
+  eventId       String
+  event         Event         @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  userId        String
+  user          User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  netId         String
+  status        SignupStatus  @default(APPLIED)
+  waitlistPos   Int?
+  note          String? // optional note from the student at sign-up
+  droppedAt     DateTime?
+  dropReason    String?
+  lateDrop      Boolean       @default(false)
+  wasSelected   Boolean       @default(false) // ever confirmed for this event
+  // Set when the event is finalized (committee-confirmed).
+  outcome       Outcome?
+  points        Int?
+  outcomeNote   String?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  attendance    Attendance?
+  reviews       ReviewItem[]
+
+  @@unique([eventId, userId])
+  @@index([netId])
+}
+
+enum AttendanceMethod {
+  SELF // on the student's phone, location verified
+  COMMITTEE // marked by the committee (incl. approved review requests)
+}
+
+model Attendance {
+  id               String           @id @default(cuid())
+  signupId         String           @unique
+  signup           Signup           @relation(fields: [signupId], references: [id], onDelete: Cascade)
+  checkedInAt      DateTime
+  checkInMethod    AttendanceMethod
+  checkInLat       Float?
+  checkInLng       Float?
+  checkInAccuracyM Float?
+  checkInDistanceM Float?
+  checkInViaQr     Boolean          @default(false)
+  checkedOutAt     DateTime?
+  checkOutMethod   AttendanceMethod?
+  checkOutLat      Float?
+  checkOutLng      Float?
+  checkOutDistanceM Float?
+  earlyCheckout    Boolean          @default(false)
+  earlyReason      String?
+  lastSeenAt       DateTime? // best-effort presence while the page is open
+  lastSeenInside   Boolean?
+  leftAreaAt       DateTime?
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+}
+
+enum ReviewKind {
+  CHECKIN_LOCATION // couldn't verify location at check-in
+  CHECKOUT_LOCATION // couldn't verify location at check-out
+  EARLY_CHECKOUT // left before the minimum time
+}
+
+enum ReviewStatus {
+  OPEN
+  APPROVED
+  DENIED
+}
+
+model ReviewItem {
+  id           String       @id @default(cuid())
+  eventId      String
+  event        Event        @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  signupId     String
+  signup       Signup       @relation(fields: [signupId], references: [id], onDelete: Cascade)
+  kind         ReviewKind
+  status       ReviewStatus @default(OPEN)
+  message      String? // from the student
+  requestedAt  DateTime     @default(now())
+  latitude     Float?
+  longitude    Float?
+  accuracyM    Float?
+  distanceM    Float?
+  resolvedAt   DateTime?
+  resolvedBy   String? // NetID
+  resolution   String?
+
+  @@index([status])
+}
+
+model PointAdjustment {
+  id        String   @id @default(cuid())
+  termId    String
+  term      Term     @relation(fields: [termId], references: [id], onDelete: Cascade)
+  netId     String
+  points    Int
+  reason    String
+  eventId   String?
+  event     Event?   @relation(fields: [eventId], references: [id], onDelete: SetNull)
+  createdBy String? // NetID
+  createdAt DateTime @default(now())
+
+  @@index([termId, netId])
+}
+
+// Every email the portal sends (or logs, when SMTP isn't configured).
+model EmailMessage {
+  id        String    @id @default(cuid())
+  to        String
+  subject   String
+  body      String
+  kind      String
+  eventId   String?
+  status    String // sent | logged | failed
+  error     String?
+  createdAt DateTime  @default(now())
+  sentAt    DateTime?
+
+  @@index([eventId])
+}
