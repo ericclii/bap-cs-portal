@@ -11,18 +11,17 @@ export const metadata: Metadata = { title: "Points" };
 
 export default async function PointsPage() {
   const term = await getCurrentTerm();
-  if (!term) return <Empty title="Set up the current term first" action={<LinkButton href="/committee/settings">Settings</LinkButton>} />;
+  if (!term) return <Empty title="Set up the current term first" action={<LinkButton href="/committee/settings">Manage</LinkButton>} />;
   const [standings, user] = await Promise.all([termStandings(term.id), getCurrentUser()]);
 
   return (
     <div className="space-y-6">
       <PageTitle
         title="Points"
-        subtitle={`${term.name}${term.requiredPoints != null ? ` · ${term.requiredPoints} required` : ""}`}
+        subtitle={term.name}
       />
       <PointsManager
         standings={standings}
-        required={term.requiredPoints}
         isChair={user?.role === "CHAIR"}
         feedUrl={appUrl(`/api/feeds/points?token=${feedToken()}`)}
       />

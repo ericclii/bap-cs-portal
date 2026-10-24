@@ -237,7 +237,7 @@ Students use it on phones on the day; the committee works the same ledger on pho
 - State hues (green, amber, crest gold) appear as words, bare line icons and signed figures; never as dots and never as fills.
 - One filled crimson pill per view; every other action is text with a drawn underline.
 - Raleway for headings, the figure, the wordmark and date boxes; Cinzel only inside stamps; Lato for all UI text; tabular figures throughout; the 64px points figure is the only large type.
-- The milestone stamps and the event pass are the signature surfaces; the stamp landing is the one signature motion.
+- The checkpoint stamps and the event pass are the signature surfaces; the stamp landing is the one signature motion.
 - Inline two-step confirmation; never the browser's confirm() dialog.
 
 ## Colors
@@ -248,7 +248,7 @@ Crest colours on a warm tonal ramp: a light-grey ground, white surfaces, two dee
 - **Crest Crimson** (crimson): the primary pill, plain and destructive text actions, the back link, the "Sign in" link, the review count beside a nav tab, the switch's on state, the range progress and thumb, the focus ring and caret, error lines and alert notices, the next event's (or today's) date type, and every stamp. **Pressed Crimson** (crimson-hover) is primary hover. **Crimson Blush** (crimson-soft) is the ground of alert notices and of the next (or today's) date box, and the text-selection highlight. Text on crimson is **On Crimson** (on-crimson).
 
 ### Secondary
-- **Requirement Gold** (gold, gold-bright): earned and current. Gold-bright fills the points progress bar once the requirement is met and draws the active nav tab's underline; gold is the text of a met total in the committee's points table and of the exception pill.
+- **Standing Gold** (gold, gold-bright): earned and current. Gold-bright draws the active nav tab's underline; gold is the text of a met total in the committee's points table and of the exception pill.
 
 ### Tertiary (state)
 - **Confirmed Green** (green): checked in, confirmed, positive deltas.
@@ -258,7 +258,7 @@ All three appear as a short status word, a bare line icon or a signed figure; ne
 
 ### Neutral
 - **Charcoal Ink** (text): all primary text and secondary text actions; the time-on-site check-out tick; the unmet progress bar at 70%.
-- **Khaki Secondary** (secondary): subtitles, footnotes, field labels, inactive nav, neutral pills, open milestone figures, the "of 12 points" beside the figure.
+- **Khaki Secondary** (secondary): subtitles, footnotes, field labels, inactive nav, neutral pills, open milestone figures, the "points" beside the figure.
 - **Placeholder Khaki** (placeholder): every field placeholder, legible on the fill.
 - **Faint Khaki** (tertiary): chevrons and empty-state line icons only; never readable text.
 - **Crest Khaki** (rule): no longer a frame. Only the required stretch of the time-on-site bar and the scrollbar thumb.
@@ -281,14 +281,14 @@ All three appear as a short status word, a bare line icon or a signed figure; ne
 **Body Font:** Lato 400 and 700 (via next/font as `--font-lato`, exposed as `--font-sans`; same fallback)
 **Stamp Font:** Cinzel 700 (via next/font as `--font-cinzel`, exposed as `--font-seal`), used only inside stamps
 
-**Character:** An elegant geometric display face over a sturdy humanist sans. Every h1, h2 and h3 (page titles, section headings, the event title, the points figure and the "of 12 points" beside it), the wordmark, date boxes and stamps are Raleway; everything else is Lato. Spacing tightens slightly with size (-0.006em on body to -0.04em on the figure). Raleway defaults to old-style figures, so headings, `.font-display` and stamps set lining, tabular figures; the body sets tabular figures for points, times and counts. Lato ships only 400 and 700: a medium request renders regular and a semibold request renders bold, so UI text has exactly two weights.
+**Character:** An elegant geometric display face over a sturdy humanist sans. Every h1, h2 and h3 (page titles, section headings, the event title, the points figure and the "points" beside it), the wordmark, date boxes and stamps are Raleway; everything else is Lato. Spacing tightens slightly with size (-0.006em on body to -0.04em on the figure). Raleway defaults to old-style figures, so headings, `.font-display` and stamps set lining, tabular figures; the body sets tabular figures for points, times and counts. Lato ships only 400 and 700: a medium request renders regular and a semibold request renders bold, so UI text has exactly two weights.
 
 ### Hierarchy
 Roles are defined once as theme tokens in `globals.css`; screens use the role, not a literal size.
 - **Figure** (Raleway 800, 64px, 0.9, -0.04em, lining tabular): the student's points total, and nothing else.
 - **Display** (Raleway 700, 30px, 1.15): page titles (the committee term title, the event console, sign-in).
 - **Title** (Raleway 700, 20px, 1.25): section headings ("Open for sign-up", "History", "Next"), the event title on the pass.
-- **Headline** (17px, 1.3): in Raleway for the wordmark beside the seal and "of 12 points" inside the figure's heading; in Lato bold for status titles, large buttons and open milestone figures.
+- **Headline** (17px, 1.3): in Raleway for the wordmark beside the seal and "points" inside the figure's heading; in Lato bold for status titles, large buttons and open milestone figures.
 - **Body** (Lato 400, bold where emphasis is needed; 15px, 1.45): row titles, inputs, notices, nav tabs, pass metadata, prose.
 - **Footnote** (Lato, 13px, 1.4): row subtitles, field labels and hints, the time-on-site labels, small buttons, segments, the nav count.
 - **Caption** (Lato bold, 12px): pill labels and milestone names.
@@ -312,7 +312,7 @@ Rhythm is section-based: 32px between sections, 10px between a section heading a
 
 On touch screens every small control gets a 44px target through the `.hit` class (an invisible expanded hit area, look unchanged); segmented controls and selects grow to 40/44px; fields render at 16px on coarse pointers so iOS never zooms on focus. On phones a row's trailing status stacks under its subtitle; page-title actions wrap below the title.
 
-**The Next Thing First Rule.** Every screen opens with its title or figure and then the single most relevant object (the milestone stamps and next pass, "Needs attention"), followed by lists. Never open with a grid of summary cards.
+**The Next Thing First Rule.** Every screen opens with its title or figure and then the single most relevant object (the checkpoint stamps and next pass, "Needs attention"), followed by lists. Never open with a grid of summary cards.
 
 ## Elevation & Depth
 
@@ -371,8 +371,8 @@ A plain button that, when tapped, swaps in place for Cancel (secondary) and the 
 ### Date Box
 A printed-calendar box: fill ground, 12px radius, no ring, 10px uppercase month over the day number, at 40/48/64px. The next event's box (and today's) turns crimson blush with crimson type; never a solid crimson block. Past events grey the day.
 
-### Milestone Stamps (signature)
-The passbook page under the points figure: four 10px-radius boxes, one per milestone (Checkpoint Alpha 3, Checkpoint Bravo 6, Gold Standing 10, Platinum Standing 12), each captioned with its name in caption. A reached milestone is a white box carrying a crimson double-ring Raleway stamp (its points over its short name) at 80%, tilted on a fixed cycle (-9°, 5°, -3°, 8°). An unreached one is a fill box showing the points it needs in secondary headline. Individual events, no-shows and pending points live in History, not here.
+### Checkpoint Stamps (signature)
+The passbook page under the points figure: one 10px-radius box per checkpoint of the current term (a chair sets each one's name, points and due date under Manage; no date means the end of the semester), in due order, captioned with its name and "By Oct 24" or "End of semester". Up to five share a row (more wrap in fours; under 360px they wrap as they fit). A reached checkpoint is a white box with a crimson Cinzel double-ring stamp at 80% (its points over the day it was reached), tilted on a fixed cycle (-9°, 5°, -3°, 8°, -6°). One still ahead is a fill box showing its points in secondary; one whose date passed unreached shows its points and "Missed" in amber. Points have no cap; the figure reads "24 points", and the 56px seal appears beside it once every checkpoint is reached.
 
 ### Event Pass (signature)
 The event as a passbook entry: a white entry with the 64px date box beside the 20px title, time, place and partner; then the time on site drawn to scale (a fill track with the required stretch in crest khaki and an ink tick labelled "Check out from …"); a status line with a bare tone icon (or the stamp) and a headline title; then one full-width large action (Check in, or the secondary Open to check out). Used on home ("Next") and atop the event page.
@@ -390,7 +390,7 @@ One family of curves, all cubic-bezier: ease-out-expo and ease-out-quint. Tailwi
 - **Reduced motion:** the reveal and popover fall back to a plain opacity fade, the banner appears without sliding, the underline snaps and the stamp rests; the page fade stays.
 
 ### Crest Seal
-The chapter crest raster: 30px in the bar, 56px beside the figure once the requirement is met (and on the QR screen), 96px on sign-in, and the favicon and Apple touch icon. Always decorative next to words that name the app.
+The chapter crest raster: 30px in the bar, 56px beside the figure once every checkpoint is reached (and on the QR screen), 96px on sign-in, and the favicon and Apple touch icon. Always decorative next to words that name the app.
 
 ## Do's and Don'ts
 

@@ -40,7 +40,7 @@ export default async function CommitteeOverview() {
     <div className="space-y-8">
       <PageTitle
         title={term.name}
-        subtitle={`${candidates} candidates · ${events.length} events${term.requiredPoints != null ? ` · ${term.requiredPoints} points required` : ""}`}
+        subtitle={`${candidates} candidates · ${events.length} events`}
         actions={<LinkButton href="/committee/events/new">New event</LinkButton>}
       />
 

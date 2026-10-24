@@ -9,7 +9,7 @@ export const metadata: Metadata = { title: "Events" };
 
 export default async function CommitteeEventsPage() {
   const term = await getCurrentTerm();
-  if (!term) return <Empty title="Set up the current term first" action={<LinkButton href="/committee/settings">Settings</LinkButton>} />;
+  if (!term) return <Empty title="Set up the current term first" action={<LinkButton href="/committee/settings">Manage</LinkButton>} />;
   const events = await listEventsForCommittee();
   const now = new Date();
   const upcoming = events.filter((e) => e.endsAt >= now && !e.canceledAt);

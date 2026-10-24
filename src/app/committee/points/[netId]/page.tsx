@@ -28,7 +28,7 @@ export default async function PersonPointsPage({ params }: { params: Promise<{ n
       <BackLink href="/committee/points">Points</BackLink>
       <PageTitle
         title={name}
-        subtitle={<>{netId}@nyu.edu · {candidate ? "Candidate" : "Not a candidate"} · <span className="font-medium text-text">{total}</span>{term.requiredPoints != null && ` of ${term.requiredPoints}`} points in {term.name}{!user && " · hasn't signed in yet"}</>}
+        subtitle={<>{netId}@nyu.edu · {candidate ? "Candidate" : "Not a candidate"} · <span className="font-medium text-text">{total}</span> points in {term.name}{!user && " · hasn't signed in yet"}</>}
       />
       <section className="space-y-3">
         <h2 className="text-headline font-semibold">Events</h2>

@@ -13,6 +13,7 @@ import { randomBytes } from "node:crypto";
 import { PrismaPg } from "@prisma/adapter-pg";
 import { fromZonedTime } from "date-fns-tz";
 import { PrismaClient } from "../src/generated/prisma/client";
+import { dueDateToUtc } from "../src/lib/checkpoints";
 
 const STERN = { latitude: 40.72906, longitude: -73.99645 };
 
@@ -34,7 +35,21 @@ async function main() {
   try {
     let term = await db.term.findFirst({ where: { isCurrent: true } });
     if (!term) {
-      term = await db.term.create({ data: { name: "Fall 2026", requiredPoints: 12, isCurrent: true } });
+      term = await db.term.create({
+        data: {
+          name: "Fall 2026",
+          isCurrent: true,
+          checkpoints: {
+            create: [
+              { name: "Checkpoint Alpha", points: 3, dueAt: dueDateToUtc("2026-10-24") },
+              { name: "Checkpoint Bravo", points: 6, dueAt: dueDateToUtc("2026-11-14") },
+              { name: "Membership", points: 9 },
+              { name: "Gold Standing", points: 10 },
+              { name: "Platinum Standing", points: 12 },
+            ],
+          },
+        },
+      });
       console.log(`Created current term ${term.name}`);
     }
 

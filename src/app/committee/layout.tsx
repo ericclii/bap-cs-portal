@@ -17,7 +17,7 @@ export default async function CommitteeLayout({ children }: { children: React.Re
           <NavLink href="/committee/reviews" badge={openReviews}>Reviews</NavLink>
           <NavLink href="/committee/points">Points</NavLink>
           <NavLink href="/committee/candidates">Candidates</NavLink>
-          <NavLink href="/committee/settings">Settings</NavLink>
+          <NavLink href="/committee/settings">Manage</NavLink>
         </>
       }
     >

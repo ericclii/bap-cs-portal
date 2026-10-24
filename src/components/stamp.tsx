@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { type Checkpoint, checkpointStatus, formatDue } from "@/lib/checkpoints";
 import { cx } from "./ui";
 
 const STAMP_DATE = new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric", timeZone: "America/New_York" });
@@ -33,49 +34,46 @@ export function Stamp({ points, date, label, faint, className, children }: { poi
   );
 }
 
-/** The four standings a candidate stamps through on the way to the requirement. */
-export const MILESTONES = [
-  { name: "Checkpoint Alpha", short: "Alpha", points: 3 },
-  { name: "Checkpoint Bravo", short: "Bravo", points: 6 },
-  { name: "Gold Standing", short: "Gold", points: 10 },
-  { name: "Platinum Standing", short: "Platinum", points: 12 },
-] as const;
-
 /**
- * The passbook page: one box per milestone. A reached milestone is stamped;
- * the rest stay dashed, showing the points they need.
+ * The passbook page: one box per checkpoint. A reached checkpoint is stamped
+ * with its points and the day it was reached; one still ahead shows the points
+ * it needs; one that passed unreached says so.
  */
-export function MilestoneGrid({ points, reachedOn }: { points: number; reachedOn: (Date | null)[] }) {
-  const tilt = ["-rotate-[9deg]", "rotate-[5deg]", "-rotate-[3deg]", "rotate-[8deg]"];
+export function MilestoneGrid({ points, checkpoints, reachedOn }: { points: number; checkpoints: Checkpoint[]; reachedOn: (Date | null)[] }) {
+  const tilt = ["-rotate-[9deg]", "rotate-[5deg]", "-rotate-[3deg]", "rotate-[8deg]", "-rotate-[6deg]"];
+  const now = new Date();
   return (
-    <ol className="grid grid-cols-4 gap-2" aria-label="Milestones">
-      {MILESTONES.map((m, i) => {
-        const reached = points >= m.points;
+    // Up to five checkpoints share one row (more wrap in fours); the narrowest phones fit what they can.
+    <ol
+      className="grid grid-cols-[repeat(auto-fill,minmax(4.5rem,1fr))] gap-x-2 gap-y-4 min-[360px]:grid-cols-[repeat(var(--cols),minmax(0,1fr))]"
+      style={{ "--cols": checkpoints.length <= 5 ? checkpoints.length : 4 } as React.CSSProperties}
+      aria-label="Checkpoints"
+    >
+      {checkpoints.map((c, i) => {
+        const status = checkpointStatus(points, c, now);
         const on = reachedOn[i];
         return (
-          <li key={m.name} className="min-w-0 text-center">
+          <li key={c.id} className="min-w-0 text-center">
             <div
-              className={cx(
-                "grid aspect-square place-items-center rounded-[10px] transition-colors duration-300",
-                reached ? "bg-surface" : "bg-fill",
-              )}
-              title={reached && on ? `${m.name}, reached ${STAMP_DATE.format(on)}` : m.name}
+              className={cx("grid aspect-square place-items-center rounded-[10px] transition-colors duration-300", status === "passed" ? "bg-surface" : "bg-fill")}
+              title={status === "passed" && on ? `${c.name}, reached ${STAMP_DATE.format(on)}` : c.name}
             >
-              {reached ? (
-                <span className={cx("w-[80%]", tilt[i])}>
+              {status === "passed" ? (
+                <span className={cx("w-[80%]", tilt[i % tilt.length])}>
                   <Stamp>
-                    <span className="block text-[34cqw] font-bold">{m.points}</span>
-                    <span className="mt-[3cqw] block text-[11.5cqw] font-bold tracking-[0.04em] uppercase">{m.short}</span>
+                    <span className="block text-[34cqw] font-bold">{c.points}</span>
+                    {on && <span className="mt-[3cqw] block text-[12cqw] font-bold tracking-[0.04em] uppercase">{STAMP_DATE.format(on)}</span>}
                   </Stamp>
                 </span>
               ) : (
-                <span className="text-headline font-semibold text-secondary tabular-nums">{m.points}</span>
+                <span className={cx("text-headline font-semibold tabular-nums", status === "missed" ? "text-amber" : "text-secondary")}>{c.points}</span>
               )}
             </div>
-            <p className={cx("mt-1.5 text-caption leading-tight font-semibold text-balance", reached ? "text-text" : "text-secondary")}>
-              {m.name}
+            <p className={cx("mt-1.5 text-caption leading-tight font-semibold text-balance", status === "passed" ? "text-text" : "text-secondary")}>{c.name}</p>
+            <p className={cx("mt-0.5 text-caption leading-tight", status === "missed" ? "text-amber" : "text-secondary")}>
+              {status === "missed" ? "Missed" : c.dueAt ? `By ${formatDue(c)}` : formatDue(c)}
             </p>
-            <span className="sr-only">{reached ? ", reached" : `, ${m.points - points} points to go`}</span>
+            <span className="sr-only">{status === "passed" ? ", reached" : `, ${c.points - points} points to go`}</span>
           </li>
         );
       })}

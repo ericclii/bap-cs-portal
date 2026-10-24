@@ -512,10 +512,10 @@
       "css": ".ds-entry{font-family:var(--font-lato),Lato,-apple-system,'Segoe UI',Roboto,sans-serif;overflow:hidden;border-radius:16px;background:var(--surface,#fff)}.ds-row{display:flex;align-items:center;gap:12px;min-height:56px;padding:12px 16px;color:var(--text,#2e2e2e);cursor:pointer;transition:background-color 200ms cubic-bezier(.22,1,.36,1)}.ds-row+.ds-row{border-top:1px solid var(--separator,#f0ede6)}.ds-row:hover{background:var(--ground,#f5f3ee)}.ds-row:active{background:var(--fill,#efece5)}.ds-row b{display:block;font-size:15px;font-weight:400}.ds-row em{display:block;margin-top:2px;font-style:normal;font-size:13px;color:var(--secondary,#6b6658)}.ds-date{font-family:var(--font-raleway),Raleway,-apple-system,'Segoe UI',Roboto,sans-serif;font-variant-numeric:lining-nums tabular-nums;display:flex;flex-direction:column;align-items:center;justify-content:center;width:40px;height:40px;border-radius:12px;background:var(--fill,#efece5);font-size:17px;font-weight:700;line-height:1}.ds-date small{font-size:10px;font-weight:700;color:var(--secondary,#6b6658)}.ds-next{background:var(--crimson-soft,#f9e9ea);color:var(--crimson,#bc202f)}.ds-next small{color:var(--crimson,#bc202f)}"
     },
     {
-      "name": "Milestone Stamps",
+      "name": "Checkpoint Stamps",
       "kind": "custom",
       "refersTo": "stamp-box",
-      "description": "Four milestones (Checkpoint Alpha 3, Checkpoint Bravo 6, Gold Standing 10, Platinum Standing 12); reached ones are white boxes with a crimson Cinzel double-ring stamp, the rest are fill boxes showing the points needed.",
+      "description": "One box per configured checkpoint (name, points, optional due date). Reached: white box with a crimson Cinzel double-ring stamp (points over the day reached). Ahead: fill box with its points. Missed: points and \"Missed\" in amber. Up to five per row.",
       "html": "<ol class=\"ds-stamps\"><li><span class=\"ds-stamp\" style=\"transform:rotate(-9deg)\"><b>3</b>ALPHA</span></li><li><span class=\"ds-stamp\" style=\"transform:rotate(5deg)\"><b>6</b>BRAVO</span></li><li class=\"ds-open\">10</li><li class=\"ds-open\">12</li></ol>",
       "css": ".ds-stamps{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;max-width:360px;margin:0;padding:0;list-style:none}.ds-stamps li{display:grid;place-items:center;aspect-ratio:1;border-radius:10px;background:var(--surface,#fff)}.ds-stamps li.ds-open{background:var(--fill,#efece5);color:var(--secondary,#6b6658);font-family:var(--font-lato),Lato,-apple-system,'Segoe UI',Roboto,sans-serif;font-size:17px;font-weight:700}.ds-stamp{display:grid;place-content:center;width:80%;aspect-ratio:1;border:2px solid var(--crimson,#bc202f);border-radius:9999px;box-shadow:inset 0 0 0 3px #fff,inset 0 0 0 4.5px var(--crimson,#bc202f);color:var(--crimson,#bc202f);font-family:Cinzel,'Times New Roman',serif;font-variant-numeric:lining-nums tabular-nums;font-weight:700;font-size:9px;letter-spacing:.04em;text-align:center;line-height:1}.ds-stamp b{display:block;font-size:24px;letter-spacing:0;margin-bottom:2px}"
     },
@@ -545,7 +545,7 @@
       "State hues (green, amber, crest gold) appear as words, bare line icons and signed figures; never as dots and never as fills.",
       "One filled crimson pill per view; every other action is text with a drawn underline.",
       "Raleway for headings, the figure, the wordmark and date boxes; Cinzel only inside stamps; Lato for all UI text; tabular figures throughout; the 64px points figure is the only large type.",
-      "The milestone stamps and the event pass are the signature surfaces; the stamp landing is the one signature motion.",
+      "The checkpoint stamps and the event pass are the signature surfaces; the stamp landing is the one signature motion.",
       "Inline two-step confirmation; never the browser's confirm() dialog."
     ],
     "rules": [
@@ -581,7 +581,7 @@
       },
       {
         "name": "The Next Thing First Rule",
-        "body": "Every screen opens with its title or figure and then the single most relevant object (the milestone stamps and next pass, \"Needs attention\"), followed by lists. Never open with a grid of summary cards.",
+        "body": "Every screen opens with its title or figure and then the single most relevant object (the checkpoint stamps and next pass, \"Needs attention\"), followed by lists. Never open with a grid of summary cards.",
         "section": "layout"
       },
       {

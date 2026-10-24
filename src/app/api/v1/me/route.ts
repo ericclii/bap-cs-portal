@@ -1,5 +1,6 @@
 import { json, route } from "@/server/http";
 import { requireApiUser } from "@/server/session";
+import { listCheckpoints } from "@/server/services/checkpoints";
 import { totalPoints } from "@/server/services/points";
 import { getCurrentTerm, } from "@/server/services/terms";
 import { isCandidate } from "@/server/services/roster";
@@ -12,7 +13,7 @@ export const GET = route(async (req) => {
     term: term && {
       id: term.id,
       name: term.name,
-      requiredPoints: term.requiredPoints,
+      checkpoints: await listCheckpoints(term.id),
       isCandidate: await isCandidate(term.id, user.netId),
       points: await totalPoints(term.id, user.netId),
     },

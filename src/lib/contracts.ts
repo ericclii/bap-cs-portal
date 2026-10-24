@@ -130,18 +130,30 @@ export const termRules = {
 
 export const termInput = z.object({
   name: z.string().trim().min(2).max(40),
-  requiredPoints: z.number().int().min(0).max(500).nullish(),
   makeCurrent: z.boolean().default(true),
 });
 
 export const termUpdateInput = z.object({
   name: z.string().trim().min(2).max(40).optional(),
-  requiredPoints: z.number().int().min(0).max(500).nullable().optional(),
   makeCurrent: z.boolean().optional(),
   defaultEventPoints: termRules.defaultEventPoints.optional(),
   noShowPenalty: termRules.noShowPenalty.optional(),
   lateDropHours: termRules.lateDropHours.optional(),
 });
+
+const dueDate = z
+  .string()
+  .regex(/^\d{4}-\d{2}-\d{2}$/, "Use a date like 2026-10-24")
+  .nullable();
+
+/** A checkpoint: a name, the points it takes, and the day it falls due (null = end of semester). */
+export const checkpointInput = z.object({
+  name: z.string().trim().min(2).max(60),
+  points: z.number().int().min(0).max(500),
+  dueDate,
+});
+
+export const checkpointUpdateInput = checkpointInput.partial();
 
 export const committeeInput = z.object({
   netId: netIdField,

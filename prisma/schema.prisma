@@ -98,6 +98,7 @@ model Term {
   id             String            @id @default(cuid())
   name           String            @unique // "Fall 2026"
   isCurrent      Boolean           @default(false)
+  // Superseded by checkpoints; no longer read. Kept one release so the live app never queries a dropped column.
   requiredPoints Int?
   // Points rules for the term; chairs can change them between semesters.
   defaultEventPoints Int           @default(3)
@@ -107,6 +108,21 @@ model Term {
   candidates     Candidate[]
   events         Event[]
   adjustments    PointAdjustment[]
+  checkpoints    Checkpoint[]
+}
+
+/// A points threshold candidates must reach, by a date or by the end of the semester.
+/// Points have no cap; checkpoints only say who has passed what.
+model Checkpoint {
+  id        String    @id @default(cuid())
+  termId    String
+  term      Term      @relation(fields: [termId], references: [id], onDelete: Cascade)
+  name      String
+  points    Int
+  dueAt     DateTime? // end of the due day in New York; null means the end of the semester
+  createdAt DateTime  @default(now())
+
+  @@index([termId])
 }
 
 model Candidate {

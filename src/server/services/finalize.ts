@@ -1,12 +1,14 @@
 import "server-only";
 import { after } from "next/server";
 import type { Outcome } from "@/generated/prisma/client";
+import { formatDue, nextCheckpoint } from "@/lib/checkpoints";
 import { attendedMinutes, checkoutUnlocksAt } from "@/lib/event-window";
 import { canonicalEmail } from "@/lib/netid";
 import { db } from "../db";
 import { sendEmails, type OutgoingEmail } from "../email";
 import { pointsRecordedEmail } from "../email-templates";
 import { badRequest, notFound } from "../http";
+import { listCheckpoints } from "./checkpoints";
 import { totalPoints } from "./points";
 
 export type FinalizeRow = {
@@ -118,11 +120,14 @@ export async function finalizeEvent(
     const prev = before.get(o.signupId)!;
     return prev.outcome !== o.outcome || prev.points !== o.points;
   });
+  const checkpoints = await listCheckpoints(term.id);
   const emails: OutgoingEmail[] = [];
   for (const o of changed) {
     const netId = before.get(o.signupId)!.netId;
     const total = await totalPoints(term.id, netId);
-    emails.push(pointsRecordedEmail(canonicalEmail(netId), event, o.outcome, o.points, total, term.requiredPoints));
+    // Point them at the next checkpoint they haven't reached yet, if any.
+    const next = nextCheckpoint(checkpoints.filter((c) => total < c.points));
+    emails.push(pointsRecordedEmail(canonicalEmail(netId), event, o.outcome, o.points, total, next && { name: next.name, points: next.points, due: formatDue(next) }));
   }
   if (emails.length) after(() => sendEmails(emails));
   return { saved: outcomes.length, emailed: emails.length };

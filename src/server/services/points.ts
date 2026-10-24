@@ -1,6 +1,7 @@
 import "server-only";
 import { db } from "../db";
 import { toCsv } from "../csv";
+import { listCheckpoints } from "./checkpoints";
 
 export type Standing = {
   netId: string;
@@ -131,9 +132,9 @@ export async function importPoints(
 
 export async function standingsCsv(termId: string) {
   const term = await db.term.findUniqueOrThrow({ where: { id: termId } });
-  const rows = await termStandings(termId);
+  const [rows, checkpoints] = await Promise.all([termStandings(termId), listCheckpoints(termId)]);
   const csv = toCsv(
-    ["NetID", "Email", "Name", "Candidate", "Total points", "Event points", "Adjustments", "Attended", "No-shows", "Excused", "Required", "Met requirement"],
+    ["NetID", "Email", "Name", "Candidate", "Total points", "Event points", "Adjustments", "Attended", "No-shows", "Excused", ...checkpoints.map((c) => `${c.name} (${c.points})`)],
     rows.map((s) => [
       s.netId,
       `${s.netId}@nyu.edu`,
@@ -145,8 +146,7 @@ export async function standingsCsv(termId: string) {
       s.attended,
       s.noShows,
       s.excused,
-      term.requiredPoints ?? "",
-      term.requiredPoints != null ? (s.total >= term.requiredPoints ? "yes" : "no") : "",
+      ...checkpoints.map((c) => (s.total >= c.points ? "yes" : "no")),
     ]),
   );
   return { csv, filename: `bap-cs-points-${term.name.toLowerCase().replace(/\s+/g, "-")}.csv` };

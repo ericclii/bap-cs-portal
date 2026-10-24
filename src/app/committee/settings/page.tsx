@@ -7,7 +7,7 @@ import { listTerms } from "@/server/services/terms";
 import { CommitteeManager } from "./committee-manager";
 import { TermsManager } from "./terms-manager";
 
-export const metadata: Metadata = { title: "Settings" };
+export const metadata: Metadata = { title: "Manage" };
 
 export default async function SettingsPage() {
   const user = await requireCommitteePage("/committee/settings");
@@ -15,7 +15,7 @@ export default async function SettingsPage() {
   const isChair = user.role === "CHAIR";
   return (
     <div className="max-w-3xl space-y-10">
-      <PageTitle title="Settings" />
+      <PageTitle title="Manage" />
       <TermsManager terms={JSON.parse(JSON.stringify(terms))} isChair={isChair} />
       <CommitteeManager members={committee.members} bootstrapChairs={committee.bootstrapChairs} isChair={isChair} myNetId={user.netId} />
       <section className="space-y-2">

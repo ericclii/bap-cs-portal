@@ -4,12 +4,14 @@ import { redirect } from "next/navigation";
 import { AppShell } from "@/components/app-shell";
 import { EventPass } from "@/components/event-pass";
 import { Mark } from "@/components/app-shell";
-import { MILESTONES, MilestoneGrid, signed } from "@/components/stamp";
+import { MilestoneGrid, signed } from "@/components/stamp";
+import type { Checkpoint } from "@/lib/checkpoints";
 import { DateTile, Empty, Group, LinkButton, Pill, Row, Section } from "@/components/ui";
 import { attendedMinutes, checkinWindowState, formatDuration, signupWindowState } from "@/lib/event-window";
 import { formatDate, formatDateTime, formatEventRange, formatTime, relativeDay } from "@/lib/time";
 import { getCurrentUser } from "@/server/session";
 import { listEventsForStudent } from "@/server/services/events";
+import { listCheckpoints } from "@/server/services/checkpoints";
 import { personHistory, totalPoints } from "@/server/services/points";
 import { isCandidate } from "@/server/services/roster";
 import { getCurrentTerm } from "@/server/services/terms";
@@ -28,7 +30,7 @@ export async function ServiceHome() {
         <Empty title="Not set up for this semester yet">
           {user.role ? (
             <>
-              Create the current term in <Link className="font-semibold text-crimson" href="/committee/settings">committee settings</Link>.
+              Create the current term in <Link className="font-semibold text-crimson" href="/committee/settings">Committee → Manage</Link>.
             </>
           ) : (
             "Check back once the CS committee posts this semester's events."
@@ -38,11 +40,12 @@ export async function ServiceHome() {
     );
   }
 
-  const [items, points, candidate, history] = await Promise.all([
+  const [items, points, candidate, history, checkpoints] = await Promise.all([
     listEventsForStudent(user.id),
     totalPoints(term.id, user.netId),
     isCandidate(term.id, user.netId),
     personHistory(term.id, user.netId),
+    listCheckpoints(term.id),
   ]);
   const now = new Date();
   const active = items.filter((i) => !i.event.canceledAt);
@@ -53,10 +56,10 @@ export async function ServiceHome() {
   const open = active.filter((i) => !i.mine && i.event.startsAt > now && signupWindowState(i.event, now) === "open");
   const soon = active.filter((i) => !i.mine && signupWindowState(i.event, now) === "before");
   const pending = history.signups.filter((s) => s.status === "SELECTED" && !s.outcome && s.attendance);
-  const required = term.requiredPoints;
+  // Points have no cap; the seal appears once every checkpoint is reached.
+  const met = checkpoints.length > 0 && checkpoints.every((c) => points >= c.points);
+  const reachedOn = milestoneDates(history, checkpoints);
   // Time actually given, from completed check-ins this term.
-  const met = required != null && points >= required;
-  const reachedOn = milestoneDates(history);
   const minutesServed = history.signups.reduce((sum, s) => {
     const a = s.attendance;
     if (!a?.checkedOutAt || s.event.canceledAt || s.outcome === "NO_SHOW") return sum;
@@ -72,7 +75,7 @@ export async function ServiceHome() {
               <h1 id="standing" className="flex items-baseline gap-2.5">
                 <span className="text-figure">{points}</span>
                 <span className="text-headline font-semibold text-secondary">
-                  {required != null ? `of ${required} points` : points === 1 ? "point" : "points"}
+                  {points === 1 ? "point" : "points"}
                 </span>
               </h1>
               {met && <Mark size={56} />}
@@ -80,15 +83,15 @@ export async function ServiceHome() {
             <StandingNote>
               {[
                 `${term.name}${candidate ? "" : " · Not on the candidate list"}`,
-                met ? `Requirement met${minutesServed > 0 ? ` · ${formatDuration(minutesServed)} of service` : ""}` : null,
+                met ? `Every checkpoint reached${minutesServed > 0 ? ` · ${formatDuration(minutesServed)} of service` : ""}` : null,
                 pending.length > 0 ? `${pending.length} ${pending.length === 1 ? "event" : "events"} awaiting points` : null,
               ]
                 .filter(Boolean)
                 .join(" · ")}
             </StandingNote>
-            <div className="mt-5">
-              <MilestoneGrid points={points} reachedOn={reachedOn} />
-            </div>
+            {checkpoints.length > 0 && <div className="mt-5">
+              <MilestoneGrid points={points} checkpoints={checkpoints} reachedOn={reachedOn} />
+            </div>}
           </section>
 
           {next && <NextPass item={next} now={now} />}
@@ -178,17 +181,17 @@ function StandingNote({ children }: { children: React.ReactNode }) {
   return children ? <p className="mt-2 text-body text-secondary">{children}</p> : null;
 }
 
-/** When the running total first reached each milestone, from points awarded in date order. */
-function milestoneDates(history: Awaited<ReturnType<typeof personHistory>>): (Date | null)[] {
+/** When the running total first reached each checkpoint, from points awarded in date order. */
+function milestoneDates(history: Awaited<ReturnType<typeof personHistory>>, checkpoints: Checkpoint[]): (Date | null)[] {
   const awards = [
     ...history.signups.filter((s) => s.outcome && !s.event.canceledAt).map((s) => ({ date: s.event.startsAt, points: s.points ?? 0 })),
     ...history.adjustments.map((a) => ({ date: a.createdAt, points: a.points })),
   ].sort((x, y) => x.date.getTime() - y.date.getTime());
-  const reached: (Date | null)[] = MILESTONES.map(() => null);
+  const reached: (Date | null)[] = checkpoints.map(() => null);
   let total = 0;
   for (const a of awards) {
     total += a.points;
-    MILESTONES.forEach((m, i) => {
+    checkpoints.forEach((m, i) => {
       if (!reached[i] && total >= m.points) reached[i] = a.date;
     });
   }

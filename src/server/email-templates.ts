@@ -98,7 +98,7 @@ export function pointsRecordedEmail(
   outcome: "ATTENDED" | "NO_SHOW" | "EXCUSED",
   points: number,
   termTotal: number,
-  required: number | null,
+  next: { name: string; points: number; due: string } | null,
 ): OutgoingEmail {
   const what =
     outcome === "ATTENDED"
@@ -111,7 +111,7 @@ export function pointsRecordedEmail(
     eventId: e.id,
     kind: "points_recorded",
     subject: `Points awarded: ${e.title}`,
-    text: `${what}\n\n${eventBlock(e)}\n\nYour total this term: ${termTotal}${required ? ` of ${required} required` : ""} points.\nSee your history: ${appUrl("/")}\n\nThink this is wrong? Reply to this email.${SIGNOFF}`,
+    text: `${what}\n\n${eventBlock(e)}\n\nYour total this term: ${termTotal} points.${next ? `\nNext checkpoint: ${next.name}, ${next.points} points ${next.due === "End of semester" ? "by the end of the semester" : `by ${next.due}`}.` : ""}\nSee your history: ${appUrl("/")}\n\nThink this is wrong? Reply to this email.${SIGNOFF}`,
   };
 }
 

@@ -23,19 +23,19 @@ type Standing = {
 
 type Panel = null | "adjust" | "import" | "sheets";
 
-export function PointsManager({ standings, required, isChair, feedUrl }: { standings: Standing[]; required: number | null; isChair: boolean; feedUrl: string }) {
+export function PointsManager({ standings, isChair, feedUrl }: { standings: Standing[]; isChair: boolean; feedUrl: string }) {
   const router = useRouter();
   const [panel, setPanel] = useState<Panel>(null);
   const [query, setQuery] = useState("");
-  const [filter, setFilter] = useState<"candidates" | "all" | "behind">("candidates");
+  const [filter, setFilter] = useState<"candidates" | "all">("candidates");
   const [notice, setNotice] = useState<string | null>(null);
 
   const visible = useMemo(() => {
     const q = query.trim().toLowerCase();
     return standings
-      .filter((s) => (filter === "all" ? true : filter === "candidates" ? s.isCandidate : s.isCandidate && required != null && s.total < required))
+      .filter((s) => filter === "all" || s.isCandidate)
       .filter((s) => !q || s.netId.includes(q) || (s.name ?? "").toLowerCase().includes(q));
-  }, [standings, query, filter, required]);
+  }, [standings, query, filter]);
 
   const done = () => {
     setPanel(null);
@@ -63,7 +63,7 @@ export function PointsManager({ standings, required, isChair, feedUrl }: { stand
 
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex gap-1" role="tablist">
-          {([["candidates", "Candidates"], ...(required != null ? [["behind", "Behind requirement"]] : []), ["all", "Everyone"]] as [typeof filter, string][]).map(([key, label]) => (
+          {([["candidates", "Candidates"], ["all", "Everyone"]] as [typeof filter, string][]).map(([key, label]) => (
             <button key={key} type="button" role="tab" aria-selected={filter === key} onClick={() => setFilter(key)} className={cx("rounded-lg px-3 py-1.5 text-footnote", filter === key ? "bg-fill font-medium" : "text-secondary hover:text-text")}>
               {label}
             </button>
@@ -82,10 +82,7 @@ export function PointsManager({ standings, required, isChair, feedUrl }: { stand
             title={s.name ?? s.netId}
             subtitle={`${s.netId} · attended ${s.attended}${s.noShows ? ` · ${s.noShows} no-show${s.noShows === 1 ? "" : "s"}` : ""}${s.pendingEvents ? ` · ${s.pendingEvents} not awarded yet` : ""}`}
             trailing={
-              <span className={cx("text-body font-semibold tabular-nums", required != null && s.isCandidate && s.total >= required ? "text-gold" : "text-text")}>
-                {s.total}
-                {required != null && <span className="font-normal text-secondary">/{required}</span>}
-              </span>
+              <span className="text-body font-semibold tabular-nums">{s.total}</span>
             }
             chevron
           />
@@ -113,9 +110,7 @@ export function PointsManager({ standings, required, isChair, feedUrl }: { stand
                   <span className="ml-2 text-secondary">{s.netId}</span>
                   {!s.isCandidate && <span className="ml-2"><Pill>Not a candidate</Pill></span>}
                 </td>
-                <td className={cx("px-4 py-2.5 text-right font-semibold tabular-nums", required != null && s.isCandidate && (s.total >= required ? "text-gold" : "text-text"))}>
-                  {s.total}{required != null && <span className="font-normal text-secondary"> / {required}</span>}
-                </td>
+                <td className="px-4 py-2.5 text-right font-semibold tabular-nums">{s.total}</td>
                 <td className="px-4 py-2.5 text-right tabular-nums">{s.attended}</td>
                 <td className={cx("px-4 py-2.5 text-right tabular-nums", s.noShows > 0 && "text-amber")}>{s.noShows}</td>
                 <td className="px-4 py-2.5 text-right text-secondary tabular-nums">{s.pendingEvents || ""}</td>
