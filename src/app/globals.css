@@ -18,6 +18,9 @@
   --secondary: #6b6658;
   --tertiary: #a29c88;
   --placeholder: #6f6a5b;
+  /* The committee banner: a khaki tint from the crest, with its own ink for quiet tabs. */
+  --banner: #e8e1cb;
+  --banner-ink: #575245;
 
   --crimson: #bc202f;
   --crimson-hover: #a11b28;
@@ -37,7 +40,6 @@
   /* One family of curves for every animation. */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
-  --ease-in-quart: cubic-bezier(0.5, 0, 0.75, 0);
   color-scheme: light;
 }
 
@@ -52,6 +54,7 @@
   --color-secondary: var(--secondary);
   --color-tertiary: var(--tertiary);
   --color-placeholder: var(--placeholder);
+  --color-banner: var(--banner);
   --color-crimson: var(--crimson);
   --color-crimson-hover: var(--crimson-hover);
   --color-crimson-soft: var(--crimson-soft);
@@ -278,53 +281,39 @@ a {
   animation: reveal 320ms var(--ease-out-expo) both;
 }
 
-/*
- * Page changes run in sequence, never overlapping: the old page fades out
- * first, then the new one fades up a few pixels. Opacity and transform only,
- * so phones stay smooth.
- */
-@keyframes page-out {
-  to {
-    opacity: 0;
-  }
-}
-@keyframes page-in {
+/* Page changes: the new page fades in where it sits; nothing moves. */
+@keyframes fade-in {
   from {
     opacity: 0;
-    transform: translateY(8px);
   }
 }
-::view-transition-old(.page) {
-  animation: page-out 120ms var(--ease-in-quart) both;
+.page-fade {
+  animation: fade-in 320ms var(--ease-out-quint) both;
 }
-::view-transition-new(.page) {
-  animation: page-in 320ms var(--ease-out-expo) 120ms both;
-}
-::view-transition-group(root) {
-  animation-duration: 200ms;
-}
+
 /*
- * The bar never fades. When its height changes (the committee tabs appear or
- * go), the bar grows or shrinks from the top: growing reveals the new bar's
- * tabs downwards; shrinking lets the old tabs retract up behind the new bar.
+ * The committee banner unfolds downward when the committee area opens (the
+ * committee layout mounts once, so moving between its sections doesn't replay it).
  */
-::view-transition-group(.pinned) {
-  overflow: clip;
-  animation-duration: 380ms;
-  animation-timing-function: var(--ease-out-expo);
+@keyframes unfold {
+  from {
+    grid-template-rows: 0fr;
+  }
 }
-::view-transition-image-pair(.pinned) {
-  isolation: auto;
+.subnav-banner {
+  display: grid;
+  grid-template-rows: 1fr;
+  animation: unfold 420ms var(--ease-out-expo) both;
 }
-::view-transition-old(.pinned),
-::view-transition-new(.pinned) {
-  animation: none;
-  mix-blend-mode: normal;
-  height: auto;
-  inset: 0 0 auto 0;
+/* On the banner's tone, quiet tabs need a deeper ink and the current one a crimson mark. */
+.subnav-banner .u-host:not([aria-current="page"]) {
+  color: var(--banner-ink);
 }
-::view-transition-new(.pinned) {
-  z-index: 1;
+.subnav-banner .u-host:not([aria-current="page"]):hover {
+  color: var(--text);
+}
+.subnav-banner .u-host[aria-current="page"] .u-line::before {
+  background: var(--crimson);
 }
 
 /* The one authored moment: on check-in a stamp lands on the entry. */
@@ -350,13 +339,10 @@ a {
   }
   .pop-in,
   .reveal {
-    animation-name: page-out;
-    animation-direction: reverse;
+    animation-name: fade-in;
   }
-  ::view-transition-new(.page) {
-    animation-name: page-out;
-    animation-direction: reverse;
-    animation-duration: 200ms;
+  .subnav-banner {
+    animation: none;
   }
   .stamp-land {
     animation: none;

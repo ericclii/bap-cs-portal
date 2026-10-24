@@ -1,14 +1,11 @@
-import { type ReactNode, ViewTransition } from "react";
+import type { ReactNode } from "react";
 
 /**
- * Animates page content on navigation: the old page fades out, the new one
- * rises into focus (see `.page` in globals.css). Lives inside each page's
- * tree, so it mounts fresh on every route change; refreshes don't animate.
+ * Fades a page in where it sits when it mounts (see `.page-fade` in
+ * globals.css). The old page is gone at once, so the two never overlap.
+ * Used inside each page's shell and by the committee template, which
+ * remounts per section.
  */
 export function PageTransition({ children }: { children: ReactNode }) {
-  return (
-    <ViewTransition enter="page" exit="page" default="none">
-      {children}
-    </ViewTransition>
-  );
+  return <div className="page-fade">{children}</div>;
 }

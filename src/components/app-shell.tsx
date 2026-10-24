@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import type { CurrentUser } from "@/server/session";
 import { Mark } from "./mark";
-import { ViewTransition } from "react";
+import { PageTransition } from "./page-transition";
 import { NavLink } from "./nav-link";
 import { RefreshOnReturn } from "./refresh-on-return";
 import { UserMenu } from "./user-menu";
@@ -31,8 +31,6 @@ export function AppShell({
   const width = "max-w-5xl px-[max(1rem,env(safe-area-inset-left))]";
   return (
     <>
-      {/* Named so page transitions leave the bar in place while the content beneath it changes. */}
-      <ViewTransition name="site-header" share="pinned" default="none">
       <header className="sticky top-0 z-30 bg-surface/85 pt-[env(safe-area-inset-top)] backdrop-blur-xl backdrop-saturate-150">
         <div className={`mx-auto flex h-14 items-center justify-between gap-4 ${width}`}>
           <Logo />
@@ -51,18 +49,22 @@ export function AppShell({
           )}
         </div>
         {subnav && (
-          <div className={`mx-auto pb-1 ${width}`}>
+          // A banner of its own tone; it unfolds downward when the committee area opens.
+          <div className="subnav-banner bg-banner">
+          <div className="min-h-0 overflow-hidden">
+          <div className={`mx-auto ${width}`}>
             {/* On phones the strip runs to the screen edges and fades there, so a cut-off tab reads as "scroll for more". */}
             <div className="-mx-4 flex scroll-px-4 overflow-x-auto py-1.5 pr-8 pl-1.5 [mask-image:linear-gradient(to_right,transparent,black_16px,black_calc(100%-32px),transparent)] [scrollbar-width:none] sm:-mx-2.5 sm:px-0 sm:[mask-image:none] [&::-webkit-scrollbar]:hidden">
               {subnav}
             </div>
           </div>
+          </div>
+          </div>
         )}
       </header>
-      </ViewTransition>
       {user && <RefreshOnReturn />}
       <main className={`mx-auto w-full flex-1 pt-6 pb-[calc(env(safe-area-inset-bottom)+3rem)] ${width}`}>
-        {children}
+        <PageTransition>{children}</PageTransition>
       </main>
     </>
   );

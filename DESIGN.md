@@ -306,7 +306,7 @@ The date box is set in Raleway: its month (700, 10px, uppercase) and day number 
 
 One 1024px frame (max-w-5xl) for every signed-in page, header and content alike, with 16px gutters that respect the landscape safe area, so the bar and content edge never move between sections. Phones get one column. From 1024px the student home and event page split into two columns at 5:7 with a 40px gap: on home, the figure, stamp grid and next pass on the left (sticky under the bar), lists on the right. Committee forms (new and edit event) sit left-aligned at 672px inside the frame. Sign-in, privacy, 404 and error are standalone centred pages with no bar; the on-site QR screen is a standalone full-height display on the ground.
 
-A sticky 56px bar in translucent white (85%, backdrop blur and saturate) carries the seal and "Community Service" on the left and section tabs and the avatar on the right (on phones, a hamburger icon that turns into a close icon opens the same menu); it has no bottom rule, the tone change against the ground is the edge. Committee screens add a horizontally scrolling subnav of text tabs that fades at the phone's right edge. Content starts 24px under the bar and clears the bottom safe area.
+A sticky 56px bar in translucent white (85%, backdrop blur and saturate) carries the seal and "Community Service" on the left and section tabs and the avatar on the right (on phones, a hamburger icon that turns into a close icon opens the same menu); it has no bottom rule, the tone change against the ground is the edge. Committee screens add a horizontally scrolling banner of text tabs in its own khaki tint (#e8e1cb) that fades at the phone's right edge. Content starts 24px under the bar and clears the bottom safe area.
 
 Rhythm is section-based: 32px between sections, 10px between a section heading and its entry, 8px to a footer. Rows are at least 56px with 12px/16px padding and 12px between leading box, text and trailing content. Panels and passes pad 16px, 20px from 640px. The stamp grid is four columns with 8px gaps. Adjacent text buttons sit 0.75rem apart, since they carry no padding of their own.
 
@@ -381,12 +381,13 @@ The event as a passbook entry: a white entry with the 64px date box beside the 2
 On the event page, attendance shows as an 80px crimson stamp reading IN or OUT with the time and date, rested at -9°. Right after the tap it lands once: `stamp-land`, 420ms, ease-out-expo (`cubic-bezier(0.16, 1, 0.3, 1)`), from 1.9× scale and -24° to rest. Under reduced motion it appears already at rest.
 
 ### Motion
-One family of curves, all cubic-bezier: ease-out-expo, ease-out-quint and ease-in-quart. Tailwind's default transition is 200ms ease-out-quint, so every state change shares it.
-- **Page transition:** React `ViewTransition` around each page (the root and committee templates). The two never overlap: the old page fades out in 120ms (ease-in-quart), then the new one fades up 8px over 320ms (ease-out-expo, 120ms delay); opacity and transform only, so phones stay smooth. The header is a named pair (`share="pinned"`) that never fades: when its height changes (the committee tabs appear or go) it grows or shrinks from the top over 380ms (ease-out-expo), clipped, with the new bar drawn on top. Within the committee the bar persists and the tab strip keeps its scroll position (the active tab only scrolls into view when it is off-screen).
+One family of curves, all cubic-bezier: ease-out-expo and ease-out-quint. Tailwind's default transition is 200ms ease-out-quint, so every state change shares it.
+- **Page transition:** a plain fade in place. Each page mounts inside `.page-fade` (the page shell, and the committee template, which remounts per section) and fades from 0 to 1 over 320ms (ease-out-quint). The old page is gone at once, so pages never overlap, and nothing moves. No View Transitions API: it behaved inconsistently in mobile Safari.
+- **Committee banner:** the committee tab strip is a banner in its own khaki tint (`--banner` #e8e1cb, quiet tabs in `--banner-ink` #575245, the current tab underlined in crimson). It unfolds downward (grid rows 0fr to 1fr, 420ms, ease-out-expo) when the committee layout mounts; moving between committee sections does not replay it.
 - **Popover:** `.pop-in`, 240ms ease-out-expo, from 6px above at 97% scale.
 - **In-place reveal:** `.reveal`, 320ms ease-out-expo, rising 6px; used by notices and inline forms.
 - **Stamp landing:** as above, on check-in and check-out.
-- **Reduced motion:** the reveal, popover and page transitions fall back to a plain opacity fade; the underline snaps; the stamp rests.
+- **Reduced motion:** the reveal and popover fall back to a plain opacity fade, the banner appears without unfolding, the underline snaps and the stamp rests; the page fade stays.
 
 ### Crest Seal
 The chapter crest raster: 30px in the bar, 56px beside the figure once the requirement is met (and on the QR screen), 96px on sign-in, and the favicon and Apple touch icon. Always decorative next to words that name the app.

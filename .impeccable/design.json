@@ -370,17 +370,12 @@
       {
         "name": "ease-out-expo",
         "value": "cubic-bezier(0.16, 1, 0.3, 1)",
-        "purpose": "Entrances: page rise, pop-in, reveal, stamp landing."
+        "purpose": "Entrances: banner unfold, pop-in, reveal, stamp landing."
       },
       {
         "name": "ease-out-quint",
         "value": "cubic-bezier(0.22, 1, 0.36, 1)",
         "purpose": "State changes (Tailwind default, 200ms) and the underline draw."
-      },
-      {
-        "name": "ease-in-quart",
-        "value": "cubic-bezier(0.5, 0, 0.75, 0)",
-        "purpose": "Exits: the old page fade."
       },
       {
         "name": "state",
@@ -393,14 +388,14 @@
         "purpose": "Underline scaleX from a left origin on hover; retracts right to left; held on focus and current page."
       },
       {
-        "name": "page-out",
-        "value": "140ms ease-in-quart",
-        "purpose": "Old page opacity to 0 (ViewTransition class .page)."
+        "name": "page-fade",
+        "value": "320ms ease-out-quint",
+        "purpose": "Each new page fades in place from 0 opacity on mount; the old page is gone at once, nothing moves."
       },
       {
-        "name": "page-in",
-        "value": "420ms ease-out-expo, 70ms delay",
-        "purpose": "New page rises 12px from 3px blur; header pinned with share=\"pinned\"."
+        "name": "unfold",
+        "value": "420ms ease-out-expo",
+        "purpose": "The committee banner opens downward (grid rows 0fr to 1fr) when the committee layout mounts."
       },
       {
         "name": "pop-in",
@@ -420,7 +415,7 @@
       {
         "name": "reduced-motion",
         "value": "opacity only",
-        "purpose": "pop-in, reveal and page-in fall back to an opacity fade; underline snaps; stamp rests."
+        "purpose": "pop-in and reveal fall back to an opacity fade; the banner appears without unfolding; underline snaps; stamp rests; the page fade stays."
       }
     ],
     "breakpoints": [
@@ -620,5 +615,6 @@
       "Don't set readable text in the faint khaki (tertiary); it is for chevrons and empty-state icons.",
       "Don't use the browser's confirm() or alert() dialogs."
     ]
-  }
+  },
+  "tokens": {}
 }
