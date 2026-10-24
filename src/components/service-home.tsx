@@ -80,11 +80,7 @@ export async function ServiceHome() {
             <StandingNote>
               {[
                 `${term.name}${candidate ? "" : " · Not on the candidate list"}`,
-                met
-                  ? `Requirement met${minutesServed > 0 ? ` · ${formatDuration(minutesServed)} of service` : ""}`
-                  : required != null
-                    ? `${required - points} to go`
-                    : null,
+                met ? `Requirement met${minutesServed > 0 ? ` · ${formatDuration(minutesServed)} of service` : ""}` : null,
                 pending.length > 0 ? `${pending.length} ${pending.length === 1 ? "event" : "events"} awaiting points` : null,
               ]
                 .filter(Boolean)

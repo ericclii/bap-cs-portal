@@ -363,7 +363,7 @@ A plain button that, when tapped, swaps in place for Cancel (secondary) and the 
 
 ### Navigation
 - **Bar:** the 30px crest seal and "Community Service" (Raleway 17px bold) on the left; "My service" / "Committee" tabs and the avatar menu on the right (a hamburger icon below 640px); translucent white, blurred, no rule.
-- **Nav tabs and subnav:** 32px text tabs, 15px regular secondary, ink on hover with the underline drawing in. The current tab is ink bold with its underline held in gold-bright at 2px. A count of items needing attention follows the label as bold crimson footnote text, not a filled badge. The subnav keeps the current tab in view.
+- **Nav tabs and subnav:** 32px text tabs, 15px regular secondary, ink on hover with the underline drawing in. The current tab is ink, at the same weight as the rest so selecting it never shifts its neighbours, with its underline held in gold-bright at 2px (crimson on the committee banner). Tapping a tab never scrolls the strip; only on first load is an off-screen current tab brought into view. A count of items needing attention follows the label as bold crimson footnote text, not a filled badge. The subnav keeps the current tab in view.
 - **Segmented control:** fill track, white selected segment with the thumb shadow, 13px bold.
 - **Back link:** crimson 15px label with a line chevron and the underline.
 - **Menus:** white, 16px radius, pop shadow, items tint to the ground on hover; they open with `.pop-in`.
