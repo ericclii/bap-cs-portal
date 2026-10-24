@@ -70,7 +70,7 @@ export async function ServiceHome() {
           <section aria-labelledby="standing">
             <div className="flex items-start justify-between gap-4">
               <h1 id="standing" className="flex items-baseline gap-2.5">
-                <span className="text-figure tabular-nums">{points}</span>
+                <span className="text-figure">{points}</span>
                 <span className="text-headline font-semibold text-secondary">
                   {required != null ? `of ${required} points` : points === 1 ? "point" : "points"}
                 </span>

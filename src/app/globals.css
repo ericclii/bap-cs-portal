@@ -141,8 +141,14 @@ h2,
 h3,
 .font-display {
   font-family: var(--font-display);
-  /* Raleway defaults to old-style figures; headings and figures use lining ones. */
+  /*
+   * Raleway defaults to old-style figures, which hang below the baseline.
+   * Lining figures go in font-feature-settings because it inherits and a
+   * child's tabular-nums utility can't reset it, so a big number and the
+   * words beside it sit on one baseline.
+   */
   font-variant-numeric: lining-nums tabular-nums;
+  font-feature-settings: "lnum" 1, "tnum" 1;
 }
 
 /* Every field's placeholder, including ones that set no colour of their own. */
