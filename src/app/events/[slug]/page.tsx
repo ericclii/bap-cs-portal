@@ -32,7 +32,7 @@ export default async function StudentEventPage({
   return (
     <AppShell user={user}>
       <div className="space-y-6">
-        <BackLink href="/">My service</BackLink>
+        <BackLink href="/service">My service</BackLink>
         {scan === "expired" && <Notice tone="amber">That QR code expired. Scan the code on the screen again.</Notice>}
         {event.canceledAt && <Notice tone="crimson">This event was canceled. You don&apos;t need to do anything.</Notice>}
 

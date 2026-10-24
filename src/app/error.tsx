@@ -13,7 +13,7 @@ export default function ErrorPage({ reset }: { error: Error & { digest?: string 
       </p>
       <div className="mt-6 flex gap-2">
         <Button onClick={reset}>Try again</Button>
-        <LinkButton href="/" variant="secondary">My service</LinkButton>
+        <LinkButton href="/service" variant="secondary">My service</LinkButton>
       </div>
     </main>
   );

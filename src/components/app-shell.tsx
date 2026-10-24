@@ -37,7 +37,7 @@ export function AppShell({
             <nav className="flex items-center gap-1" aria-label="Main">
               {user.role && (
                 <span className="hidden sm:contents">
-                  <NavLink href="/" exact>My service</NavLink>
+                  <NavLink href="/service" exact>My service</NavLink>
                   <NavLink href="/committee">Committee</NavLink>
                 </span>
               )}

@@ -11,7 +11,7 @@ export default function NotFound() {
       <p className="mt-1 text-body leading-snug text-secondary">
         The link may be old, or the event was removed. If someone sent it to you, ask them for a new one.
       </p>
-      <LinkButton href="/" className="mt-6">Go to My service</LinkButton>
+      <LinkButton href="/service" className="mt-6">Go to My service</LinkButton>
     </main>
   );
 }

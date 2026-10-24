@@ -464,10 +464,10 @@
       "css": ".ds-entry{font-family: var(--font-hanken), -apple-system, 'Segoe UI', Roboto, sans-serif;overflow:hidden;border-radius:16px;background:var(--surface,#fff);box-shadow:0 0 0 1px var(--rule,#c6bf9c)}.ds-row{display:flex;align-items:center;gap:12px;min-height:56px;padding:12px 16px;color:var(--text,#2e2e2e);cursor:pointer;transition:background-color 150ms}.ds-row+.ds-row{border-top:1px solid var(--separator,#ebe5d3)}.ds-row:hover{background:rgb(243 239 227/.6)}.ds-row b{display:block;font-size:15px;font-weight:500}.ds-row em{display:block;margin-top:2px;font-style:normal;font-size:13px;color:var(--secondary,#6b6658)}.ds-date{display:flex;flex-direction:column;align-items:center;justify-content:center;width:40px;height:40px;border-radius:12px;background:#fff;box-shadow:0 0 0 1px var(--rule,#c6bf9c);font-size:17px;font-weight:600;line-height:1}.ds-date small{font-size:10px;font-weight:700;color:var(--secondary,#6b6658)}.ds-next{box-shadow:0 0 0 1px var(--crimson,#bc202f);color:var(--crimson,#bc202f)}.ds-next small{color:var(--crimson,#bc202f)}"
     },
     {
-      "name": "Stamp Grid",
+      "name": "Milestone Stamps",
       "kind": "custom",
       "refersTo": "stamp-box",
-      "description": "The passbook page: crimson Cinzel double-ring stamps, a pending stamp, dashed boxes still to fill.",
+      "description": "The passbook page: four milestones (Checkpoint Alpha 3, Checkpoint Bravo 6, Gold Standing 10, Platinum Standing 12); reached ones carry a crimson Cinzel double-ring stamp, the rest are dashed boxes showing the points needed.",
       "html": "<ul class=\"ds-stamps\"><li><span class=\"ds-stamp\" style=\"transform:rotate(-9deg)\"><b>+3</b>OCT 22</span></li><li><span class=\"ds-stamp\" style=\"transform:rotate(5deg)\"><b>+6</b>OCT 24</span></li><li><span class=\"ds-stamp ds-faint\">PENDING</span></li><li class=\"ds-empty\"></li></ul>",
       "css": ".ds-stamps{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;max-width:360px;margin:0;padding:0;list-style:none}.ds-stamps li{display:grid;place-items:center;aspect-ratio:1;border:1px solid var(--rule,#c6bf9c);border-radius:10px;background:#fff}.ds-stamps li.ds-empty{border-style:dashed;background:transparent}.ds-stamp{display:grid;place-content:center;width:76%;aspect-ratio:1;border:2px solid var(--crimson,#bc202f);border-radius:9999px;box-shadow:inset 0 0 0 3px #fff,inset 0 0 0 4.5px var(--crimson,#bc202f);color:var(--crimson,#bc202f);font-family:var(--font-cinzel),'Cinzel','Times New Roman',serif;font-weight:700;font-size:9px;letter-spacing:.06em;text-align:center;line-height:1}.ds-stamp b{display:block;font-size:22px;letter-spacing:0;margin-bottom:2px}.ds-stamp.ds-faint{border-style:dashed;border-color:var(--rule,#c6bf9c);box-shadow:none;color:var(--secondary,#6b6658);font-size:8px}"
     },
@@ -488,7 +488,7 @@
       "Crimson only for actions, the next (or today's) date, stamps, alerts and focus.",
       "State hues (green, amber, blue, gold) appear small: dots, short status words and signed figures in ink-on-white pills, notices and tables; never as fills.",
       "Hanken Grotesk on a steep role ramp with tabular figures; the 64px points figure is the only large type; Cinzel only in stamps.",
-      "The stamp grid and the event pass are the signature surfaces; the stamp landing is the only authored animation.",
+      "The milestone stamps and the event pass are the signature surfaces; the stamp landing is the only authored animation.",
       "Inline two-step confirmation; never the browser's confirm() dialog."
     ],
     "rules": [
@@ -524,7 +524,7 @@
       },
       {
         "name": "The Next Thing First Rule",
-        "body": "Every screen opens with its title or figure and then the single most relevant object (the stamp grid and next pass, \"Needs attention\"), followed by lists. Never open with a grid of summary cards.",
+        "body": "Every screen opens with its title or figure and then the single most relevant object (the milestone stamps and next pass, \"Needs attention\"), followed by lists. Never open with a grid of summary cards.",
         "section": "layout"
       },
       {
@@ -539,7 +539,7 @@
       "Do mark only the next event's (or today's) date box in crimson ring and type, never a crimson fill.",
       "Do carry state with a small dot, word or signed figure in green, amber, blue or gold on white.",
       "Do keep the 64px points figure the only large type, and Cinzel inside stamps only.",
-      "Do use dashed khaki for what is still to fill and the hatch for what was struck.",
+      "Do use dashed khaki for what is still to fill.",
       "Do confirm risky actions inline with the two-step Confirm Button (Cancel / confirm label, 5-second disarm).",
       "Do give small controls `.hit` and keep fields at 16px on coarse pointers.",
       "Do respect reduced motion on the stamp landing."

@@ -224,7 +224,7 @@ Students use it on phones on the day; the committee works the same ink-and-khaki
 - Crimson only for actions, the next (or today's) date, stamps, alerts and focus.
 - State hues (green, amber, blue, gold) appear small: dots, short status words and signed figures in ink-on-white pills, notices and tables; never as fills.
 - Hanken Grotesk on a steep role ramp with tabular figures; the 64px points figure is the only large type; Cinzel only in stamps.
-- The stamp grid and the event pass are the signature surfaces; the stamp landing is the only authored animation.
+- The milestone stamps and the event pass are the signature surfaces; the stamp landing is the only authored animation.
 - Inline two-step confirmation; never the browser's confirm() dialog.
 
 ## Colors
@@ -298,7 +298,7 @@ Rhythm is section-based: 32px between sections, 10px between a section heading a
 
 On touch screens every small control gets a 44px target through the `.hit` class (an invisible expanded hit area, look unchanged); segmented controls and selects grow to 40/44px; fields render at 16px on coarse pointers so iOS never zooms on focus. On phones a row's trailing status stacks under its subtitle; page-title actions wrap below the title.
 
-**The Next Thing First Rule.** Every screen opens with its title or figure and then the single most relevant object (the stamp grid and next pass, "Needs attention"), followed by lists. Never open with a grid of summary cards.
+**The Next Thing First Rule.** Every screen opens with its title or figure and then the single most relevant object (the milestone stamps and next pass, "Needs attention"), followed by lists. Never open with a grid of summary cards.
 
 ## Elevation & Depth
 
@@ -355,8 +355,8 @@ A plain button that, when tapped, swaps in place for Cancel (secondary) and the 
 ### Date Box
 A printed-calendar box: white, 12px radius, 1px khaki ring, 10px uppercase month over the day number, at 40/48/64px. The next event's box (and today's) switches its ring and type to crimson; never a crimson fill. Past events grey the day.
 
-### Stamp Grid (signature)
-The passbook page under the points figure: four columns of 10px-radius khaki-framed boxes, one per scored event. A served event carries a crimson double-ring Cinzel stamp (signed points over the date) at 76% of the box, tilted on a fixed cycle (-9°, 5°, -3°, 8°, -6°). A no-show or negative adjustment is struck with the fill hatch and a secondary figure and reason. Points awaiting the committee show a dashed khaki "Pending" stamp; boxes still needed before the requirement are dashed and empty.
+### Milestone Stamps (signature)
+The passbook page under the points figure: four 10px-radius boxes, one per milestone (Checkpoint Alpha 3, Checkpoint Bravo 6, Gold Standing 10, Platinum Standing 12), each captioned with its name in caption weight. A reached milestone carries a crimson double-ring Cinzel stamp (its points over its short name) at 80% of a khaki-framed white box, tilted on a fixed cycle (-9°, 5°, -3°, 8°). An unreached one is a dashed khaki box showing the points it needs in secondary. Individual events, no-shows and pending points live in History, not here.
 
 ### Event Pass (signature)
 The event as a passbook entry: a khaki-framed white entry with the 64px date box beside the 20px title, time, place and partner; then the time on site drawn to scale (a fill track with the required stretch in khaki and an ink tick labelled "Check out from …"); a status line with a state dot; then one full-width large action (Check in, or the secondary Open to check out). Used on home ("Next") and atop the event page.
@@ -375,7 +375,7 @@ The chapter crest raster: 30px in the bar, 56px beside the figure once the requi
 - **Do** mark only the next event's (or today's) date box in crimson ring and type, never a crimson fill.
 - **Do** carry state with a small dot, word or signed figure in green, amber, blue or gold on white.
 - **Do** keep the 64px points figure the only large type, and Cinzel inside stamps only.
-- **Do** use dashed khaki for what is still to fill and the hatch for what was struck.
+- **Do** use dashed khaki for what is still to fill.
 - **Do** confirm risky actions inline with the two-step Confirm Button (Cancel / confirm label, 5-second disarm).
 - **Do** give small controls `.hit` and keep fields at 16px on coarse pointers.
 - **Do** respect reduced motion on the stamp landing.

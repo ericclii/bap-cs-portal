@@ -55,7 +55,7 @@ export function UserMenu({ user }: Props) {
           </div>
           {user.role && (
             <div className="border-t border-separator py-1 sm:hidden">
-              <Link role="menuitem" href="/" className={item} onClick={() => setOpen(false)}>My service</Link>
+              <Link role="menuitem" href="/service" className={item} onClick={() => setOpen(false)}>My service</Link>
               <Link role="menuitem" href="/committee" className={item} onClick={() => setOpen(false)}>Committee</Link>
             </div>
           )}

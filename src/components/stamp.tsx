@@ -33,53 +33,52 @@ export function Stamp({ points, date, label, faint, className, children }: { poi
   );
 }
 
-export type StampMark =
-  | { kind: "stamp"; key: string; points: number; date: Date; title: string }
-  | { kind: "struck"; key: string; points: number; date: Date; title: string; reason: string }
-  | { kind: "pending"; key: string; date: Date; title: string };
+/** The four standings a candidate stamps through on the way to the requirement. */
+export const MILESTONES = [
+  { name: "Checkpoint Alpha", short: "Alpha", points: 3 },
+  { name: "Checkpoint Bravo", short: "Bravo", points: 6 },
+  { name: "Gold Standing", short: "Gold", points: 10 },
+  { name: "Platinum Standing", short: "Platinum", points: 12 },
+] as const;
 
 /**
- * The passbook page: one box per scored event, struck for a no-show, dashed
- * for the boxes still to fill before the requirement.
+ * The passbook page: one box per milestone. A reached milestone is stamped;
+ * the rest stay dashed, showing the points they need.
  */
-export function StampGrid({ marks, empty, children }: { marks: StampMark[]; empty: number; children?: ReactNode }) {
-  const tilt = ["-rotate-[9deg]", "rotate-[5deg]", "-rotate-[3deg]", "rotate-[8deg]", "-rotate-[6deg]"];
+export function MilestoneGrid({ points, reachedOn }: { points: number; reachedOn: (Date | null)[] }) {
+  const tilt = ["-rotate-[9deg]", "rotate-[5deg]", "-rotate-[3deg]", "rotate-[8deg]"];
   return (
-    <ul className="grid grid-cols-4 gap-2" aria-label="Points this term">
-      {marks.map((m, i) => (
-        <li
-          key={m.key}
-          title={m.title}
-          className={cx(
-            "relative grid aspect-square place-items-center rounded-[10px] border border-rule",
-            m.kind === "struck" ? "bg-[repeating-linear-gradient(135deg,transparent_0_7px,var(--fill)_7px_8px)]" : "bg-surface",
-          )}
-        >
-          {m.kind === "stamp" && (
-            <span className={cx("w-[76%]", tilt[i % tilt.length])}>
-              <Stamp points={m.points} date={m.date} />
-            </span>
-          )}
-          {m.kind === "pending" && (
-            <span className="w-[76%]">
-              <Stamp label="Pending" faint />
-            </span>
-          )}
-          {m.kind === "struck" && (
-            <span className="text-center leading-tight">
-              <span className="block text-headline font-bold text-secondary tabular-nums">{signed(m.points)}</span>
-              <span className="block text-caption font-semibold text-secondary">{m.reason}</span>
-            </span>
-          )}
-          <span className="sr-only">
-            {m.title}, {m.kind === "pending" ? "points pending" : `${signed(m.points)} points`}
-          </span>
-        </li>
-      ))}
-      {Array.from({ length: empty }, (_, i) => (
-        <li key={`empty-${i}`} className="aspect-square rounded-[10px] border border-dashed border-rule" aria-hidden />
-      ))}
-      {children}
-    </ul>
+    <ol className="grid grid-cols-4 gap-2" aria-label="Milestones">
+      {MILESTONES.map((m, i) => {
+        const reached = points >= m.points;
+        const on = reachedOn[i];
+        return (
+          <li key={m.name} className="min-w-0 text-center">
+            <div
+              className={cx(
+                "grid aspect-square place-items-center rounded-[10px] border border-rule",
+                reached ? "bg-surface" : "border-dashed",
+              )}
+              title={reached && on ? `${m.name}, reached ${STAMP_DATE.format(on)}` : m.name}
+            >
+              {reached ? (
+                <span className={cx("w-[80%]", tilt[i])}>
+                  <Stamp>
+                    <span className="block text-[34cqw] font-bold">{m.points}</span>
+                    <span className="mt-[3cqw] block text-[11.5cqw] font-bold tracking-[0.04em] uppercase">{m.short}</span>
+                  </Stamp>
+                </span>
+              ) : (
+                <span className="text-headline font-semibold text-secondary tabular-nums">{m.points}</span>
+              )}
+            </div>
+            <p className={cx("mt-1.5 text-caption leading-tight font-semibold text-balance", reached ? "text-text" : "text-secondary")}>
+              {m.name}
+            </p>
+            <span className="sr-only">{reached ? ", reached" : `, ${m.points - points} points to go`}</span>
+          </li>
+        );
+      })}
+    </ol>
   );
 }
