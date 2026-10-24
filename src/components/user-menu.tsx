@@ -1,5 +1,6 @@
 "use client";
 
+import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
@@ -42,10 +43,16 @@ export function UserMenu({ user }: Props) {
         aria-haspopup="menu"
         aria-expanded={open}
         onClick={() => setOpen((o) => !o)}
-        className="hit flex rounded-full transition-opacity duration-150 hover:opacity-80"
+        className="hit flex h-8 w-8 items-center justify-center rounded-full transition-opacity duration-200 hover:opacity-80"
       >
-        <Avatar name={user.name} image={user.image} size={32} />
-        <span className="sr-only">Account</span>
+        {/* Phones get a menu icon; wider screens show who is signed in. */}
+        <span className="sm:hidden" aria-hidden>
+          {open ? <X className="h-6 w-6" strokeWidth={2} /> : <Menu className="h-6 w-6" strokeWidth={2} />}
+        </span>
+        <span className="hidden sm:flex">
+          <Avatar name={user.name} image={user.image} size={32} />
+        </span>
+        <span className="sr-only">Menu</span>
       </button>
       {open && (
         <div role="menu" className="absolute right-0 z-40 mt-2 w-64 rounded-2xl bg-surface p-1.5 pop-in shadow-pop">

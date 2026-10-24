@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Lato, Raleway } from "next/font/google";
+import { Cinzel, Lato, Raleway } from "next/font/google";
 import { Analytics } from "@/components/analytics";
 import "./globals.css";
 
@@ -7,6 +7,8 @@ import "./globals.css";
 const lato = Lato({ subsets: ["latin"], weight: ["400", "700"], variable: "--font-lato", display: "swap" });
 // Raleway (variable) carries titles, headings, the points figure, the wordmark and stamps.
 const raleway = Raleway({ subsets: ["latin"], variable: "--font-raleway", display: "swap" });
+// Cinzel is reserved for the stamps, so only the weight they use.
+const cinzel = Cinzel({ subsets: ["latin"], weight: "700", variable: "--font-cinzel", display: "swap" });
 
 export const metadata: Metadata = {
   title: { default: "BAP Community Service", template: "%s · BAP Community Service" },
@@ -23,7 +25,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`h-full antialiased ${lato.variable} ${raleway.variable}`}>
+    <html lang="en" className={`h-full antialiased ${lato.variable} ${raleway.variable} ${cinzel.variable}`}>
       <body className="flex min-h-full flex-col font-sans">
         {children}
         <Analytics />

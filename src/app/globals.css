@@ -63,7 +63,7 @@
   --color-blue: var(--blue);
   --font-sans: var(--font-lato), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-display: var(--font-raleway), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-seal: var(--font-display);
+  --font-seal: var(--font-cinzel), "Times New Roman", serif;
   --shadow-pop: var(--shadow-pop);
   --default-transition-duration: 200ms;
   --default-transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
@@ -278,7 +278,11 @@ a {
   animation: reveal 320ms var(--ease-out-expo) both;
 }
 
-/* Page changes: the old page fades quickly, the new one rises softly into focus. */
+/*
+ * Page changes run in sequence, never overlapping: the old page fades out
+ * first, then the new one fades up a few pixels. Opacity and transform only,
+ * so phones stay smooth.
+ */
 @keyframes page-out {
   to {
     opacity: 0;
@@ -287,26 +291,40 @@ a {
 @keyframes page-in {
   from {
     opacity: 0;
-    transform: translateY(12px);
-    filter: blur(3px);
+    transform: translateY(8px);
   }
 }
 ::view-transition-old(.page) {
-  animation: page-out 140ms var(--ease-in-quart) both;
+  animation: page-out 120ms var(--ease-in-quart) both;
 }
 ::view-transition-new(.page) {
-  animation: page-in 420ms var(--ease-out-expo) 70ms both;
+  animation: page-in 320ms var(--ease-out-expo) 120ms both;
 }
 ::view-transition-group(root) {
   animation-duration: 200ms;
 }
-/* The bar stays put: show the new header straight away, no morph. */
-::view-transition-group(.pinned),
+/*
+ * The bar never fades. When its height changes (the committee tabs appear or
+ * go), the bar grows or shrinks from the top: growing reveals the new bar's
+ * tabs downwards; shrinking lets the old tabs retract up behind the new bar.
+ */
+::view-transition-group(.pinned) {
+  overflow: clip;
+  animation-duration: 380ms;
+  animation-timing-function: var(--ease-out-expo);
+}
+::view-transition-image-pair(.pinned) {
+  isolation: auto;
+}
+::view-transition-old(.pinned),
 ::view-transition-new(.pinned) {
   animation: none;
+  mix-blend-mode: normal;
+  height: auto;
+  inset: 0 0 auto 0;
 }
-::view-transition-old(.pinned) {
-  display: none;
+::view-transition-new(.pinned) {
+  z-index: 1;
 }
 
 /* The one authored moment: on check-in a stamp lands on the entry. */

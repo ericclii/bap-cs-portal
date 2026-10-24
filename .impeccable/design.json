@@ -336,7 +336,7 @@
       },
       "seal": {
         "displayName": "Seal",
-        "purpose": "Raleway 700 inside stamps, lining figures; sized by container units."
+        "purpose": "Cinzel 700 inside stamps only; sized by container units."
       }
     },
     "shadows": [
@@ -520,9 +520,9 @@
       "name": "Milestone Stamps",
       "kind": "custom",
       "refersTo": "stamp-box",
-      "description": "Four milestones (Checkpoint Alpha 3, Checkpoint Bravo 6, Gold Standing 10, Platinum Standing 12); reached ones are white boxes with a crimson Raleway double-ring stamp, the rest are fill boxes showing the points needed.",
+      "description": "Four milestones (Checkpoint Alpha 3, Checkpoint Bravo 6, Gold Standing 10, Platinum Standing 12); reached ones are white boxes with a crimson Cinzel double-ring stamp, the rest are fill boxes showing the points needed.",
       "html": "<ol class=\"ds-stamps\"><li><span class=\"ds-stamp\" style=\"transform:rotate(-9deg)\"><b>3</b>ALPHA</span></li><li><span class=\"ds-stamp\" style=\"transform:rotate(5deg)\"><b>6</b>BRAVO</span></li><li class=\"ds-open\">10</li><li class=\"ds-open\">12</li></ol>",
-      "css": ".ds-stamps{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;max-width:360px;margin:0;padding:0;list-style:none}.ds-stamps li{display:grid;place-items:center;aspect-ratio:1;border-radius:10px;background:var(--surface,#fff)}.ds-stamps li.ds-open{background:var(--fill,#efece5);color:var(--secondary,#6b6658);font-family:var(--font-lato),Lato,-apple-system,'Segoe UI',Roboto,sans-serif;font-size:17px;font-weight:700}.ds-stamp{display:grid;place-content:center;width:80%;aspect-ratio:1;border:2px solid var(--crimson,#bc202f);border-radius:9999px;box-shadow:inset 0 0 0 3px #fff,inset 0 0 0 4.5px var(--crimson,#bc202f);color:var(--crimson,#bc202f);font-family:var(--font-raleway),Raleway,-apple-system,'Segoe UI',Roboto,sans-serif;font-variant-numeric:lining-nums tabular-nums;font-weight:700;font-size:9px;letter-spacing:.04em;text-align:center;line-height:1}.ds-stamp b{display:block;font-size:24px;letter-spacing:0;margin-bottom:2px}"
+      "css": ".ds-stamps{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;max-width:360px;margin:0;padding:0;list-style:none}.ds-stamps li{display:grid;place-items:center;aspect-ratio:1;border-radius:10px;background:var(--surface,#fff)}.ds-stamps li.ds-open{background:var(--fill,#efece5);color:var(--secondary,#6b6658);font-family:var(--font-lato),Lato,-apple-system,'Segoe UI',Roboto,sans-serif;font-size:17px;font-weight:700}.ds-stamp{display:grid;place-content:center;width:80%;aspect-ratio:1;border:2px solid var(--crimson,#bc202f);border-radius:9999px;box-shadow:inset 0 0 0 3px #fff,inset 0 0 0 4.5px var(--crimson,#bc202f);color:var(--crimson,#bc202f);font-family:Cinzel,'Times New Roman',serif;font-variant-numeric:lining-nums tabular-nums;font-weight:700;font-size:9px;letter-spacing:.04em;text-align:center;line-height:1}.ds-stamp b{display:block;font-size:24px;letter-spacing:0;margin-bottom:2px}"
     },
     {
       "name": "Check-in Stamp",
@@ -530,7 +530,7 @@
       "refersTo": "stamp",
       "description": "The IN/OUT stamp lands once (420ms, ease-out-expo); rests at -9deg under reduced motion.",
       "html": "<span class=\"ds-landing\"><span><b>IN</b>9:02 AM<br>OCT 25</span></span>",
-      "css": "@keyframes ds-stamp-land{0%{transform:scale(1.9) rotate(-24deg);opacity:0}60%{opacity:1}100%{transform:scale(1) rotate(-9deg);opacity:1}}.ds-landing{display:grid;place-items:center;width:80px;height:80px;border:2px solid var(--crimson,#bc202f);border-radius:9999px;box-shadow:inset 0 0 0 3px #fff,inset 0 0 0 4.5px var(--crimson,#bc202f);color:var(--crimson,#bc202f);font-family:var(--font-raleway),Raleway,-apple-system,'Segoe UI',Roboto,sans-serif;font-variant-numeric:lining-nums tabular-nums;font-weight:700;font-size:10px;text-align:center;line-height:1.1;animation:ds-stamp-land 420ms cubic-bezier(.16,1,.3,1) both}.ds-landing b{display:block;font-size:21px}@media (prefers-reduced-motion:reduce){.ds-landing{animation:none;transform:rotate(-9deg)}}"
+      "css": "@keyframes ds-stamp-land{0%{transform:scale(1.9) rotate(-24deg);opacity:0}60%{opacity:1}100%{transform:scale(1) rotate(-9deg);opacity:1}}.ds-landing{display:grid;place-items:center;width:80px;height:80px;border:2px solid var(--crimson,#bc202f);border-radius:9999px;box-shadow:inset 0 0 0 3px #fff,inset 0 0 0 4.5px var(--crimson,#bc202f);color:var(--crimson,#bc202f);font-family:var(--font-cinzel),Cinzel,-apple-system,'Segoe UI',Roboto,sans-serif;font-variant-numeric:lining-nums tabular-nums;font-weight:700;font-size:10px;text-align:center;line-height:1.1;animation:ds-stamp-land 420ms cubic-bezier(.16,1,.3,1) both}.ds-landing b{display:block;font-size:21px}@media (prefers-reduced-motion:reduce){.ds-landing{animation:none;transform:rotate(-9deg)}}"
     },
     {
       "name": "Range",
@@ -543,13 +543,13 @@
   ],
   "narrative": {
     "northStar": "The Service Passbook",
-    "overview": "The semester is a passbook. Every event a student serves leaves a crimson stamp on the page until the page is full; everything else is ink on paper. The colours are the chapter crest's: charcoal ink on a warm ramp, and crimson reserved for what acts, what is next, and what was earned. Regions are told apart by tone, never by outlines: white entries sit on a warm light-grey ground, and fields, tracks, pills and open boxes sink one step into a deeper warm fill. No surface carries a border.\n\nHierarchy is scale, not decoration. Two voices share a steep ramp: Raleway speaks for titles, the points figure (64px, 800, the only large type), the wordmark, date boxes and the ink of the stamps; Lato carries every row, button, field, pill and notice. Time is drawn to length: the event pass shows the time on site as a bar with the check-out moment marked. The crest seal recurs at three sizes (the bar, a met requirement, sign-in) and is the browser-tab and home-screen icon.\n\nStudents use it on phones on the day; the committee works the same ledger on phones and laptops. Density is comfortable and phone-first, flat, and calm. Actions other than the one crimson primary are words that draw an underline when you reach for them. Motion is a small, consistent vocabulary on one family of out-curves: pages rise into focus, popovers settle, in-place content reveals, and the check-in stamp lands.",
+    "overview": "The semester is a passbook. Every event a student serves leaves a crimson stamp on the page until the page is full; everything else is ink on paper. The colours are the chapter crest's: charcoal ink on a warm ramp, and crimson reserved for what acts, what is next, and what was earned. Regions are told apart by tone, never by outlines: white entries sit on a warm light-grey ground, and fields, tracks, pills and open boxes sink one step into a deeper warm fill. No surface carries a border.\n\nHierarchy is scale, not decoration. Two voices share a steep ramp: Raleway speaks for titles, the points figure (64px, 800, the only large type), the wordmark and date boxes, while Cinzel, the crest's serif, inks the stamps; Lato carries every row, button, field, pill and notice. Time is drawn to length: the event pass shows the time on site as a bar with the check-out moment marked. The crest seal recurs at three sizes (the bar, a met requirement, sign-in) and is the browser-tab and home-screen icon.\n\nStudents use it on phones on the day; the committee works the same ledger on phones and laptops. Density is comfortable and phone-first, flat, and calm. Actions other than the one crimson primary are words that draw an underline when you reach for them. Motion is a small, consistent vocabulary on one family of out-curves: pages rise into focus, popovers settle, in-place content reveals, and the check-in stamp lands.",
     "keyCharacteristics": [
       "Tone, not lines: warm grey ground, white surfaces, a deeper fill for fields, tracks, pills and open boxes; no borders or outlines on any region or control.",
       "Crimson only for the primary action, text actions, the next (or today's) date, stamps, alerts and focus.",
       "State hues (green, amber, crest gold) appear as words, bare line icons and signed figures; never as dots and never as fills.",
       "One filled crimson pill per view; every other action is text with a drawn underline.",
-      "Raleway for headings, the figure, the wordmark, date boxes and stamps; Lato for all UI text; tabular figures throughout; the 64px points figure is the only large type.",
+      "Raleway for headings, the figure, the wordmark and date boxes; Cinzel only inside stamps; Lato for all UI text; tabular figures throughout; the 64px points figure is the only large type.",
       "The milestone stamps and the event pass are the signature surfaces; the stamp landing is the one signature motion.",
       "Inline two-step confirmation; never the browser's confirm() dialog."
     ],
@@ -576,12 +576,12 @@
       },
       {
         "name": "The Two Voices Rule",
-        "body": "Raleway is for h1 to h3, the points figure, the wordmark, date boxes and stamps; Lato is for every other piece of UI text. Never set a button, row, field, pill or notice in Raleway, and never request Lato at 500 or 600, which it does not have.",
+        "body": "Raleway is for h1 to h3, the points figure, the wordmark and date boxes; Lato is for every other piece of UI text. Stamps alone are set in Cinzel, the serif of the crest, and Cinzel appears nowhere else. Never set a button, row, field, pill or notice in Raleway, and never request Lato at 500 or 600, which it does not have.",
         "section": "typography"
       },
       {
         "name": "The Tabular Rule",
-        "body": "Every number renders with tabular figures, and Raleway's numbers are lining as well; it is set on the body, headings, `.font-display` and stamps, so do not turn it off or set Raleway numbers outside those hooks.",
+        "body": "Every number renders with tabular figures, and Raleway's numbers are lining as well; it is set on the body, headings, `.font-display`, so do not turn it off or set Raleway numbers outside those hooks.",
         "section": "typography"
       },
       {
@@ -601,7 +601,7 @@
       "Do mark the current nav tab with its underline held in gold-bright at 2px.",
       "Do mark only the next event's (or today's) date box in crimson blush and crimson type.",
       "Do carry state with a tinted word, a bare line icon or a signed figure in green, amber, crest gold ink or gold.",
-      "Do keep the 64px points figure the only large type; set headings, the figure, the wordmark, date boxes and stamps in Raleway with lining tabular figures, and everything else in Lato 400 or 700.",
+      "Do keep the 64px points figure the only large type; set headings, the figure, the wordmark and date boxes in Raleway with lining tabular figures, stamps in Cinzel, and everything else in Lato 400 or 700.",
       "Do confirm risky actions inline with the two-step Confirm Button (Cancel / confirm label, 5-second disarm).",
       "Do give small controls `.hit` and keep fields at 16px on coarse pointers.",
       "Do animate only with the motion vocabulary (page transition, pop-in, reveal, stamp landing, 200ms state changes) and give each a reduced-motion opacity fallback."

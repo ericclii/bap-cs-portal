@@ -9,9 +9,10 @@ export function NavLink({ href, exact, children, badge }: { href: string; exact?
   const pathname = usePathname();
   const active = exact ? pathname === href : pathname === href || pathname.startsWith(`${href}/`);
   const ref = useRef<HTMLAnchorElement>(null);
-  // Keep the current section visible in the horizontally scrolling subnav.
+  // Bring the current section into view only if it is off-screen; a tab the
+  // user just tapped is already visible, so the strip stays where they left it.
   useEffect(() => {
-    if (active) ref.current?.scrollIntoView({ block: "nearest", inline: "center" });
+    if (active) ref.current?.scrollIntoView({ block: "nearest", inline: "nearest" });
   }, [active]);
   return (
     <Link

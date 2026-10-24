@@ -68,10 +68,9 @@ typography:
     fontWeight: 700
     lineHeight: 1
   seal:
-    fontFamily: "Raleway, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, sans-serif"
+    fontFamily: "Cinzel, \"Times New Roman\", serif"
     fontWeight: 700
     letterSpacing: "0.06em"
-    fontFeature: "\"lnum\" 1, \"tnum\" 1"
 rounded:
   segment: "8px"
   box: "10px"
@@ -228,7 +227,7 @@ components:
 
 The semester is a passbook. Every event a student serves leaves a crimson stamp on the page until the page is full; everything else is ink on paper. The colours are the chapter crest's: charcoal ink on a warm ramp, and crimson reserved for what acts, what is next, and what was earned. Regions are told apart by tone, never by outlines: white entries sit on a warm light-grey ground, and fields, tracks, pills and open boxes sink one step into a deeper warm fill. No surface carries a border.
 
-Hierarchy is scale, not decoration. Two voices share a steep ramp: Raleway speaks for titles, the points figure (64px, 800, the only large type), the wordmark, date boxes and the ink of the stamps; Lato carries every row, button, field, pill and notice. Time is drawn to length: the event pass shows the time on site as a bar with the check-out moment marked. The crest seal recurs at three sizes (the bar, a met requirement, sign-in) and is the browser-tab and home-screen icon.
+Hierarchy is scale, not decoration. Two voices share a steep ramp: Raleway speaks for titles, the points figure (64px, 800, the only large type), the wordmark and date boxes, while Cinzel, the crest's serif, inks the stamps; Lato carries every row, button, field, pill and notice. Time is drawn to length: the event pass shows the time on site as a bar with the check-out moment marked. The crest seal recurs at three sizes (the bar, a met requirement, sign-in) and is the browser-tab and home-screen icon.
 
 Students use it on phones on the day; the committee works the same ledger on phones and laptops. Density is comfortable and phone-first, flat, and calm. Actions other than the one crimson primary are words that draw an underline when you reach for them. Motion is a small, consistent vocabulary on one family of out-curves: pages rise into focus, popovers settle, in-place content reveals, and the check-in stamp lands.
 
@@ -237,7 +236,7 @@ Students use it on phones on the day; the committee works the same ledger on pho
 - Crimson only for the primary action, text actions, the next (or today's) date, stamps, alerts and focus.
 - State hues (green, amber, crest gold) appear as words, bare line icons and signed figures; never as dots and never as fills.
 - One filled crimson pill per view; every other action is text with a drawn underline.
-- Raleway for headings, the figure, the wordmark, date boxes and stamps; Lato for all UI text; tabular figures throughout; the 64px points figure is the only large type.
+- Raleway for headings, the figure, the wordmark and date boxes; Cinzel only inside stamps; Lato for all UI text; tabular figures throughout; the 64px points figure is the only large type.
 - The milestone stamps and the event pass are the signature surfaces; the stamp landing is the one signature motion.
 - Inline two-step confirmation; never the browser's confirm() dialog.
 
@@ -280,7 +279,7 @@ All three appear as a short status word, a bare line icon or a signed figure; ne
 
 **Display Font:** Raleway, variable (via next/font as `--font-raleway`, exposed as `--font-display`; fallback -apple-system, Segoe UI, Roboto, sans-serif)
 **Body Font:** Lato 400 and 700 (via next/font as `--font-lato`, exposed as `--font-sans`; same fallback)
-**Stamp Font:** Raleway 700 (`--font-seal` points at the display face)
+**Stamp Font:** Cinzel 700 (via next/font as `--font-cinzel`, exposed as `--font-seal`), used only inside stamps
 
 **Character:** An elegant geometric display face over a sturdy humanist sans. Every h1, h2 and h3 (page titles, section headings, the event title, the points figure and the "of 12 points" beside it), the wordmark, date boxes and stamps are Raleway; everything else is Lato. Spacing tightens slightly with size (-0.006em on body to -0.04em on the figure). Raleway defaults to old-style figures, so headings, `.font-display` and stamps set lining, tabular figures; the body sets tabular figures for points, times and counts. Lato ships only 400 and 700: a medium request renders regular and a semibold request renders bold, so UI text has exactly two weights.
 
@@ -293,21 +292,21 @@ Roles are defined once as theme tokens in `globals.css`; screens use the role, n
 - **Body** (Lato 400, bold where emphasis is needed; 15px, 1.45): row titles, inputs, notices, nav tabs, pass metadata, prose.
 - **Footnote** (Lato, 13px, 1.4): row subtitles, field labels and hints, the time-on-site labels, small buttons, segments, the nav count.
 - **Caption** (Lato bold, 12px): pill labels and milestone names.
-- **Seal** (Raleway 700, sized to the stamp by container units, 0.06em tracking on the date line, lining figures): signed points, IN/OUT, time and date inside stamps; uppercase is native here.
+- **Seal** (Cinzel 700, sized to the stamp by container units, 0.06em tracking on the date line): signed points, IN/OUT, time and date inside stamps; uppercase is native here.
 The date box is set in Raleway: its month (700, 10px, uppercase) and day number (17/20/28px, tabular) are its own fixed sizes.
 
 ### Named Rules
 **The One Large Number Rule.** The points figure is the only large type on any screen; everything else lives at 30px or below.
 
-**The Two Voices Rule.** Raleway is for h1 to h3, the points figure, the wordmark, date boxes and stamps; Lato is for every other piece of UI text. Never set a button, row, field, pill or notice in Raleway, and never request Lato at 500 or 600, which it does not have.
+**The Two Voices Rule.** Raleway is for h1 to h3, the points figure, the wordmark and date boxes; Lato is for every other piece of UI text. Stamps alone are set in Cinzel, the serif of the crest, and Cinzel appears nowhere else. Never set a button, row, field, pill or notice in Raleway, and never request Lato at 500 or 600, which it does not have.
 
-**The Tabular Rule.** Every number renders with tabular figures, and Raleway's numbers are lining as well; it is set on the body, headings, `.font-display` and stamps, so do not turn it off or set Raleway numbers outside those hooks.
+**The Tabular Rule.** Every number renders with tabular figures, and Raleway's numbers are lining as well; it is set on the body, headings and `.font-display`, so do not turn it off or set Raleway numbers outside those hooks.
 
 ## Layout
 
 One 1024px frame (max-w-5xl) for every signed-in page, header and content alike, with 16px gutters that respect the landscape safe area, so the bar and content edge never move between sections. Phones get one column. From 1024px the student home and event page split into two columns at 5:7 with a 40px gap: on home, the figure, stamp grid and next pass on the left (sticky under the bar), lists on the right. Committee forms (new and edit event) sit left-aligned at 672px inside the frame. Sign-in, privacy, 404 and error are standalone centred pages with no bar; the on-site QR screen is a standalone full-height display on the ground.
 
-A sticky 56px bar in translucent white (85%, backdrop blur and saturate) carries the seal and "Community Service" on the left and section tabs and the avatar on the right; it has no bottom rule, the tone change against the ground is the edge. Committee screens add a horizontally scrolling subnav of text tabs that fades at the phone's right edge. Content starts 24px under the bar and clears the bottom safe area.
+A sticky 56px bar in translucent white (85%, backdrop blur and saturate) carries the seal and "Community Service" on the left and section tabs and the avatar on the right (on phones, a hamburger icon that turns into a close icon opens the same menu); it has no bottom rule, the tone change against the ground is the edge. Committee screens add a horizontally scrolling subnav of text tabs that fades at the phone's right edge. Content starts 24px under the bar and clears the bottom safe area.
 
 Rhythm is section-based: 32px between sections, 10px between a section heading and its entry, 8px to a footer. Rows are at least 56px with 12px/16px padding and 12px between leading box, text and trailing content. Panels and passes pad 16px, 20px from 640px. The stamp grid is four columns with 8px gaps. Adjacent text buttons sit 0.75rem apart, since they carry no padding of their own.
 
@@ -363,7 +362,7 @@ A plain button that, when tapped, swaps in place for Cancel (secondary) and the 
 - **Range:** a borderless 4px fill-strong track that fills crimson up to an 18px crimson thumb; the thumb grows to 115% while held.
 
 ### Navigation
-- **Bar:** the 30px crest seal and "Community Service" (Raleway 17px bold) on the left; "My service" / "Committee" tabs and the avatar menu on the right; translucent white, blurred, no rule.
+- **Bar:** the 30px crest seal and "Community Service" (Raleway 17px bold) on the left; "My service" / "Committee" tabs and the avatar menu on the right (a hamburger icon below 640px); translucent white, blurred, no rule.
 - **Nav tabs and subnav:** 32px text tabs, 15px regular secondary, ink on hover with the underline drawing in. The current tab is ink bold with its underline held in gold-bright at 2px. A count of items needing attention follows the label as bold crimson footnote text, not a filled badge. The subnav keeps the current tab in view.
 - **Segmented control:** fill track, white selected segment with the thumb shadow, 13px bold.
 - **Back link:** crimson 15px label with a line chevron and the underline.
@@ -383,7 +382,7 @@ On the event page, attendance shows as an 80px crimson stamp reading IN or OUT w
 
 ### Motion
 One family of curves, all cubic-bezier: ease-out-expo, ease-out-quint and ease-in-quart. Tailwind's default transition is 200ms ease-out-quint, so every state change shares it.
-- **Page transition:** React `ViewTransition` around each page (the root and committee templates). The old page fades out in 140ms (ease-in-quart); the new one rises 12px from a 3px blur over 420ms (ease-out-expo, 70ms delay). The header is pinned (`share="pinned"`) and never morphs.
+- **Page transition:** React `ViewTransition` around each page (the root and committee templates). The two never overlap: the old page fades out in 120ms (ease-in-quart), then the new one fades up 8px over 320ms (ease-out-expo, 120ms delay); opacity and transform only, so phones stay smooth. The header is a named pair (`share="pinned"`) that never fades: when its height changes (the committee tabs appear or go) it grows or shrinks from the top over 380ms (ease-out-expo), clipped, with the new bar drawn on top. Within the committee the bar persists and the tab strip keeps its scroll position (the active tab only scrolls into view when it is off-screen).
 - **Popover:** `.pop-in`, 240ms ease-out-expo, from 6px above at 97% scale.
 - **In-place reveal:** `.reveal`, 320ms ease-out-expo, rising 6px; used by notices and inline forms.
 - **Stamp landing:** as above, on check-in and check-out.
@@ -400,7 +399,7 @@ The chapter crest raster: 30px in the bar, 56px beside the figure once the requi
 - **Do** mark the current nav tab with its underline held in gold-bright at 2px.
 - **Do** mark only the next event's (or today's) date box in crimson blush and crimson type.
 - **Do** carry state with a tinted word, a bare line icon or a signed figure in green, amber, crest gold ink or gold.
-- **Do** keep the 64px points figure the only large type; set headings, the figure, the wordmark, date boxes and stamps in Raleway with lining tabular figures, and everything else in Lato 400 or 700.
+- **Do** keep the 64px points figure the only large type; set headings, the figure, the wordmark and date boxes in Raleway with lining tabular figures, stamps in Cinzel, and everything else in Lato 400 or 700.
 - **Do** confirm risky actions inline with the two-step Confirm Button (Cancel / confirm label, 5-second disarm).
 - **Do** give small controls `.hit` and keep fields at 16px on coarse pointers.
 - **Do** animate only with the motion vocabulary (page transition, pop-in, reveal, stamp landing, 200ms state changes) and give each a reduced-motion opacity fallback.
