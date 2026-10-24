@@ -79,7 +79,7 @@ export function SignInPanel({
       </p>
 
       {devLoginEnabled && (
-        <form onSubmit={devSignIn} className="mt-8 space-y-3 rounded-2xl bg-surface p-4 ring-1 ring-rule">
+        <form onSubmit={devSignIn} className="mt-8 space-y-3 rounded-2xl bg-surface p-4">
           <div>
             <p className="text-footnote font-semibold text-amber">Development sign-in</p>
             <p className="mt-0.5 text-footnote text-secondary">Act as any NetID. Disabled in production.</p>

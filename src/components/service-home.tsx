@@ -203,7 +203,6 @@ function StatusLine({ tone, label, detail }: { tone: "green" | "crimson"; label:
   return (
     <div className="flex items-center justify-between gap-3">
       <span className={`flex items-center gap-2 text-body font-semibold ${tone === "green" ? "text-green" : "text-crimson"}`}>
-        <span className={`h-2 w-2 rounded-full ${tone === "green" ? "bg-green" : "bg-crimson"}`} aria-hidden />
         {label}
       </span>
       <span className="text-footnote text-secondary">{detail}</span>

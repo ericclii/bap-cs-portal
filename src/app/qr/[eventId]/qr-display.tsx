@@ -68,7 +68,7 @@ export function QrDisplay({ eventId, title }: { eventId: string; title: string }
         <h1 className="text-2xl font-semibold tracking-tight text-balance sm:text-4xl">{title}</h1>
       </div>
       <div className="w-full max-w-[min(56vh,520px)]">
-        <div className="relative aspect-square rounded-3xl bg-surface p-4 ring-1 ring-rule">
+        <div className="relative aspect-square rounded-3xl bg-surface p-4">
           {svg ? (
             <div className="h-full w-full [&>svg]:h-full [&>svg]:w-full" dangerouslySetInnerHTML={{ __html: svg }} />
           ) : (

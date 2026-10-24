@@ -23,14 +23,14 @@ export function MenuButton({ items, label = "More actions", align = "right" }: {
     };
   }, [open]);
 
-  const item = "block w-full rounded-lg px-3 py-2 text-left text-body hover:bg-fill";
+  const item = "block w-full rounded-lg px-3 py-2 text-left text-body hover:bg-ground";
   return (
     <div ref={ref} className="relative">
       <Button variant="secondary" aria-label={label} aria-haspopup="menu" aria-expanded={open} onClick={() => setOpen((o) => !o)}>
         <Ellipsis className="h-4 w-4" aria-hidden />
       </Button>
       {open && (
-        <div role="menu" className={`absolute ${align === "left" ? "left-0" : "right-0"} z-40 mt-2 w-60 rounded-2xl bg-surface p-1.5 shadow-[0_12px_32px_rgb(46_46_46/0.12)] ring-1 ring-rule`}>
+        <div role="menu" className={`absolute ${align === "left" ? "left-0" : "right-0"} z-40 mt-2 w-60 rounded-2xl bg-surface p-1.5 pop-in shadow-pop`}>
           {items.map((i) =>
             i.href ? (
               <a key={i.label} role="menuitem" href={i.href} className={item} onClick={() => setOpen(false)}>

@@ -2,40 +2,42 @@
 
 /*
  * BAP Community Service design tokens: the service passbook.
- * Colours come from the chapter crest: paper white, khaki gold #C6BF9C for
- * rules and frames, crimson #BC202F for actions, the next event and stamps,
- * charcoal ink. Light only: the ground is the crest's white.
+ * Colours come from the chapter crest: crimson #BC202F for actions, the next
+ * event and stamps, khaki gold #C6BF9C for highlights, charcoal ink. Regions
+ * are told apart by tone, never by outlines: a warm light-grey ground, white
+ * surfaces on it, a deeper warm grey for fields and tracks. Light only.
  */
 :root {
-  --ground: #fdfcf8;
+  --ground: #f5f3ee;
   --surface: #ffffff;
-  --fill: #f3efe3;
-  --fill-strong: #e8e1cc;
+  --fill: #efece5;
+  --fill-strong: #e5e1d6;
   --rule: #c6bf9c;
-  --separator: #ebe5d3;
+  --separator: #f0ede6;
   --text: #2e2e2e;
   --secondary: #6b6658;
   --tertiary: #a29c88;
-  --placeholder: #7a7464;
+  --placeholder: #6f6a5b;
 
   --crimson: #bc202f;
   --crimson-hover: #a11b28;
   --crimson-soft: #f9e9ea;
   --on-crimson: #ffffff;
 
-  --sand: #c6bf9c;
-  --sand-soft: #f3efe3;
   --gold: #7d6514;
   --gold-bright: #c9a227;
 
   --green: #1f7a45;
-  --green-soft: #e5f2e8;
   --amber: #9a4700;
-  --amber-soft: #fbecdc;
-  --blue: #1f5fae;
-  --blue-soft: #e8eef8;
+  /* "In progress" reads in crest gold, not a cool blue. */
+  --blue: #6f5a10;
 
-  --shadow-pass: 0 1px 2px rgb(46 46 46 / 0.04), 0 8px 24px rgb(46 46 46 / 0.05);
+  --shadow-pop: 0 2px 6px rgb(46 46 46 / 0.06), 0 16px 40px rgb(46 46 46 / 0.12);
+
+  /* One family of curves for every animation. */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-quart: cubic-bezier(0.5, 0, 0.75, 0);
   color-scheme: light;
 }
 
@@ -54,21 +56,19 @@
   --color-crimson-hover: var(--crimson-hover);
   --color-crimson-soft: var(--crimson-soft);
   --color-on-crimson: var(--on-crimson);
-  --color-sand: var(--sand);
-  --color-sand-soft: var(--sand-soft);
   --color-gold: var(--gold);
   --color-gold-bright: var(--gold-bright);
   --color-green: var(--green);
-  --color-green-soft: var(--green-soft);
   --color-amber: var(--amber);
-  --color-amber-soft: var(--amber-soft);
   --color-blue: var(--blue);
-  --color-blue-soft: var(--blue-soft);
-  --font-sans: var(--font-hanken), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-seal: var(--font-cinzel), "Times New Roman", serif;
-  --shadow-pass: var(--shadow-pass);
+  --font-sans: var(--font-lato), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-display: var(--font-raleway), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-seal: var(--font-display);
+  --shadow-pop: var(--shadow-pop);
+  --default-transition-duration: 200ms;
+  --default-transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
 
-  /* Type ramp: roles, not sizes. One family; hierarchy from these steps. */
+  /* Type ramp: roles, not sizes. Raleway for figure/display/title, Lato for the rest. */
   --text-figure: 64px;
   --text-figure--line-height: 0.9;
   --text-figure--letter-spacing: -0.04em;
@@ -132,6 +132,16 @@ body {
   letter-spacing: -0.006em;
 }
 
+/* Two voices: Raleway for titles, headings and display figures; Lato for everything else. */
+h1,
+h2,
+h3,
+.font-display {
+  font-family: var(--font-display);
+  /* Raleway defaults to old-style figures; headings and figures use lining ones. */
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
 /* Every field's placeholder, including ones that set no colour of their own. */
 ::placeholder {
   color: var(--placeholder);
@@ -156,6 +166,149 @@ a {
   scrollbar-color: var(--rule) transparent;
 }
 
+/*
+ * Text controls: an underline draws in left to right on hover and pulls back
+ * right to left when the pointer leaves. The current page keeps it drawn.
+ */
+.u-line {
+  position: relative;
+}
+.u-line::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(50% + 0.68em);
+  height: 1.5px;
+  border-radius: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 420ms var(--ease-out-quint);
+  pointer-events: none;
+}
+@media (hover: hover) {
+  .u-line:hover::before,
+  .u-host:hover .u-line::before {
+    transform: scaleX(1);
+  }
+}
+.u-line:focus-visible::before,
+.u-line[aria-current="page"]::before,
+.u-host:focus-visible .u-line::before,
+.u-host[aria-current="page"] .u-line::before {
+  transform: scaleX(1);
+}
+/* The current section is marked in crest gold. */
+.u-host[aria-current="page"] .u-line::before {
+  height: 2px;
+  background: var(--gold-bright);
+}
+
+/* Range: a borderless track that fills crimson up to the thumb. */
+.range {
+  appearance: none;
+  height: 24px;
+  background: transparent;
+  cursor: pointer;
+}
+.range::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 2px;
+  background: linear-gradient(var(--crimson), var(--crimson)) no-repeat 0 0 / var(--range-fill, 0%) 100%, var(--fill-strong);
+}
+.range::-moz-range-track {
+  height: 4px;
+  border-radius: 2px;
+  background: var(--fill-strong);
+}
+.range::-moz-range-progress {
+  height: 4px;
+  border-radius: 2px;
+  background: var(--crimson);
+}
+.range::-webkit-slider-thumb {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  margin-top: -7px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--crimson);
+  box-shadow: 0 1px 3px rgb(46 46 46 / 0.25);
+  transition: transform 200ms var(--ease-out-quint);
+}
+.range::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--crimson);
+  box-shadow: 0 1px 3px rgb(46 46 46 / 0.25);
+}
+.range:active::-webkit-slider-thumb {
+  transform: scale(1.15);
+}
+
+/* Text buttons have no padding, so neighbours (or their wrappers) need air between them. */
+:is(.btn-text, :has(> .btn-text:only-child)) + :is(.btn-text, :has(> .btn-text:only-child)) {
+  margin-inline-start: 0.75rem;
+}
+
+/* Popovers settle in from just above their trigger. */
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px) scale(0.97);
+  }
+}
+.pop-in {
+  transform-origin: top right;
+  animation: pop-in 240ms var(--ease-out-expo) both;
+}
+
+/* Content that appears in place (forms, notices) rises a few pixels into view. */
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+.reveal {
+  animation: reveal 320ms var(--ease-out-expo) both;
+}
+
+/* Page changes: the old page fades quickly, the new one rises softly into focus. */
+@keyframes page-out {
+  to {
+    opacity: 0;
+  }
+}
+@keyframes page-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+    filter: blur(3px);
+  }
+}
+::view-transition-old(.page) {
+  animation: page-out 140ms var(--ease-in-quart) both;
+}
+::view-transition-new(.page) {
+  animation: page-in 420ms var(--ease-out-expo) 70ms both;
+}
+::view-transition-group(root) {
+  animation-duration: 200ms;
+}
+/* The bar stays put: show the new header straight away, no morph. */
+::view-transition-group(.pinned),
+::view-transition-new(.pinned) {
+  animation: none;
+}
+::view-transition-old(.pinned) {
+  display: none;
+}
+
 /* The one authored moment: on check-in a stamp lands on the entry. */
 @keyframes stamp-land {
   0% {
@@ -174,10 +327,35 @@ a {
   animation: stamp-land 420ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 @media (prefers-reduced-motion: reduce) {
+  .u-line::before {
+    transition-duration: 1ms;
+  }
+  .pop-in,
+  .reveal {
+    animation-name: page-out;
+    animation-direction: reverse;
+  }
+  ::view-transition-new(.page) {
+    animation-name: page-out;
+    animation-direction: reverse;
+    animation-duration: 200ms;
+  }
   .stamp-land {
     animation: none;
     transform: rotate(-9deg);
   }
+}
+
+.leaflet-bar.leaflet-bar {
+  border: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow-pop);
+}
+.leaflet-bar a,
+.leaflet-bar a:hover {
+  border-bottom-color: var(--separator);
+  color: var(--text);
 }
 
 .leaflet-container {

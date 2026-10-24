@@ -410,9 +410,9 @@ export function EventActions({ view, hasVenuePass }: { view: View; hasVenuePass:
         <ReasonForm title="Ask the committee to record your check-in" label="What's happening?" placeholder="I'm here but in the basement with no signal" text={text} setText={setText} submitLabel={busy ?? "Send"} busy={busy !== null} onCancel={() => setPanel(null)} onSubmit={() => requestReview("CHECKIN_LOCATION")} />
       )}
       {!pendingReview && panel === null && (
-        <button type="button" className="mx-auto flex items-center gap-1.5 text-footnote font-medium text-secondary hover:text-text" onClick={() => setPanel("review-in")}>
+        <button type="button" className="u-host mx-auto flex items-center gap-1.5 text-footnote font-medium text-secondary transition-colors duration-200 hover:text-text" onClick={() => setPanel("review-in")}>
           <LocateFixed className="h-3.5 w-3.5" aria-hidden />
-          Location not working?
+          <span className="u-line">Location not working?</span>
         </button>
       )}
     </div>
@@ -445,12 +445,7 @@ function Status({
   /** A crimson passbook stamp for check-in and check-out, in place of the icon. */
   stamp?: { word: "In" | "Out"; at: Date };
 }) {
-  const ring = {
-    green: "bg-surface text-green ring-1 ring-inset ring-rule",
-    blue: "bg-surface text-blue ring-1 ring-inset ring-rule",
-    amber: "bg-surface text-amber ring-1 ring-inset ring-rule",
-    crimson: "bg-surface text-crimson ring-1 ring-inset ring-rule",
-  }[tone ?? "blue"];
+  const ink = { green: "text-green", blue: "text-blue", amber: "text-amber", crimson: "text-crimson" }[tone ?? "blue"];
   const Icon = ICONS[icon];
   return (
     <div className={cx("flex gap-3", stamp ? "items-center gap-4" : "items-start")}>
@@ -464,9 +459,7 @@ function Status({
           </Stamp>
         </span>
       ) : (
-        <span className={cx("grid h-9 w-9 shrink-0 place-items-center rounded-full", tone ? ring : "bg-fill text-secondary")} aria-hidden>
-          <Icon className="h-[18px] w-[18px]" strokeWidth={icon === "check" ? 2.75 : 2} />
-        </span>
+        <Icon className={cx("mt-1 h-5 w-5 shrink-0", tone ? ink : "text-secondary")} strokeWidth={icon === "check" ? 2.5 : 2} aria-hidden />
       )}
       <div className="min-w-0 pt-1">
         <p className="text-headline leading-snug font-semibold">{title}</p>
@@ -496,7 +489,7 @@ function ReasonForm(props: {
   const ready = props.text.trim().length >= 3 && (!needsAck || props.ack);
   return (
     <form
-      className="space-y-3"
+      className="reveal space-y-3"
       onSubmit={(ev) => {
         ev.preventDefault();
         if (ready) props.onSubmit();

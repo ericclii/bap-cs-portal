@@ -193,7 +193,7 @@ function ImportForm({ onDone }: { onDone: (m: string) => void }) {
       <p className="text-footnote text-secondary">Imports each person&apos;s current total. Do this once.</p>
       <textarea aria-label="Tracker rows" rows={6} className={`${inputClass} font-mono`} placeholder={"NetID,Name,Points\nab1234,Alex Chen,6\ncd5678,Sam Park,3"} value={text} onChange={(e) => setText(e.target.value)} />
       <div className="flex flex-wrap items-center gap-3">
-        <label className={cx("inline-flex h-10 cursor-pointer items-center rounded-lg border border-separator bg-surface px-4 text-footnote font-medium hover:bg-fill")}>
+        <label className={cx("u-line inline-flex h-10 cursor-pointer items-center text-body font-semibold")}>
           Upload CSV
           <input type="file" accept=".csv,text/csv,.txt" className="sr-only" onChange={async (e) => { const f = e.target.files?.[0]; if (f) setText(await f.text()); }} />
         </label>

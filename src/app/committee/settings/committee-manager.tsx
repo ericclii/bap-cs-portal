@@ -83,7 +83,7 @@ export function CommitteeManager({ members, bootstrapChairs, isChair, myNetId }:
             <option value="MEMBER">Member</option>
             <option value="CHAIR">Chair</option>
           </Select>
-          <Button type="submit" disabled={busy || !netId.trim()}>Add</Button>
+          <Button type="submit" variant="secondary" disabled={busy || !netId.trim()}>Add</Button>
         </form>
       )}
     </section>

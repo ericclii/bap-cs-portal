@@ -33,7 +33,7 @@ export function UserMenu({ user }: Props) {
     router.refresh();
   }
 
-  const item = "flex w-full items-center rounded-lg px-3 py-2 text-left text-body hover:bg-fill";
+  const item = "flex w-full items-center rounded-lg px-3 py-2 text-left text-body hover:bg-ground";
 
   return (
     <div ref={ref} className="relative ml-1">
@@ -48,18 +48,18 @@ export function UserMenu({ user }: Props) {
         <span className="sr-only">Account</span>
       </button>
       {open && (
-        <div role="menu" className="absolute right-0 z-40 mt-2 w-64 rounded-2xl bg-surface p-1.5 shadow-[0_12px_32px_rgb(46_46_46/0.12)] ring-1 ring-rule">
+        <div role="menu" className="absolute right-0 z-40 mt-2 w-64 rounded-2xl bg-surface p-1.5 pop-in shadow-pop">
           <div className="px-3 pt-2 pb-2.5">
             <div className="truncate text-body font-semibold">{user.name}</div>
             <div className="truncate text-footnote text-secondary">{user.netId}@nyu.edu</div>
           </div>
           {user.role && (
-            <div className="border-t border-separator py-1 sm:hidden">
+            <div className="mt-1 py-1 sm:hidden">
               <Link role="menuitem" href="/service" className={item} onClick={() => setOpen(false)}>My service</Link>
               <Link role="menuitem" href="/committee" className={item} onClick={() => setOpen(false)}>Committee</Link>
             </div>
           )}
-          <div className="border-t border-separator pt-1">
+          <div className="mt-1 pt-1">
             <button role="menuitem" type="button" onClick={signOut} className={`${item} text-crimson`}>
               Sign out
             </button>

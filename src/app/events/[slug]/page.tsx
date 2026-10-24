@@ -38,7 +38,7 @@ export default async function StudentEventPage({
 
         <div className="space-y-6 lg:grid lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:items-start lg:gap-x-10 lg:space-y-0">
           <EventPass event={event} titleAs="h1" checkedInAt={view.mine?.attendance?.checkedInAt ?? null}>
-            <div className="mt-4 border-t border-separator pt-4">
+            <div className="mt-6">
               <EventActions user={{ name: user.name }} hasVenuePass={hasVenuePass} view={JSON.parse(JSON.stringify(view))} />
             </div>
           </EventPass>
@@ -48,7 +48,7 @@ export default async function StudentEventPage({
               <DetailRow icon={<Award className="h-[18px] w-[18px]" aria-hidden />} title={`${event.points} CS points`}>
                 Stay at least {formatDuration(event.minMinutes)} to check out normally.
               </DetailRow>
-              <a href={mapsUrl} target="_blank" rel="noreferrer" className="block transition-colors duration-150 hover:bg-fill/60">
+              <a href={mapsUrl} target="_blank" rel="noreferrer" className="block transition-colors duration-200 hover:bg-ground">
                 <DetailRow icon={<Map className="h-[18px] w-[18px]" aria-hidden />} title={event.address ?? "Directions"} link>
                   Open in Google Maps
                 </DetailRow>

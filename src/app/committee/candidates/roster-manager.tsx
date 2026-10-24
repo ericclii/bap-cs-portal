@@ -58,7 +58,7 @@ export function RosterManager({ candidates }: { candidates: Candidate[] }) {
             One per line: NetID or NYU email, with an optional name. {parsed.rows.length} recognized
             {parsed.invalid.length > 0 && <span className="text-crimson"> · {parsed.invalid.length} skipped ({parsed.invalid.slice(0, 2).join("; ")})</span>}
           </p>
-          <label className="inline-flex h-10 cursor-pointer items-center rounded-lg border border-separator bg-surface px-4 text-footnote font-medium hover:bg-fill">
+          <label className="u-line inline-flex h-10 cursor-pointer items-center text-body font-semibold">
             Upload CSV
             <input type="file" accept=".csv,text/csv,.txt" className="sr-only" onChange={async (e) => { const f = e.target.files?.[0]; if (f) setText(await f.text()); }} />
           </label>

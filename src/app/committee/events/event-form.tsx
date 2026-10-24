@@ -169,7 +169,7 @@ export function EventForm({ eventId, initial }: { eventId?: string; initial: Eve
           address={v.address ?? ""}
         />
         <Field label={`Radius: ${v.radiusMeters} m`} htmlFor="radius">
-          <input id="radius" type="range" min={50} max={1000} step={25} value={v.radiusMeters} onChange={(e) => set("radiusMeters", Number(e.target.value))} className="w-full accent-[var(--crimson)]" />
+          <input id="radius" type="range" min={50} max={1000} step={25} value={v.radiusMeters} onChange={(e) => set("radiusMeters", Number(e.target.value))} className="range w-full" style={{ "--range-fill": `${((v.radiusMeters - 50) / 950) * 100}%` } as React.CSSProperties} />
         </Field>
       </Panel>
 
@@ -195,7 +195,7 @@ export function EventForm({ eventId, initial }: { eventId?: string; initial: Eve
             ["LINK", "Event page link", "No one from BAP on site"],
             ["QR", "Rotating QR code", "A committee member is on site"],
           ] as const).map(([value, label, description]) => (
-            <label key={value} className={`flex cursor-pointer gap-3 rounded-xl p-3.5 ring-1 transition-colors duration-150 ${v.checkinMode === value ? "bg-surface ring-crimson" : "bg-surface ring-rule hover:bg-fill"}`}>
+            <label key={value} className={`flex cursor-pointer gap-3 rounded-xl p-3.5 transition-colors duration-200 ${v.checkinMode === value ? "bg-crimson-soft" : "bg-fill hover:bg-fill-strong"}`}>
               <input type="radio" name="checkinMode" value={value} checked={v.checkinMode === value} onChange={() => set("checkinMode", value)} className="mt-1 accent-[var(--crimson)]" />
               <span>
                 <span className="block text-body font-medium">{label}</span>

@@ -16,8 +16,8 @@ export function Stamp({ points, date, label, faint, className, children }: { poi
   return (
     <span
       className={cx(
-        "grid aspect-square w-full place-items-center rounded-full border-2 text-center font-seal leading-none [container-type:inline-size]",
-        faint ? "border-dashed border-rule text-secondary" : "border-crimson text-crimson shadow-[inset_0_0_0_3px_var(--surface),inset_0_0_0_4.5px_var(--crimson)]",
+        "grid aspect-square w-full place-items-center rounded-full border-2 text-center font-seal leading-none [font-variant-numeric:lining-nums] [container-type:inline-size]",
+        faint ? "border-transparent bg-fill text-secondary" : "border-crimson text-crimson shadow-[inset_0_0_0_3px_var(--surface),inset_0_0_0_4.5px_var(--crimson)]",
         className,
       )}
       aria-hidden
@@ -56,8 +56,8 @@ export function MilestoneGrid({ points, reachedOn }: { points: number; reachedOn
           <li key={m.name} className="min-w-0 text-center">
             <div
               className={cx(
-                "grid aspect-square place-items-center rounded-[10px] border border-rule",
-                reached ? "bg-surface" : "border-dashed",
+                "grid aspect-square place-items-center rounded-[10px] transition-colors duration-300",
+                reached ? "bg-surface" : "bg-fill",
               )}
               title={reached && on ? `${m.name}, reached ${STAMP_DATE.format(on)}` : m.name}
             >

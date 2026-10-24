@@ -19,16 +19,12 @@ export function NavLink({ href, exact, children, badge }: { href: string; exact?
       href={href}
       aria-current={active ? "page" : undefined}
       className={cx(
-        "hit inline-flex h-8 items-center gap-1.5 rounded-full px-3 text-body font-medium whitespace-nowrap transition-colors duration-150",
-        active ? "bg-surface font-semibold text-text ring-1 ring-inset ring-rule" : "text-secondary hover:bg-fill hover:text-text",
+        "u-host hit inline-flex h-8 items-center gap-1.5 px-2.5 text-body whitespace-nowrap transition-colors duration-200",
+        active ? "font-semibold text-text" : "font-medium text-secondary hover:text-text",
       )}
     >
-      {children}
-      {badge ? (
-        <span className="min-w-5 rounded-full bg-crimson px-1.5 text-center text-caption leading-5 font-bold text-on-crimson tabular-nums">
-          {badge}
-        </span>
-      ) : null}
+      <span className="u-line">{children}</span>
+      {badge ? <span className="text-footnote font-bold text-crimson tabular-nums">{badge}</span> : null}
     </Link>
   );
 }

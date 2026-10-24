@@ -52,7 +52,7 @@ export function EventPass({
     </div>
   );
   return (
-    <article className="rounded-2xl bg-surface p-4 ring-1 ring-rule sm:p-5">
+    <article className="rounded-2xl bg-surface p-4 sm:p-5">
       {href ? (
         <Link href={href} className="-m-1 block rounded-xl p-1 transition-opacity duration-150 hover:opacity-80">
           {header}

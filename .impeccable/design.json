@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-23T00:00:00Z",
+  "generatedAt": "2026-10-24T21:15:00Z",
   "title": "Design System: BAP Community Service",
   "extensions": {
     "colorMeta": {
@@ -18,7 +18,7 @@
           "#eda7ad",
           "#f9e9ea"
         ],
-        "note": "Actions, the next or today's date box, stamps, alerts, focus."
+        "note": "Primary pill, text actions, the next or today's date type, stamps, alerts, range, focus."
       },
       "crimson-hover": {
         "role": "primary",
@@ -49,7 +49,7 @@
           "#eda7ad",
           "#f9e9ea"
         ],
-        "note": "Plain-button hover and text selection only."
+        "note": "Alert notice ground, next/today date box ground, text selection."
       },
       "on-crimson": {
         "role": "primary",
@@ -80,7 +80,7 @@
           "#ecdca6",
           "#f9f3e0"
         ],
-        "note": "Text of a met total."
+        "note": "Text of a met total and the exception pill."
       },
       "gold-bright": {
         "role": "secondary",
@@ -96,7 +96,7 @@
           "#ecdca6",
           "#f9f3e0"
         ],
-        "note": "Met progress bar and the exception pill dot."
+        "note": "Met progress bar; the active nav tab's 2px underline."
       },
       "green": {
         "role": "tertiary",
@@ -112,7 +112,7 @@
           "#b9dfc6",
           "#e5f2e8"
         ],
-        "note": "Dots, words, icons and figures only."
+        "note": "Words, bare icons and figures only; never dots or fills."
       },
       "amber": {
         "role": "tertiary",
@@ -128,23 +128,23 @@
           "#f1cba5",
           "#fbecdc"
         ],
-        "note": "Dots, words, icons and figures only."
+        "note": "Words, bare icons, figures and amber notice text; never dots or fills."
       },
       "blue": {
         "role": "tertiary",
-        "displayName": "Notice Blue",
-        "canonical": "#1f5fae",
+        "displayName": "Crest Gold Ink",
+        "canonical": "#6f5a10",
         "tonalRamp": [
-          "#0b2240",
-          "#123766",
-          "#1a4c8c",
-          "#1f5fae",
-          "#4a82c8",
-          "#86ace0",
-          "#c1d4f0",
-          "#e8eef8"
+          "#241d05",
+          "#3d3109",
+          "#56450c",
+          "#6f5a10",
+          "#94791a",
+          "#bfa24a",
+          "#e0cf95",
+          "#f6f0dc"
         ],
-        "note": "Dots, words, icons and figures only."
+        "note": "In progress / info. Token name kept; the value is a dark crest gold, not blue."
       },
       "text": {
         "role": "neutral",
@@ -166,44 +166,45 @@
         "displayName": "Khaki Secondary",
         "canonical": "#6b6658",
         "tonalRamp": [
-          "#2b281f",
-          "#4a4535",
+          "#2b2a26",
+          "#47453f",
           "#6b6658",
-          "#8f8770",
-          "#a29c88",
-          "#c6bf9c",
-          "#e8e1cc",
-          "#fdfcf8"
+          "#8f8a7c",
+          "#b5b0a3",
+          "#d6d2c7",
+          "#e5e1d6",
+          "#f5f3ee"
         ]
       },
       "placeholder": {
         "role": "neutral",
         "displayName": "Placeholder Khaki",
-        "canonical": "#7a7464",
+        "canonical": "#6f6a5b",
         "tonalRamp": [
-          "#2b281f",
-          "#4a4535",
+          "#2b2a26",
+          "#47453f",
           "#6b6658",
-          "#8f8770",
-          "#a29c88",
-          "#c6bf9c",
-          "#e8e1cc",
-          "#fdfcf8"
-        ]
+          "#8f8a7c",
+          "#b5b0a3",
+          "#d6d2c7",
+          "#e5e1d6",
+          "#f5f3ee"
+        ],
+        "note": "Legible on the fill."
       },
       "tertiary": {
         "role": "neutral",
         "displayName": "Faint Khaki",
         "canonical": "#a29c88",
         "tonalRamp": [
-          "#2b281f",
-          "#4a4535",
+          "#2b2a26",
+          "#47453f",
           "#6b6658",
-          "#8f8770",
-          "#a29c88",
-          "#c6bf9c",
-          "#e8e1cc",
-          "#fdfcf8"
+          "#8f8a7c",
+          "#b5b0a3",
+          "#d6d2c7",
+          "#e5e1d6",
+          "#f5f3ee"
         ],
         "note": "Chevrons and empty-state icons only."
       },
@@ -212,143 +213,152 @@
         "displayName": "Crest Khaki",
         "canonical": "#c6bf9c",
         "tonalRamp": [
-          "#2b281f",
-          "#4a4535",
+          "#2b2a26",
+          "#47453f",
           "#6b6658",
-          "#8f8770",
-          "#a29c88",
-          "#c6bf9c",
-          "#e8e1cc",
-          "#fdfcf8"
+          "#8f8a7c",
+          "#b5b0a3",
+          "#d6d2c7",
+          "#e5e1d6",
+          "#f5f3ee"
         ],
-        "note": "The 1px frame on every entry; the crest's khaki-gold."
+        "note": "Not a frame. Time-on-site required stretch and scrollbar only."
       },
       "separator": {
         "role": "neutral",
-        "displayName": "Warm Hairline",
-        "canonical": "#ebe5d3",
+        "displayName": "Faint Hairline",
+        "canonical": "#f0ede6",
         "tonalRamp": [
-          "#2b281f",
-          "#4a4535",
+          "#2b2a26",
+          "#47453f",
           "#6b6658",
-          "#8f8770",
-          "#a29c88",
-          "#c6bf9c",
-          "#e8e1cc",
-          "#fdfcf8"
-        ]
+          "#8f8a7c",
+          "#b5b0a3",
+          "#d6d2c7",
+          "#e5e1d6",
+          "#f5f3ee"
+        ],
+        "note": "Only between rows inside a list group and in the points table."
       },
       "fill-strong": {
         "role": "neutral",
-        "displayName": "Parchment Strong",
-        "canonical": "#e8e1cc",
+        "displayName": "Warm Fill Strong",
+        "canonical": "#e5e1d6",
         "tonalRamp": [
-          "#2b281f",
-          "#4a4535",
+          "#2b2a26",
+          "#47453f",
           "#6b6658",
-          "#8f8770",
-          "#a29c88",
-          "#c6bf9c",
-          "#e8e1cc",
-          "#fdfcf8"
-        ]
+          "#8f8a7c",
+          "#b5b0a3",
+          "#d6d2c7",
+          "#e5e1d6",
+          "#f5f3ee"
+        ],
+        "note": "Switch off track, range track."
       },
       "fill": {
         "role": "neutral",
-        "displayName": "Parchment Fill",
-        "canonical": "#f3efe3",
+        "displayName": "Warm Fill",
+        "canonical": "#efece5",
         "tonalRamp": [
-          "#2b281f",
-          "#4a4535",
+          "#2b2a26",
+          "#47453f",
           "#6b6658",
-          "#8f8770",
-          "#a29c88",
-          "#c6bf9c",
-          "#e8e1cc",
-          "#fdfcf8"
-        ]
+          "#8f8a7c",
+          "#b5b0a3",
+          "#d6d2c7",
+          "#e5e1d6",
+          "#f5f3ee"
+        ],
+        "note": "Fields, selects, tracks, pills, date boxes, unreached milestone boxes, pending stamp, row press."
       },
       "ground": {
         "role": "neutral",
-        "displayName": "Paper Ground",
-        "canonical": "#fdfcf8",
+        "displayName": "Warm Grey Ground",
+        "canonical": "#f5f3ee",
         "tonalRamp": [
-          "#2b281f",
-          "#4a4535",
+          "#2b2a26",
+          "#47453f",
           "#6b6658",
-          "#8f8770",
-          "#a29c88",
-          "#c6bf9c",
-          "#e8e1cc",
-          "#fdfcf8"
+          "#8f8a7c",
+          "#b5b0a3",
+          "#d6d2c7",
+          "#e5e1d6",
+          "#f5f3ee"
         ],
-        "note": "Light only; also the theme colour."
+        "note": "The page; hover tint on linked rows and menu items. Light only."
       },
       "surface": {
         "role": "neutral",
         "displayName": "Entry White",
         "canonical": "#ffffff",
         "tonalRamp": [
-          "#2b281f",
-          "#4a4535",
+          "#2b2a26",
+          "#47453f",
           "#6b6658",
-          "#8f8770",
-          "#a29c88",
-          "#c6bf9c",
-          "#e8e1cc",
-          "#fdfcf8"
-        ]
+          "#8f8a7c",
+          "#b5b0a3",
+          "#d6d2c7",
+          "#e5e1d6",
+          "#f5f3ee"
+        ],
+        "note": "Entries, groups, panels, passes, notices, menus, reached milestone boxes, focused fields; header at 85% with blur."
       }
     },
     "typographyMeta": {
       "figure": {
         "displayName": "Figure",
-        "purpose": "The student's points total only; the one large number."
+        "purpose": "Raleway. The student's points total only; the one large number."
       },
       "display": {
         "displayName": "Display",
-        "purpose": "Page titles."
+        "purpose": "Raleway. Page titles."
       },
       "title": {
         "displayName": "Title",
-        "purpose": "Section headings and the event title on the pass."
+        "purpose": "Raleway. Section headings and the event title on the pass."
       },
       "headline": {
         "displayName": "Headline",
-        "purpose": "Wordmark, 'of 12 points', status titles, large buttons."
+        "purpose": "Raleway for the wordmark and 'of 12 points'; Lato bold for status titles, large buttons, open milestone figures."
       },
       "body": {
         "displayName": "Body",
-        "purpose": "Row titles, inputs, notices, prose."
+        "purpose": "Lato. Row titles, inputs, notices, nav tabs, prose."
       },
       "footnote": {
         "displayName": "Footnote",
-        "purpose": "Subtitles, labels, hints, time-on-site labels, small buttons."
+        "purpose": "Subtitles, labels, hints, time-on-site labels, small buttons, nav count."
       },
       "caption": {
         "displayName": "Caption",
-        "purpose": "Pill labels and count badges."
+        "purpose": "Pill labels and milestone names."
       },
       "seal": {
         "displayName": "Seal",
-        "purpose": "Cinzel inside stamps only; sized by container units."
+        "purpose": "Raleway 700 inside stamps, lining figures; sized by container units."
       }
     },
     "shadows": [
       {
-        "name": "menu-float",
-        "value": "0 12px 32px rgb(46 46 46 / 0.12)",
-        "purpose": "Account and console menus, with a 1px khaki ring."
+        "name": "shadow-pop",
+        "value": "0 2px 6px rgb(46 46 46 / 0.06), 0 16px 40px rgb(46 46 46 / 0.12)",
+        "purpose": "Account and console menus and the Leaflet zoom control; no ring."
       },
       {
         "name": "segment-thumb",
-        "value": "0 1px 2px rgb(46 46 46 / 0.1)",
-        "purpose": "Selected segment in the segmented control."
+        "value": "0 1px 3px rgb(46 46 46 / 0.12)",
+        "purpose": "Selected segment."
       },
       {
         "name": "switch-knob",
         "value": "0 2px 4px rgb(0 0 0 / 0.18)",
         "purpose": "Switch knob."
+      },
+      {
+        "name": "range-thumb",
+        "value": "0 1px 3px rgb(46 46 46 / 0.25)",
+        "purpose": "Range thumb."
       },
       {
         "name": "stamp-inner-ring",
@@ -358,19 +368,59 @@
     ],
     "motion": [
       {
-        "name": "stamp-land",
-        "value": "420ms cubic-bezier(0.16, 1, 0.3, 1)",
-        "purpose": "The check-in/out stamp landing, once, from 1.9x and -24deg to rest at -9deg; none under reduced motion."
+        "name": "ease-out-expo",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Entrances: page rise, pop-in, reveal, stamp landing."
+      },
+      {
+        "name": "ease-out-quint",
+        "value": "cubic-bezier(0.22, 1, 0.36, 1)",
+        "purpose": "State changes (Tailwind default, 200ms) and the underline draw."
+      },
+      {
+        "name": "ease-in-quart",
+        "value": "cubic-bezier(0.5, 0, 0.75, 0)",
+        "purpose": "Exits: the old page fade."
       },
       {
         "name": "state",
-        "value": "150ms",
-        "purpose": "Background, colour and press (scale 0.98) transitions on buttons, rows, fields and nav."
+        "value": "200ms ease-out-quint",
+        "purpose": "Default transition for colour, background, transform and opacity changes."
       },
       {
-        "name": "switch",
-        "value": "200ms",
-        "purpose": "Switch track and knob."
+        "name": "u-line",
+        "value": "420ms ease-out-quint",
+        "purpose": "Underline scaleX from a left origin on hover; retracts right to left; held on focus and current page."
+      },
+      {
+        "name": "page-out",
+        "value": "140ms ease-in-quart",
+        "purpose": "Old page opacity to 0 (ViewTransition class .page)."
+      },
+      {
+        "name": "page-in",
+        "value": "420ms ease-out-expo, 70ms delay",
+        "purpose": "New page rises 12px from 3px blur; header pinned with share=\"pinned\"."
+      },
+      {
+        "name": "pop-in",
+        "value": "240ms ease-out-expo",
+        "purpose": "Popovers from 6px above at 97% scale, top-right origin."
+      },
+      {
+        "name": "reveal",
+        "value": "320ms ease-out-expo",
+        "purpose": "In-place forms and notices rise 6px."
+      },
+      {
+        "name": "stamp-land",
+        "value": "420ms cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Check-in/out stamp from 1.9x and -24deg to rest at -9deg."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "opacity only",
+        "purpose": "pop-in, reveal and page-in fall back to an opacity fade; underline snaps; stamp rests."
       }
     ],
     "breakpoints": [
@@ -387,15 +437,18 @@
     ],
     "fonts": [
       {
-        "name": "Hanken Grotesk",
+        "name": "Lato 400/700",
         "source": "next/font/google",
-        "variable": "--font-hanken"
+        "variable": "--font-lato",
+        "token": "--font-sans",
+        "purpose": "Body and UI text. No 500/600: medium renders regular, semibold renders bold."
       },
       {
-        "name": "Cinzel 700",
+        "name": "Raleway (variable)",
         "source": "next/font/google",
-        "variable": "--font-cinzel",
-        "purpose": "Stamps only."
+        "variable": "--font-raleway",
+        "token": "--font-display, --font-seal",
+        "purpose": "h1-h3, the points figure, the wordmark, date tiles and stamps; lining tabular figures."
       }
     ],
     "assets": [
@@ -413,88 +466,97 @@
       "refersTo": "button-primary",
       "description": "Crimson pill; one per view.",
       "html": "<button class=\"ds-btn-primary\">Check in</button>",
-      "css": ".ds-btn-primary{font-family: var(--font-hanken), -apple-system, 'Segoe UI', Roboto, sans-serif;display:inline-flex;align-items:center;justify-content:center;height:50px;padding:0 24px;border:0;border-radius:9999px;background:var(--crimson,#bc202f);color:var(--on-crimson,#fff);font-size:17px;font-weight:600;letter-spacing:-0.012em;cursor:pointer;transition:background-color 150ms,transform 150ms}.ds-btn-primary:hover{background:var(--crimson-hover,#a11b28)}.ds-btn-primary:active{transform:scale(.98)}.ds-btn-primary:focus-visible{outline:2px solid var(--crimson,#bc202f);outline-offset:2px}"
+      "css": ".ds-btn-primary{font-family:var(--font-lato),Lato,-apple-system,'Segoe UI',Roboto,sans-serif;display:inline-flex;align-items:center;justify-content:center;height:50px;padding:0 24px;border:0;border-radius:9999px;background:var(--crimson,#bc202f);color:var(--on-crimson,#fff);font-size:17px;font-weight:700;letter-spacing:-0.012em;cursor:pointer;transition:background-color 200ms cubic-bezier(.22,1,.36,1),transform 200ms cubic-bezier(.22,1,.36,1)}.ds-btn-primary:hover{background:var(--crimson-hover,#a11b28)}.ds-btn-primary:active{transform:scale(.98)}.ds-btn-primary:focus-visible{outline:2px solid var(--crimson,#bc202f);outline-offset:2px}"
     },
     {
-      "name": "Secondary Button",
+      "name": "Text Buttons",
       "kind": "button",
       "refersTo": "button-secondary",
-      "description": "White pill with an inset khaki ring.",
-      "html": "<button class=\"ds-btn-secondary\">Open to check out</button>",
-      "css": ".ds-btn-secondary{font-family: var(--font-hanken), -apple-system, 'Segoe UI', Roboto, sans-serif;display:inline-flex;align-items:center;height:40px;padding:0 16px;border:0;border-radius:9999px;background:var(--surface,#fff);color:var(--text,#2e2e2e);box-shadow:inset 0 0 0 1px var(--rule,#c6bf9c);font-size:15px;font-weight:600;cursor:pointer;transition:background-color 150ms,transform 150ms}.ds-btn-secondary:hover{background:var(--fill,#f3efe3)}.ds-btn-secondary:active{transform:scale(.98)}.ds-btn-secondary:focus-visible{outline:2px solid var(--crimson,#bc202f);outline-offset:2px}"
-    },
-    {
-      "name": "Plain Button",
-      "kind": "button",
-      "refersTo": "button-plain",
-      "description": "Crimson label, blush on hover; inline actions.",
-      "html": "<button class=\"ds-btn-plain\">Undo check-in</button>",
-      "css": ".ds-btn-plain{font-family: var(--font-hanken), -apple-system, 'Segoe UI', Roboto, sans-serif;height:40px;padding:0 16px;border:0;border-radius:9999px;background:transparent;color:var(--crimson,#bc202f);font-size:15px;font-weight:600;cursor:pointer;transition:background-color 150ms}.ds-btn-plain:hover{background:var(--crimson-soft,#f9e9ea)}.ds-btn-plain:focus-visible{outline:2px solid var(--crimson,#bc202f);outline-offset:2px}"
+      "description": "Secondary (ink) and plain/destructive (crimson) actions: text only, underline draws in on hover and retracts on leave; neighbours 0.75rem apart.",
+      "html": "<div class=\"ds-row-actions\"><button class=\"ds-btn-text ds-u\">Open to check out</button><button class=\"ds-btn-text ds-u ds-crimson\">Undo check-in</button></div>",
+      "css": ".ds-u{position:relative}.ds-u::before{content:'';position:absolute;left:0;right:0;top:calc(50% + .68em);height:1.5px;border-radius:1px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform 420ms cubic-bezier(.22,1,.36,1);pointer-events:none}.ds-u:hover::before,.ds-u:focus-visible::before{transform:scaleX(1)}.ds-row-actions{font-family:var(--font-lato),Lato,-apple-system,'Segoe UI',Roboto,sans-serif;display:flex;gap:.75rem}.ds-btn-text{display:inline-flex;align-items:center;height:40px;padding:0;border:0;background:none;color:var(--text,#2e2e2e);font:inherit;font-size:15px;font-weight:700;cursor:pointer}.ds-btn-text.ds-crimson{color:var(--crimson,#bc202f)}.ds-btn-text:focus-visible{outline:2px solid var(--crimson,#bc202f);outline-offset:2px}"
     },
     {
       "name": "Field",
       "kind": "input",
       "refersTo": "input",
-      "description": "White field, khaki ring, crimson focus.",
+      "description": "Borderless fill field; lifts to white with a crimson ring on focus.",
       "html": "<label class=\"ds-field\"><span>Location</span><input placeholder=\"Washington Square\"></label>",
-      "css": ".ds-field{font-family: var(--font-hanken), -apple-system, 'Segoe UI', Roboto, sans-serif;display:block}.ds-field span{display:block;margin-bottom:6px;font-size:13px;font-weight:500;color:var(--secondary,#6b6658)}.ds-field input{width:100%;box-sizing:border-box;padding:10px 14px;border:0;border-radius:12px;background:var(--surface,#fff);color:var(--text,#2e2e2e);box-shadow:inset 0 0 0 1px var(--rule,#c6bf9c);font:inherit;font-size:15px;outline:none;transition:box-shadow 150ms}.ds-field input::placeholder{color:var(--placeholder,#7a7464)}.ds-field input:focus{box-shadow:inset 0 0 0 2px rgb(188 32 47/.6)}"
+      "css": ".ds-field{font-family:var(--font-lato),Lato,-apple-system,'Segoe UI',Roboto,sans-serif;display:block}.ds-field span{display:block;margin-bottom:6px;font-size:13px;font-weight:400;color:var(--secondary,#6b6658)}.ds-field input{width:100%;box-sizing:border-box;padding:10px 14px;border:0;border-radius:12px;background:var(--fill,#efece5);color:var(--text,#2e2e2e);font:inherit;font-size:15px;outline:none;transition:background-color 200ms cubic-bezier(.22,1,.36,1),box-shadow 200ms cubic-bezier(.22,1,.36,1)}.ds-field input::placeholder{color:var(--placeholder,#6f6a5b)}.ds-field input:focus{background:var(--surface,#fff);box-shadow:0 0 0 2px rgb(188 32 47/.6)}"
     },
     {
-      "name": "Nav Links",
+      "name": "Nav Tabs",
       "kind": "nav",
       "refersTo": "nav-link-active",
-      "description": "Pill links; active is a white khaki-ringed pill; crimson count badge.",
-      "html": "<nav class=\"ds-nav\"><a class=\"is-active\">Overview</a><a>Events</a><a>Reviews <b>10</b></a></nav>",
-      "css": ".ds-nav{font-family: var(--font-hanken), -apple-system, 'Segoe UI', Roboto, sans-serif;display:flex;gap:4px}.ds-nav a{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 12px;border-radius:9999px;font-size:15px;font-weight:500;color:var(--secondary,#6b6658);cursor:pointer;transition:background-color 150ms,color 150ms}.ds-nav a:hover{background:var(--fill,#f3efe3);color:var(--text,#2e2e2e)}.ds-nav a.is-active{background:var(--surface,#fff);color:var(--text,#2e2e2e);font-weight:600;box-shadow:inset 0 0 0 1px var(--rule,#c6bf9c)}.ds-nav b{min-width:20px;padding:0 6px;border-radius:9999px;background:var(--crimson,#bc202f);color:#fff;font-size:12px;line-height:20px;text-align:center}"
+      "description": "Text tabs with the drawn underline; the current tab holds it in gold-bright at 2px; review count is crimson text.",
+      "html": "<nav class=\"ds-nav\"><a class=\"ds-u is-active\" aria-current=\"page\">Overview</a><a class=\"ds-u\">Events</a><a><span class=\"ds-u\">Reviews</span> <b>10</b></a></nav>",
+      "css": ".ds-u{position:relative}.ds-u::before{content:'';position:absolute;left:0;right:0;top:calc(50% + .68em);height:1.5px;border-radius:1px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform 420ms cubic-bezier(.22,1,.36,1);pointer-events:none}.ds-u:hover::before,.ds-u:focus-visible::before{transform:scaleX(1)}.ds-nav{font-family:var(--font-lato),Lato,-apple-system,'Segoe UI',Roboto,sans-serif;display:flex;gap:6px;padding:8px;background:rgb(255 255 255/.85);backdrop-filter:blur(24px) saturate(1.5)}.ds-nav a{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 10px;font-size:15px;font-weight:400;color:var(--secondary,#6b6658);cursor:pointer;transition:color 200ms cubic-bezier(.22,1,.36,1)}.ds-nav a:hover{color:var(--text,#2e2e2e)}.ds-nav a.is-active{color:var(--text,#2e2e2e);font-weight:700}.ds-nav a.is-active::before{transform:scaleX(1);height:2px;background:var(--gold-bright,#c9a227)}.ds-nav b{font-size:13px;font-weight:700;color:var(--crimson,#bc202f)}"
     },
     {
       "name": "Status Pill",
       "kind": "chip",
       "refersTo": "pill",
-      "description": "Ink on white, khaki ring, state carried by a dot.",
-      "html": "<span class=\"ds-pill\"><i style=\"background:#1f7a45\"></i>Confirmed</span> <span class=\"ds-pill\"><i style=\"background:#1f5fae\"></i>Sign-ups open</span>",
-      "css": ".ds-pill{font-family: var(--font-hanken), -apple-system, 'Segoe UI', Roboto, sans-serif;display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 10px;border-radius:9999px;background:var(--surface,#fff);color:var(--text,#2e2e2e);box-shadow:inset 0 0 0 1px var(--rule,#c6bf9c);font-size:12px;font-weight:600}.ds-pill i{width:6px;height:6px;border-radius:9999px}"
+      "description": "Tinted word on a fill lozenge; no dot, no ring.",
+      "html": "<span class=\"ds-pill\" style=\"color:#1f7a45\">Confirmed</span> <span class=\"ds-pill\" style=\"color:#6f5a10\">Sign-ups open</span> <span class=\"ds-pill\">Closed</span>",
+      "css": ".ds-pill{font-family:var(--font-lato),Lato,-apple-system,'Segoe UI',Roboto,sans-serif;display:inline-flex;align-items:center;height:24px;padding:0 10px;border-radius:9999px;background:var(--fill,#efece5);color:var(--secondary,#6b6658);font-size:12px;font-weight:700;white-space:nowrap}"
     },
     {
-      "name": "Entry with Rows",
+      "name": "Notice",
+      "kind": "custom",
+      "refersTo": "notice",
+      "description": "White notice with toned text and no dot; alerts are crimson on blush. Reveals in place.",
+      "html": "<div class=\"ds-notice\">Sign-ups close tomorrow at noon.</div><div class=\"ds-notice ds-alert\">You are outside the check-in radius.</div>",
+      "css": "@keyframes ds-reveal{from{opacity:0;transform:translateY(6px)}}.ds-notice{font-family:var(--font-lato),Lato,-apple-system,'Segoe UI',Roboto,sans-serif;margin:8px 0;padding:12px 16px;border-radius:16px;background:var(--surface,#fff);color:var(--text,#2e2e2e);font-size:15px;line-height:1.4;animation:ds-reveal 320ms cubic-bezier(.16,1,.3,1) both}.ds-alert{background:var(--crimson-soft,#f9e9ea);color:var(--crimson,#bc202f)}@media (prefers-reduced-motion:reduce){.ds-notice{animation:none}}"
+    },
+    {
+      "name": "Group with Rows",
       "kind": "card",
       "refersTo": "entry",
-      "description": "White entry framed in khaki, warm hairlines between 56px rows, leading date box.",
+      "description": "White group on the ground, faint hairlines between 56px rows, fill date boxes; the next date in crimson blush.",
       "html": "<div class=\"ds-entry\"><a class=\"ds-row\"><span class=\"ds-date\"><small>OCT</small>25</span><span><b>Food pantry packing</b><em>3 pts · closes tomorrow</em></span></a><a class=\"ds-row\"><span class=\"ds-date ds-next\"><small>OCT</small>28</span><span><b>Park cleanup</b><em>Confirmed</em></span></a></div>",
-      "css": ".ds-entry{font-family: var(--font-hanken), -apple-system, 'Segoe UI', Roboto, sans-serif;overflow:hidden;border-radius:16px;background:var(--surface,#fff);box-shadow:0 0 0 1px var(--rule,#c6bf9c)}.ds-row{display:flex;align-items:center;gap:12px;min-height:56px;padding:12px 16px;color:var(--text,#2e2e2e);cursor:pointer;transition:background-color 150ms}.ds-row+.ds-row{border-top:1px solid var(--separator,#ebe5d3)}.ds-row:hover{background:rgb(243 239 227/.6)}.ds-row b{display:block;font-size:15px;font-weight:500}.ds-row em{display:block;margin-top:2px;font-style:normal;font-size:13px;color:var(--secondary,#6b6658)}.ds-date{display:flex;flex-direction:column;align-items:center;justify-content:center;width:40px;height:40px;border-radius:12px;background:#fff;box-shadow:0 0 0 1px var(--rule,#c6bf9c);font-size:17px;font-weight:600;line-height:1}.ds-date small{font-size:10px;font-weight:700;color:var(--secondary,#6b6658)}.ds-next{box-shadow:0 0 0 1px var(--crimson,#bc202f);color:var(--crimson,#bc202f)}.ds-next small{color:var(--crimson,#bc202f)}"
+      "css": ".ds-entry{font-family:var(--font-lato),Lato,-apple-system,'Segoe UI',Roboto,sans-serif;overflow:hidden;border-radius:16px;background:var(--surface,#fff)}.ds-row{display:flex;align-items:center;gap:12px;min-height:56px;padding:12px 16px;color:var(--text,#2e2e2e);cursor:pointer;transition:background-color 200ms cubic-bezier(.22,1,.36,1)}.ds-row+.ds-row{border-top:1px solid var(--separator,#f0ede6)}.ds-row:hover{background:var(--ground,#f5f3ee)}.ds-row:active{background:var(--fill,#efece5)}.ds-row b{display:block;font-size:15px;font-weight:400}.ds-row em{display:block;margin-top:2px;font-style:normal;font-size:13px;color:var(--secondary,#6b6658)}.ds-date{font-family:var(--font-raleway),Raleway,-apple-system,'Segoe UI',Roboto,sans-serif;font-variant-numeric:lining-nums tabular-nums;display:flex;flex-direction:column;align-items:center;justify-content:center;width:40px;height:40px;border-radius:12px;background:var(--fill,#efece5);font-size:17px;font-weight:700;line-height:1}.ds-date small{font-size:10px;font-weight:700;color:var(--secondary,#6b6658)}.ds-next{background:var(--crimson-soft,#f9e9ea);color:var(--crimson,#bc202f)}.ds-next small{color:var(--crimson,#bc202f)}"
     },
     {
       "name": "Milestone Stamps",
       "kind": "custom",
       "refersTo": "stamp-box",
-      "description": "The passbook page: four milestones (Checkpoint Alpha 3, Checkpoint Bravo 6, Gold Standing 10, Platinum Standing 12); reached ones carry a crimson Cinzel double-ring stamp, the rest are dashed boxes showing the points needed.",
-      "html": "<ul class=\"ds-stamps\"><li><span class=\"ds-stamp\" style=\"transform:rotate(-9deg)\"><b>+3</b>OCT 22</span></li><li><span class=\"ds-stamp\" style=\"transform:rotate(5deg)\"><b>+6</b>OCT 24</span></li><li><span class=\"ds-stamp ds-faint\">PENDING</span></li><li class=\"ds-empty\"></li></ul>",
-      "css": ".ds-stamps{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;max-width:360px;margin:0;padding:0;list-style:none}.ds-stamps li{display:grid;place-items:center;aspect-ratio:1;border:1px solid var(--rule,#c6bf9c);border-radius:10px;background:#fff}.ds-stamps li.ds-empty{border-style:dashed;background:transparent}.ds-stamp{display:grid;place-content:center;width:76%;aspect-ratio:1;border:2px solid var(--crimson,#bc202f);border-radius:9999px;box-shadow:inset 0 0 0 3px #fff,inset 0 0 0 4.5px var(--crimson,#bc202f);color:var(--crimson,#bc202f);font-family:var(--font-cinzel),'Cinzel','Times New Roman',serif;font-weight:700;font-size:9px;letter-spacing:.06em;text-align:center;line-height:1}.ds-stamp b{display:block;font-size:22px;letter-spacing:0;margin-bottom:2px}.ds-stamp.ds-faint{border-style:dashed;border-color:var(--rule,#c6bf9c);box-shadow:none;color:var(--secondary,#6b6658);font-size:8px}"
+      "description": "Four milestones (Checkpoint Alpha 3, Checkpoint Bravo 6, Gold Standing 10, Platinum Standing 12); reached ones are white boxes with a crimson Raleway double-ring stamp, the rest are fill boxes showing the points needed.",
+      "html": "<ol class=\"ds-stamps\"><li><span class=\"ds-stamp\" style=\"transform:rotate(-9deg)\"><b>3</b>ALPHA</span></li><li><span class=\"ds-stamp\" style=\"transform:rotate(5deg)\"><b>6</b>BRAVO</span></li><li class=\"ds-open\">10</li><li class=\"ds-open\">12</li></ol>",
+      "css": ".ds-stamps{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;max-width:360px;margin:0;padding:0;list-style:none}.ds-stamps li{display:grid;place-items:center;aspect-ratio:1;border-radius:10px;background:var(--surface,#fff)}.ds-stamps li.ds-open{background:var(--fill,#efece5);color:var(--secondary,#6b6658);font-family:var(--font-lato),Lato,-apple-system,'Segoe UI',Roboto,sans-serif;font-size:17px;font-weight:700}.ds-stamp{display:grid;place-content:center;width:80%;aspect-ratio:1;border:2px solid var(--crimson,#bc202f);border-radius:9999px;box-shadow:inset 0 0 0 3px #fff,inset 0 0 0 4.5px var(--crimson,#bc202f);color:var(--crimson,#bc202f);font-family:var(--font-raleway),Raleway,-apple-system,'Segoe UI',Roboto,sans-serif;font-variant-numeric:lining-nums tabular-nums;font-weight:700;font-size:9px;letter-spacing:.04em;text-align:center;line-height:1}.ds-stamp b{display:block;font-size:24px;letter-spacing:0;margin-bottom:2px}"
     },
     {
       "name": "Check-in Stamp",
       "kind": "custom",
       "refersTo": "stamp",
-      "description": "The one authored motion: the IN/OUT stamp lands once (420ms, ease-out-expo), reduced motion respected.",
+      "description": "The IN/OUT stamp lands once (420ms, ease-out-expo); rests at -9deg under reduced motion.",
       "html": "<span class=\"ds-landing\"><span><b>IN</b>9:02 AM<br>OCT 25</span></span>",
-      "css": "@keyframes ds-stamp-land{0%{transform:scale(1.9) rotate(-24deg);opacity:0}60%{opacity:1}100%{transform:scale(1) rotate(-9deg);opacity:1}}.ds-landing{display:grid;place-items:center;width:80px;height:80px;border:2px solid var(--crimson,#bc202f);border-radius:9999px;box-shadow:inset 0 0 0 3px #fff,inset 0 0 0 4.5px var(--crimson,#bc202f);color:var(--crimson,#bc202f);font-family:var(--font-cinzel),'Cinzel','Times New Roman',serif;font-weight:700;font-size:10px;text-align:center;line-height:1.1;animation:ds-stamp-land 420ms cubic-bezier(.16,1,.3,1) both}.ds-landing b{display:block;font-size:21px}@media (prefers-reduced-motion:reduce){.ds-landing{animation:none;transform:rotate(-9deg)}}"
+      "css": "@keyframes ds-stamp-land{0%{transform:scale(1.9) rotate(-24deg);opacity:0}60%{opacity:1}100%{transform:scale(1) rotate(-9deg);opacity:1}}.ds-landing{display:grid;place-items:center;width:80px;height:80px;border:2px solid var(--crimson,#bc202f);border-radius:9999px;box-shadow:inset 0 0 0 3px #fff,inset 0 0 0 4.5px var(--crimson,#bc202f);color:var(--crimson,#bc202f);font-family:var(--font-raleway),Raleway,-apple-system,'Segoe UI',Roboto,sans-serif;font-variant-numeric:lining-nums tabular-nums;font-weight:700;font-size:10px;text-align:center;line-height:1.1;animation:ds-stamp-land 420ms cubic-bezier(.16,1,.3,1) both}.ds-landing b{display:block;font-size:21px}@media (prefers-reduced-motion:reduce){.ds-landing{animation:none;transform:rotate(-9deg)}}"
+    },
+    {
+      "name": "Range",
+      "kind": "input",
+      "refersTo": "range-track",
+      "description": "Borderless 4px track filling crimson to an 18px crimson thumb.",
+      "html": "<input class=\"ds-range\" type=\"range\" value=\"40\" style=\"--range-fill:40%\">",
+      "css": ".ds-range{appearance:none;width:240px;height:24px;background:transparent;cursor:pointer}.ds-range::-webkit-slider-runnable-track{height:4px;border-radius:2px;background:linear-gradient(var(--crimson,#bc202f),var(--crimson,#bc202f)) no-repeat 0 0/var(--range-fill,0%) 100%,var(--fill-strong,#e5e1d6)}.ds-range::-moz-range-track{height:4px;border-radius:2px;background:var(--fill-strong,#e5e1d6)}.ds-range::-moz-range-progress{height:4px;border-radius:2px;background:var(--crimson,#bc202f)}.ds-range::-webkit-slider-thumb{appearance:none;width:18px;height:18px;margin-top:-7px;border:0;border-radius:50%;background:var(--crimson,#bc202f);box-shadow:0 1px 3px rgb(46 46 46/.25);transition:transform 200ms cubic-bezier(.22,1,.36,1)}.ds-range::-moz-range-thumb{width:18px;height:18px;border:0;border-radius:50%;background:var(--crimson,#bc202f);box-shadow:0 1px 3px rgb(46 46 46/.25)}.ds-range:active::-webkit-slider-thumb{transform:scale(1.15)}"
     }
   ],
   "narrative": {
     "northStar": "The Service Passbook",
-    "overview": "The semester is a passbook. Every event a student serves leaves a crimson stamp on the page until the page is full; everything else is ink on paper. The colours are the chapter crest's: a barely-beige paper ground, white entries framed in 1px khaki rules, charcoal ink on a warm ramp, and crimson reserved for what acts, what is next, and what was earned. Grey grouped-list chrome and dashboards of tinted cards are rejected; three quiet chrome values (ground, white entry, khaki rule) and one crimson carry every screen.\n\nHierarchy is scale, not decoration. One family, Hanken Grotesk, runs the whole interface on a steep ramp where the points figure (64px, 800) is the only large type; Cinzel appears only inside stamps, where an inked seal is the native material. Time is drawn to length: the event pass shows the time on site as a bar with the check-out moment marked. The crest seal recurs at three sizes (the bar, a met requirement, sign-in) and is the browser-tab and home-screen icon.\n\nStudents use it on phones on the day; the committee works the same ink-and-khaki ledger on phones and laptops. Density is comfortable and phone-first, flat, and calm. There is exactly one authored motion: the check-in or check-out stamp landing on the entry.",
+    "overview": "The semester is a passbook. Every event a student serves leaves a crimson stamp on the page until the page is full; everything else is ink on paper. The colours are the chapter crest's: charcoal ink on a warm ramp, and crimson reserved for what acts, what is next, and what was earned. Regions are told apart by tone, never by outlines: white entries sit on a warm light-grey ground, and fields, tracks, pills and open boxes sink one step into a deeper warm fill. No surface carries a border.\n\nHierarchy is scale, not decoration. Two voices share a steep ramp: Raleway speaks for titles, the points figure (64px, 800, the only large type), the wordmark, date boxes and the ink of the stamps; Lato carries every row, button, field, pill and notice. Time is drawn to length: the event pass shows the time on site as a bar with the check-out moment marked. The crest seal recurs at three sizes (the bar, a met requirement, sign-in) and is the browser-tab and home-screen icon.\n\nStudents use it on phones on the day; the committee works the same ledger on phones and laptops. Density is comfortable and phone-first, flat, and calm. Actions other than the one crimson primary are words that draw an underline when you reach for them. Motion is a small, consistent vocabulary on one family of out-curves: pages rise into focus, popovers settle, in-place content reveals, and the check-in stamp lands.",
     "keyCharacteristics": [
-      "Paper ground, white entries, 1px khaki frames, warm hairlines between rows; no grey chrome, no tinted card grounds.",
-      "Crimson only for actions, the next (or today's) date, stamps, alerts and focus.",
-      "State hues (green, amber, blue, gold) appear small: dots, short status words and signed figures in ink-on-white pills, notices and tables; never as fills.",
-      "Hanken Grotesk on a steep role ramp with tabular figures; the 64px points figure is the only large type; Cinzel only in stamps.",
-      "The milestone stamps and the event pass are the signature surfaces; the stamp landing is the only authored animation.",
+      "Tone, not lines: warm grey ground, white surfaces, a deeper fill for fields, tracks, pills and open boxes; no borders or outlines on any region or control.",
+      "Crimson only for the primary action, text actions, the next (or today's) date, stamps, alerts and focus.",
+      "State hues (green, amber, crest gold) appear as words, bare line icons and signed figures; never as dots and never as fills.",
+      "One filled crimson pill per view; every other action is text with a drawn underline.",
+      "Raleway for headings, the figure, the wordmark, date boxes and stamps; Lato for all UI text; tabular figures throughout; the 64px points figure is the only large type.",
+      "The milestone stamps and the event pass are the signature surfaces; the stamp landing is the one signature motion.",
       "Inline two-step confirmation; never the browser's confirm() dialog."
     ],
     "rules": [
       {
-        "name": "The Three Chrome Values Rule",
-        "body": "Chrome is paper ground, white entry and a 1px khaki rule. Depth, grouping and emphasis come from those three; do not add grey grounds, tinted card grounds or shadows to say \"this is a group\".",
+        "name": "The Tone Not Line Rule",
+        "body": "Regions are separated by tone alone: ground, white surface, fill. Sections, cards, panels, passes, inputs, selects, menus, the header, notices, empty states, date boxes and milestone boxes never take a border or outline. The only lines are faint separator hairlines between rows inside one group or table.",
         "section": "colors"
       },
       {
@@ -503,8 +565,8 @@
         "section": "colors"
       },
       {
-        "name": "The Small State Rule",
-        "body": "State colour is carried by a dot, a short word or a figure in ink-on-white, never by a filled or tinted block.",
+        "name": "The No Dot Rule",
+        "body": "State is never a coloured dot or circle. It is a tinted word (on a fill lozenge in a pill), a bare line icon, or a signed figure.",
         "section": "colors"
       },
       {
@@ -513,13 +575,13 @@
         "section": "typography"
       },
       {
-        "name": "The Seal Stays In The Stamp Rule",
-        "body": "Cinzel appears only inside stamps; never for headings, the wordmark or labels.",
+        "name": "The Two Voices Rule",
+        "body": "Raleway is for h1 to h3, the points figure, the wordmark, date boxes and stamps; Lato is for every other piece of UI text. Never set a button, row, field, pill or notice in Raleway, and never request Lato at 500 or 600, which it does not have.",
         "section": "typography"
       },
       {
         "name": "The Tabular Rule",
-        "body": "Every number renders with tabular figures; it is set on the body, so do not turn it off.",
+        "body": "Every number renders with tabular figures, and Raleway's numbers are lining as well; it is set on the body, headings, `.font-display` and stamps, so do not turn it off or set Raleway numbers outside those hooks.",
         "section": "typography"
       },
       {
@@ -528,27 +590,31 @@
         "section": "layout"
       },
       {
-        "name": "The Rule Not Shadow Rule",
-        "body": "Entries, panels, passes, notices and stamp boxes never cast a shadow. If a new surface needs separation, frame it in khaki.",
+        "name": "The Tone Not Shadow Rule",
+        "body": "Resting surfaces never cast a shadow. If a new surface needs separation, give it the next tone (white on ground, fill on white), not a shadow and not a line.",
         "section": "elevation"
       }
     ],
     "dos": [
-      "Do frame every entry, panel, pass, field, pill and date box in a 1px khaki (rule) ring on white, on the paper ground.",
-      "Do put exactly one crimson-filled primary in a view; every other action is a secondary khaki-ringed pill or a plain crimson label.",
-      "Do mark only the next event's (or today's) date box in crimson ring and type, never a crimson fill.",
-      "Do carry state with a small dot, word or signed figure in green, amber, blue or gold on white.",
-      "Do keep the 64px points figure the only large type, and Cinzel inside stamps only.",
-      "Do use dashed khaki for what is still to fill.",
+      "Do separate regions by tone: white surfaces on the warm grey ground, fill for fields, tracks, pills, date boxes and open milestone boxes.",
+      "Do put exactly one crimson-filled primary pill in a view; every other action is a text button with the drawn underline.",
+      "Do mark the current nav tab with its underline held in gold-bright at 2px.",
+      "Do mark only the next event's (or today's) date box in crimson blush and crimson type.",
+      "Do carry state with a tinted word, a bare line icon or a signed figure in green, amber, crest gold ink or gold.",
+      "Do keep the 64px points figure the only large type; set headings, the figure, the wordmark, date boxes and stamps in Raleway with lining tabular figures, and everything else in Lato 400 or 700.",
       "Do confirm risky actions inline with the two-step Confirm Button (Cancel / confirm label, 5-second disarm).",
       "Do give small controls `.hit` and keep fields at 16px on coarse pointers.",
-      "Do respect reduced motion on the stamp landing."
+      "Do animate only with the motion vocabulary (page transition, pop-in, reveal, stamp landing, 200ms state changes) and give each a reduced-motion opacity fallback."
     ],
     "donts": [
-      "Don't use grey grouped grounds, a dark mode, or the system font stack as the display face; this world is light paper only.",
-      "Don't fill or tint a surface with a state colour (no green, amber or blue soft-tinted pills, notices or cards).",
-      "Don't put shadows on entries, panels, passes or stamp boxes; shadows are for floating menus and control thumbs.",
-      "Don't add a second authored animation or decorative motion.",
+      "Don't put a border or outline on sections, cards, panels, passes, inputs, selects, menus, the header, notices, empty states, date boxes or milestone boxes; hairlines belong only between rows in a group or table.",
+      "Don't use coloured indicator dots or circles for status, and don't put a filled circle behind a count.",
+      "Don't fill or tint a surface with a state colour (no green, amber or gold soft-tinted pills, notices or cards).",
+      "Don't give secondary, plain or destructive actions a pill, ring or fill.",
+      "Don't put shadows on resting surfaces; shadows are for popovers, the map control and control thumbs.",
+      "Don't use dashed strokes for \"still to fill\"; use the fill tone.",
+      "Don't use the default `ease` timing, bounce or elastic curves, or motion outside the vocabulary; linear is only for a meter that tracks the clock (the QR countdown).",
+      "Don't use a dark mode or the system font stack as the display face; this world is light only, in Raleway and Lato.",
       "Don't use crimson for headings, decoration or category colour.",
       "Don't put small uppercase kickers or eyebrows above titles; uppercase belongs to the date box month and the stamp's ink.",
       "Don't set readable text in the faint khaki (tertiary); it is for chevrons and empty-state icons.",

@@ -116,10 +116,10 @@ function MoreMenu({ event, onError, onNotice }: { event: ConsoleEvent; onError: 
     <div className="relative">
       <Button size="sm" variant="secondary" aria-label="More actions" aria-haspopup="menu" aria-expanded={open} onClick={() => { setOpen((o) => !o); setArmed(null); }}><Ellipsis className="h-4 w-4" aria-hidden /></Button>
       {open && (
-        <div role="menu" className="absolute right-0 z-40 mt-2 w-72 rounded-2xl bg-surface p-1.5 shadow-[0_12px_32px_rgb(46_46_46/0.12)] ring-1 ring-rule">
+        <div role="menu" className="absolute right-0 z-40 mt-2 w-72 rounded-2xl bg-surface p-1.5 pop-in shadow-pop">
           {!duplicating ? (
             <>
-              <a role="menuitem" href={`/api/v1/committee/events/${event.id}/export`} className="block rounded-lg px-3 py-2 text-body hover:bg-fill">Download CSV</a>
+              <a role="menuitem" href={`/api/v1/committee/events/${event.id}/export`} className="block rounded-lg px-3 py-2 text-body hover:bg-ground">Download CSV</a>
               <MenuItem onClick={() => setDuplicating(true)}>Duplicate for another date…</MenuItem>
               <MenuItem
                 onClick={() =>
@@ -185,7 +185,7 @@ function MoreMenu({ event, onError, onNotice }: { event: ConsoleEvent; onError: 
 
 function MenuItem({ children, onClick, danger }: { children: React.ReactNode; onClick: () => void; danger?: boolean }) {
   return (
-    <button role="menuitem" type="button" onClick={onClick} className={cx("w-full rounded-lg px-3 py-2 text-left text-body hover:bg-fill", danger && "text-crimson")}>
+    <button role="menuitem" type="button" onClick={onClick} className={cx("w-full rounded-lg px-3 py-2 text-left text-body hover:bg-ground", danger && "text-crimson")}>
       {children}
     </button>
   );
