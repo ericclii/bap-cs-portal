@@ -370,7 +370,7 @@
       {
         "name": "ease-out-expo",
         "value": "cubic-bezier(0.16, 1, 0.3, 1)",
-        "purpose": "Entrances: banner unfold, pop-in, reveal, stamp landing."
+        "purpose": "Entrances: pop-in, reveal, stamp landing."
       },
       {
         "name": "ease-out-quint",
@@ -393,9 +393,9 @@
         "purpose": "Each new page fades in place from 0 opacity on mount; the old page is gone at once, nothing moves."
       },
       {
-        "name": "unfold",
-        "value": "420ms ease-out-expo",
-        "purpose": "The committee banner opens downward (grid rows 0fr to 1fr) when the committee layout mounts."
+        "name": "banner-in / banner-out",
+        "value": "480ms cubic-bezier(0.25, 1, 0.5, 1) / 340ms cubic-bezier(0.65, 0, 0.35, 1)",
+        "purpose": "The committee banner slides down from under the bar on entering the committee area and a copy slides back up on leaving; transform only, clipped."
       },
       {
         "name": "pop-in",
@@ -415,7 +415,7 @@
       {
         "name": "reduced-motion",
         "value": "opacity only",
-        "purpose": "pop-in and reveal fall back to an opacity fade; the banner appears without unfolding; underline snaps; stamp rests; the page fade stays."
+        "purpose": "pop-in and reveal fall back to an opacity fade; the banner appears without sliding; underline snaps; stamp rests; the page fade stays."
       }
     ],
     "breakpoints": [

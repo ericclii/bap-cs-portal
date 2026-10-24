@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import type { CurrentUser } from "@/server/session";
+import { BannerGhost, CommitteeBanner } from "./committee-banner";
 import { Mark } from "./mark";
 import { PageTransition } from "./page-transition";
 import { NavLink } from "./nav-link";
@@ -48,18 +49,17 @@ export function AppShell({
             <Link href="/signin" className="u-line text-body font-semibold text-crimson">Sign in</Link>
           )}
         </div>
-        {subnav && (
-          // A banner of its own tone; it unfolds downward when the committee area opens.
-          <div className="subnav-banner bg-banner">
-          <div className="min-h-0 overflow-hidden">
-          <div className={`mx-auto ${width}`}>
-            {/* On phones the strip runs to the screen edges and fades there, so a cut-off tab reads as "scroll for more". */}
-            <div className="-mx-4 flex scroll-px-4 overflow-x-auto py-1.5 pr-8 pl-1.5 [mask-image:linear-gradient(to_right,transparent,black_16px,black_calc(100%-32px),transparent)] [scrollbar-width:none] sm:-mx-2.5 sm:px-0 sm:[mask-image:none] [&::-webkit-scrollbar]:hidden">
-              {subnav}
+        {subnav ? (
+          <CommitteeBanner>
+            <div className={`mx-auto ${width}`}>
+              {/* On phones the strip runs to the screen edges and fades there, so a cut-off tab reads as "scroll for more". */}
+              <div className="-mx-4 flex scroll-px-4 overflow-x-auto py-1.5 pr-8 pl-1.5 [mask-image:linear-gradient(to_right,transparent,black_16px,black_calc(100%-32px),transparent)] [scrollbar-width:none] sm:-mx-2.5 sm:px-0 sm:[mask-image:none] [&::-webkit-scrollbar]:hidden">
+                {subnav}
+              </div>
             </div>
-          </div>
-          </div>
-          </div>
+          </CommitteeBanner>
+        ) : (
+          user?.role && <BannerGhost />
         )}
       </header>
       {user && <RefreshOnReturn />}

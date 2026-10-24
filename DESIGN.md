@@ -383,11 +383,11 @@ On the event page, attendance shows as an 80px crimson stamp reading IN or OUT w
 ### Motion
 One family of curves, all cubic-bezier: ease-out-expo and ease-out-quint. Tailwind's default transition is 200ms ease-out-quint, so every state change shares it.
 - **Page transition:** a plain fade in place. Each page mounts inside `.page-fade` (the page shell, and the committee template, which remounts per section) and fades from 0 to 1 over 320ms (ease-out-quint). The old page is gone at once, so pages never overlap, and nothing moves. No View Transitions API: it behaved inconsistently in mobile Safari.
-- **Committee banner:** the committee tab strip is a banner in its own khaki tint (`--banner` #e8e1cb, quiet tabs in `--banner-ink` #575245, the current tab underlined in crimson). It unfolds downward (grid rows 0fr to 1fr, 420ms, ease-out-expo) when the committee layout mounts; moving between committee sections does not replay it.
+- **Committee banner:** the committee tab strip is a banner in its own khaki tint (`--banner` #e8e1cb, quiet tabs in `--banner-ink` #575245, the current tab underlined in crimson). It slides down from under the bar when the committee area opens (`banner-in`: translateY -100% to 0, 480ms, cubic-bezier(0.25, 1, 0.5, 1)) and, on leaving for a page without it, a copy slides back up behind the bar (`banner-out`, 340ms, cubic-bezier(0.65, 0, 0.35, 1)) and is removed. Transform only, inside a clip, so the tabs move exactly with the banner edge and nothing re-lays out; moving between committee sections replays nothing.
 - **Popover:** `.pop-in`, 240ms ease-out-expo, from 6px above at 97% scale.
 - **In-place reveal:** `.reveal`, 320ms ease-out-expo, rising 6px; used by notices and inline forms.
 - **Stamp landing:** as above, on check-in and check-out.
-- **Reduced motion:** the reveal and popover fall back to a plain opacity fade, the banner appears without unfolding, the underline snaps and the stamp rests; the page fade stays.
+- **Reduced motion:** the reveal and popover fall back to a plain opacity fade, the banner appears without sliding, the underline snaps and the stamp rests; the page fade stays.
 
 ### Crest Seal
 The chapter crest raster: 30px in the bar, 56px beside the figure once the requirement is met (and on the QR screen), 96px on sign-in, and the favicon and Apple touch icon. Always decorative next to words that name the app.
