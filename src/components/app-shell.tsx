@@ -32,7 +32,9 @@ export function AppShell({
   const width = "max-w-5xl px-[max(1rem,env(safe-area-inset-left))]";
   return (
     <>
-      <header className="sticky top-0 z-30 bg-surface/85 pt-[env(safe-area-inset-top)] backdrop-blur-xl backdrop-saturate-150">
+      {/* The tone sits on the bar alone, so the banner slides in over the page's own ground, not white. */}
+      <header className="sticky top-0 z-30">
+        <div className="relative z-10 bg-surface/85 pt-[env(safe-area-inset-top)] backdrop-blur-xl backdrop-saturate-150">
         <div className={`mx-auto flex h-14 items-center justify-between gap-4 ${width}`}>
           <Logo />
           {user ? (
@@ -48,6 +50,7 @@ export function AppShell({
           ) : (
             <Link href="/signin" className="u-line text-body font-semibold text-crimson">Sign in</Link>
           )}
+        </div>
         </div>
         {subnav ? (
           <CommitteeBanner>
