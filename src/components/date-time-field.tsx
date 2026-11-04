@@ -1,9 +1,10 @@
 "use client";
 
-import { CalendarDays } from "lucide-react";
+import { CalendarDays, Clock } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { DayPicker } from "react-day-picker";
-import { cx, inputBase, Select } from "./ui";
+import { TimeWheels } from "./time-wheels";
+import { cx, inputBase } from "./ui";
 
 // Values are New York wall-clock strings, `2026-11-08T09:00`, the same shape a
 // datetime-local input uses, so the form and API don't change. The calendar
@@ -29,25 +30,17 @@ function timeLabel(hhmm: string) {
   return `${h % 12 || 12}:${String(m).padStart(2, "0")} ${h < 12 ? "AM" : "PM"}`;
 }
 
-// Every 15 minutes, plus the current value if it falls between steps.
-function timeOptions(current: string) {
-  const all: string[] = [];
-  for (let m = 0; m < 24 * 60; m += 15) all.push(`${String(Math.floor(m / 60)).padStart(2, "0")}:${String(m % 60).padStart(2, "0")}`);
-  if (current && !all.includes(current)) all.push(current);
-  return all.sort();
-}
-
-/** A calendar date button and a time list, side by side. */
+/** A date button that opens a calendar and a time button that opens scroll wheels. */
 export function DateTimeField({ id, value, onChange, label }: { id: string; value: string; onChange: (value: string) => void; label: string }) {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState<"date" | "time" | null>(null);
   const ref = useRef<HTMLDivElement>(null);
   const date = toCalendarDate(value);
   const time = value.slice(11, 16);
 
   useEffect(() => {
     if (!open) return;
-    const onDown = (e: MouseEvent) => !ref.current?.contains(e.target as Node) && setOpen(false);
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    const onDown = (e: MouseEvent) => !ref.current?.contains(e.target as Node) && setOpen(null);
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(null);
     document.addEventListener("mousedown", onDown);
     document.addEventListener("keydown", onKey);
     return () => {
@@ -62,22 +55,34 @@ export function DateTimeField({ id, value, onChange, label }: { id: string; valu
         id={id}
         type="button"
         aria-haspopup="dialog"
-        aria-expanded={open}
+        aria-expanded={open === "date"}
         aria-label={`${label}: ${date ? dayLabel(date) : "pick a date"}`}
-        onClick={() => setOpen((o) => !o)}
-        className={cx(inputBase, "flex min-w-0 flex-1 items-center gap-2 text-left", open && "bg-surface ring-2 ring-crimson/60")}
+        onClick={() => setOpen((o) => (o === "date" ? null : "date"))}
+        className={cx(inputBase, "flex min-w-0 flex-1 items-center gap-2 text-left", open === "date" && "bg-surface ring-2 ring-crimson/60")}
       >
         <CalendarDays className="h-4 w-4 shrink-0 text-secondary" aria-hidden />
         <span className="truncate tabular-nums">{date ? dayLabel(date) : "Pick a date"}</span>
       </button>
-      <Select aria-label={`${label} time`} value={time} onChange={(e) => onChange(`${value.slice(0, 10)}T${e.target.value}`)} className="w-32 shrink-0">
-        {timeOptions(time).map((t) => (
-          <option key={t} value={t}>
-            {timeLabel(t)}
-          </option>
-        ))}
-      </Select>
-      {open && (
+      <button
+        type="button"
+        aria-haspopup="dialog"
+        aria-expanded={open === "time"}
+        aria-label={`${label} time: ${timeLabel(time)}`}
+        onClick={() => setOpen((o) => (o === "time" ? null : "time"))}
+        className={cx(inputBase, "flex w-32 shrink-0 items-center gap-2 text-left", open === "time" && "bg-surface ring-2 ring-crimson/60")}
+      >
+        <Clock className="h-4 w-4 shrink-0 text-secondary" aria-hidden />
+        <span className="tabular-nums">{timeLabel(time)}</span>
+      </button>
+      {open === "time" && (
+        <div role="dialog" aria-label={`${label} time`} className="pop-in absolute top-full right-0 z-40 mt-2 space-y-2 rounded-2xl bg-surface p-3 shadow-pop">
+          <TimeWheels label={label} value={time || "09:00"} onChange={(t) => onChange(`${value.slice(0, 10)}T${t}`)} />
+          <button type="button" className="u-line mx-auto block h-9 text-body font-semibold text-crimson" onClick={() => setOpen(null)}>
+            Done
+          </button>
+        </div>
+      )}
+      {open === "date" && (
         <div role="dialog" aria-label={`${label} date`} className="pop-in absolute top-full left-0 z-40 mt-2 rounded-2xl bg-surface p-3 shadow-pop [transform-origin:top_left]">
           <DayPicker
             mode="single"
@@ -87,7 +92,7 @@ export function DateTimeField({ id, value, onChange, label }: { id: string; valu
             defaultMonth={date}
             onSelect={(d) => {
               onChange(`${fromCalendarDate(d)}T${time || "09:00"}`);
-              setOpen(false);
+              setOpen(null);
             }}
             showOutsideDays
             classNames={{
