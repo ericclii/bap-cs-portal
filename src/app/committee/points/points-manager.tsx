@@ -3,10 +3,13 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
-import { Button, cx, Field, Group, inputBase, inputClass, Notice, Panel, Pill, Row } from "@/components/ui";
+import { Button, cx, Empty, Field, Group, inputBase, inputClass, Notice, Panel, Pill, Row, Segmented } from "@/components/ui";
 import { MenuButton } from "@/components/menu-button";
 import { api, errorMessage } from "@/lib/api-client";
+import type { Checkpoint } from "@/lib/checkpoints";
 import { parsePointsImport, parseRoster } from "@/lib/netid";
+import { type Candidate, RosterManager } from "./roster-manager";
+import { CheckpointView, RiskView } from "./standing";
 
 type Standing = {
   netId: string;
@@ -21,21 +24,39 @@ type Standing = {
   pendingEvents: number;
 };
 
-type Panel = null | "adjust" | "import" | "sheets";
+type Panel = null | "adjust" | "import" | "sheets" | "roster";
+type View = "risk" | "checkpoint" | "everyone";
 
-export function PointsManager({ standings, isChair, feedUrl }: { standings: Standing[]; isChair: boolean; feedUrl: string }) {
+/**
+ * Points and candidates in one place: who is short of the next checkpoint,
+ * who has passed which, and everyone's totals; the roster and point
+ * corrections sit behind the actions.
+ */
+export function PointsManager({
+  standings,
+  candidates,
+  checkpoints: wire,
+  isChair,
+  feedUrl,
+}: {
+  standings: Standing[];
+  candidates: Candidate[];
+  checkpoints: (Omit<Checkpoint, "dueAt"> & { dueAt: string | null })[];
+  isChair: boolean;
+  feedUrl: string;
+}) {
   const router = useRouter();
+  const checkpoints: Checkpoint[] = wire.map((c) => ({ ...c, dueAt: c.dueAt ? new Date(c.dueAt) : null }));
   const [panel, setPanel] = useState<Panel>(null);
+  const [view, setView] = useState<View>(checkpoints.length ? "risk" : "everyone");
   const [query, setQuery] = useState("");
-  const [filter, setFilter] = useState<"candidates" | "all">("candidates");
   const [notice, setNotice] = useState<string | null>(null);
+  const people = standings.filter((s) => s.isCandidate);
 
   const visible = useMemo(() => {
     const q = query.trim().toLowerCase();
-    return standings
-      .filter((s) => filter === "all" || s.isCandidate)
-      .filter((s) => !q || s.netId.includes(q) || (s.name ?? "").toLowerCase().includes(q));
-  }, [standings, query, filter]);
+    return standings.filter((s) => !q || s.netId.includes(q) || (s.name ?? "").toLowerCase().includes(q));
+  }, [standings, query]);
 
   const done = () => {
     setPanel(null);
@@ -49,6 +70,7 @@ export function PointsManager({ standings, isChair, feedUrl }: { standings: Stan
         <MenuButton
           align="left"
           items={[
+            { label: "Edit roster", onSelect: () => setPanel("roster") },
             ...(isChair ? [{ label: "Import old tracker", onSelect: () => setPanel("import") }] : []),
             { label: "Google Sheets link", onSelect: () => setPanel("sheets") },
             { label: "Download CSV", href: "/api/v1/committee/points/export" },
@@ -60,65 +82,82 @@ export function PointsManager({ standings, isChair, feedUrl }: { standings: Stan
       {panel === "adjust" && <AdjustForm onDone={(m) => { setNotice(m); done(); }} />}
       {panel === "import" && <ImportForm onDone={(m) => { setNotice(m); done(); }} />}
       {panel === "sheets" && <SheetsHelp feedUrl={feedUrl} />}
-
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <div className="flex gap-1" role="tablist">
-          {([["candidates", "Candidates"], ["all", "Everyone"]] as [typeof filter, string][]).map(([key, label]) => (
-            <button key={key} type="button" role="tab" aria-selected={filter === key} onClick={() => setFilter(key)} className={cx("rounded-lg px-3 py-1.5 text-footnote", filter === key ? "bg-fill font-medium" : "text-secondary hover:text-text")}>
-              {label}
-            </button>
-          ))}
+      {panel === "roster" && (
+        <div className="reveal space-y-3">
+          <RosterManager candidates={candidates} />
+          <Button variant="secondary" onClick={() => setPanel(null)}>Done</Button>
         </div>
-        <input aria-label="Search people" className={`${inputBase} w-full sm:w-64`} placeholder="Search name or NetID" value={query} onChange={(e) => setQuery(e.target.value)} />
-      </div>
+      )}
 
-      {/* Phones: one row per person; the full table from the small breakpoint up. */}
-      <Group className="sm:hidden">
-        {visible.length === 0 && <p className="px-4 py-8 text-center text-footnote text-secondary">No one matches.</p>}
-        {visible.map((s) => (
-          <Row
-            key={s.netId}
-            href={`/committee/points/${s.netId}`}
-            title={s.name ?? s.netId}
-            subtitle={`${s.netId} · attended ${s.attended}${s.noShows ? ` · ${s.noShows} no-show${s.noShows === 1 ? "" : "s"}` : ""}${s.pendingEvents ? ` · ${s.pendingEvents} not awarded yet` : ""}`}
-            trailing={
-              <span className="text-body font-semibold tabular-nums">{s.total}</span>
-            }
-            chevron
-          />
-        ))}
-      </Group>
-      <Group className="hidden overflow-x-auto sm:block">
-        <table className="w-full min-w-[560px] text-body">
-          <thead className="border-b border-separator text-left text-secondary">
-            <tr>
-              <th className="px-4 py-2 font-medium">Person</th>
-              <th className="px-4 py-2 text-right font-medium">Total</th>
-              <th className="px-4 py-2 text-right font-medium">Attended</th>
-              <th className="px-4 py-2 text-right font-medium">No-shows</th>
-              <th className="px-4 py-2 text-right font-medium">Not awarded yet</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-separator">
-            {visible.length === 0 && (
-              <tr><td colSpan={5} className="px-4 py-8 text-center text-secondary">No one matches.</td></tr>
-            )}
+      <Segmented
+        label="Points view"
+        value={view}
+        onChange={setView}
+        options={[
+          ...(checkpoints.length ? [{ value: "risk" as const, label: "At risk" }, { value: "checkpoint" as const, label: "By checkpoint" }] : []),
+          { value: "everyone" as const, label: "Everyone" },
+        ]}
+      />
+
+      {view !== "everyone" && people.length === 0 ? (
+        <Empty title="No candidates yet" action={<Button variant="secondary" onClick={() => setPanel("roster")}>Add candidates</Button>} />
+      ) : view === "risk" ? (
+        <RiskView people={people} checkpoints={checkpoints} />
+      ) : view === "checkpoint" ? (
+        <CheckpointView people={people} checkpoints={checkpoints} />
+      ) : (
+        <div className="space-y-4">
+          <input aria-label="Search people" className={`${inputBase} w-full sm:w-64`} placeholder="Search name or NetID" value={query} onChange={(e) => setQuery(e.target.value)} />
+
+          {/* Phones: one row per person; the full table from the small breakpoint up. */}
+          <Group className="sm:hidden">
+            {visible.length === 0 && <p className="px-4 py-8 text-center text-footnote text-secondary">No one matches.</p>}
             {visible.map((s) => (
-              <tr key={s.netId} className="hover:bg-fill">
-                <td className="px-4 py-2.5">
-                  <Link href={`/committee/points/${s.netId}`} className="font-medium hover:underline">{s.name ?? s.netId}</Link>
-                  <span className="ml-2 text-secondary">{s.netId}</span>
-                  {!s.isCandidate && <span className="ml-2"><Pill>Not a candidate</Pill></span>}
-                </td>
-                <td className="px-4 py-2.5 text-right font-semibold tabular-nums">{s.total}</td>
-                <td className="px-4 py-2.5 text-right tabular-nums">{s.attended}</td>
-                <td className={cx("px-4 py-2.5 text-right tabular-nums", s.noShows > 0 && "text-amber")}>{s.noShows}</td>
-                <td className="px-4 py-2.5 text-right text-secondary tabular-nums">{s.pendingEvents || ""}</td>
-              </tr>
+              <Row
+                key={s.netId}
+                href={`/committee/points/${s.netId}`}
+                title={s.name ?? s.netId}
+                subtitle={`${s.netId} · attended ${s.attended}${s.noShows ? ` · ${s.noShows} no-show${s.noShows === 1 ? "" : "s"}` : ""}${s.pendingEvents ? ` · ${s.pendingEvents} not awarded yet` : ""}`}
+                trailing={
+                  <span className="text-body font-semibold tabular-nums">{s.total}</span>
+                }
+                chevron
+              />
             ))}
-          </tbody>
-        </table>
-      </Group>
+          </Group>
+          <Group className="hidden overflow-x-auto sm:block">
+            <table className="w-full min-w-[560px] text-body">
+              <thead className="border-b border-separator text-left text-secondary">
+                <tr>
+                  <th className="px-4 py-2 font-medium">Person</th>
+                  <th className="px-4 py-2 text-right font-medium">Total</th>
+                  <th className="px-4 py-2 text-right font-medium">Attended</th>
+                  <th className="px-4 py-2 text-right font-medium">No-shows</th>
+                  <th className="px-4 py-2 text-right font-medium">Not awarded yet</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-separator">
+                {visible.length === 0 && (
+                  <tr><td colSpan={5} className="px-4 py-8 text-center text-secondary">No one matches.</td></tr>
+                )}
+                {visible.map((s) => (
+                  <tr key={s.netId} className="hover:bg-fill">
+                    <td className="px-4 py-2.5">
+                      <Link href={`/committee/points/${s.netId}`} className="font-medium hover:underline">{s.name ?? s.netId}</Link>
+                      <span className="ml-2 text-secondary">{s.netId}</span>
+                      {!s.isCandidate && <span className="ml-2"><Pill>Not a candidate</Pill></span>}
+                    </td>
+                    <td className="px-4 py-2.5 text-right font-semibold tabular-nums">{s.total}</td>
+                    <td className="px-4 py-2.5 text-right tabular-nums">{s.attended}</td>
+                    <td className={cx("px-4 py-2.5 text-right tabular-nums", s.noShows > 0 && "text-amber")}>{s.noShows}</td>
+                    <td className="px-4 py-2.5 text-right text-secondary tabular-nums">{s.pendingEvents || ""}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </Group>
+        </div>
+      )}
     </div>
   );
 }

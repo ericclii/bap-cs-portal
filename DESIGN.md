@@ -312,7 +312,7 @@ Rhythm is section-based: 32px between sections, 10px between a section heading a
 
 On touch screens every small control gets a 44px target through the `.hit` class (an invisible expanded hit area, look unchanged); segmented controls and selects grow to 40/44px; fields render at 16px on coarse pointers so iOS never zooms on focus. On phones a row's trailing status stacks under its subtitle; page-title actions wrap below the title.
 
-**The Next Thing First Rule.** Every screen opens with its title or figure and then the single most relevant object (the checkpoint stamps and next pass, "Needs attention"), followed by lists. Never open with a grid of summary cards.
+**The Next Thing First Rule.** The committee area has three tabs, Events (which carries what needs attention and open reviews), Points (checkpoint standing, totals and the roster) and Manage; sections with nothing in them do not render. Every screen opens with its title or figure and then the single most relevant object (the checkpoint stamps and next pass; on the committee's Events screen, "Needs attention" and open reviews), followed by lists. Never open with a grid of summary cards.
 
 ## Elevation & Depth
 

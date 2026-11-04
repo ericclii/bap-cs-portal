@@ -7,7 +7,7 @@ import { Avatar, Button, Group, inputClass, Notice, Panel, Pill, Toggle, inputBa
 import { api, errorMessage } from "@/lib/api-client";
 import { parseRoster } from "@/lib/netid";
 
-type Candidate = { id: string; netId: string; name: string | null; image: string | null; signedIn: boolean };
+export type Candidate = { id: string; netId: string; name: string | null; image: string | null; signedIn: boolean };
 
 export function RosterManager({ candidates }: { candidates: Candidate[] }) {
   const router = useRouter();

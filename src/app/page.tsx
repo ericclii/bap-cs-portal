@@ -6,6 +6,6 @@ import { getCurrentUser } from "@/server/session";
 export default async function HomePage() {
   const user = await getCurrentUser();
   if (!user) redirect("/signin");
-  if (user.role) redirect("/committee");
+  if (user.role) redirect("/committee/events");
   return <ServiceHome />;
 }
