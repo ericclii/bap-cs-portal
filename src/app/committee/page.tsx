@@ -33,14 +33,13 @@ export default async function CommitteeOverview() {
     ...(openReviews ? [{ href: "/committee/reviews", title: `${openReviews} ${openReviews === 1 ? "review" : "reviews"} waiting`, detail: "Location problems and early check-outs" }] : []),
     ...events.filter((e) => e.phase === "needs_selection").map((e) => ({ href: `/committee/events/${e.id}?tab=selection`, title: `Pick who goes: ${e.title}`, detail: `${e.applied} signed up for ${e.capacity} spots · ${relativeDay(e.startsAt, now)}` })),
     ...events.filter((e) => e.phase === "needs_finalize").map((e) => ({ href: `/committee/events/${e.id}?tab=finalize`, title: `Award points: ${e.title}`, detail: `${e.checkedIn} of ${e.selected} checked in` })),
-    ...(candidates === 0 ? [{ href: "/committee/candidates", title: "Add this term's candidates", detail: "They rank first for spots and their requirement is tracked" }] : []),
+    ...(candidates === 0 ? [{ href: "/committee/candidates", title: "Add this term's candidates", detail: "They rank first for spots and their checkpoints are tracked" }] : []),
   ];
 
   return (
     <div className="space-y-8">
       <PageTitle
         title={term.name}
-        subtitle={`${candidates} candidates · ${events.length} events`}
         actions={<LinkButton href="/committee/events/new">New event</LinkButton>}
       />
 

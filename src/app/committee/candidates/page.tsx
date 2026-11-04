@@ -18,7 +18,7 @@ export default async function CandidatesPage() {
     .map((s) => ({ netId: s.netId, name: s.name, total: s.total, pendingEvents: s.pendingEvents }));
   return (
     <div className="space-y-10">
-      <PageTitle title="Candidates" subtitle={`${term.name} · ${candidates.length} on the roster`} />
+      <PageTitle title="Candidates" />
       <CheckpointStanding people={people} checkpoints={JSON.parse(JSON.stringify(checkpoints))} />
       <RosterManager candidates={candidates} />
     </div>

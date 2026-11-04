@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Button, Field, Group, inputClass, Notice, Panel } from "@/components/ui";
-import { formatDue, sortCheckpoints, utcToDueDate } from "@/lib/checkpoints";
+import { sortCheckpoints, utcToDueDate } from "@/lib/checkpoints";
 import { api, errorMessage } from "@/lib/api-client";
 
 type Term = {
@@ -50,17 +50,6 @@ export function TermsManager({ terms, isChair }: { terms: Term[]; isChair: boole
               <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                 <div>
                   <span className="font-medium">{t.name}</span>
-                  <div className="text-footnote text-secondary">
-                    {t.defaultEventPoints} per event · no-show {t.noShowPenalty} · late drop under {t.lateDropHours}h
-                  </div>
-                  <div className="text-footnote text-secondary">
-                    {t.checkpoints.length === 0
-                      ? "No checkpoints"
-                      : sortCheckpoints(t.checkpoints.map((c) => ({ ...c, dueAt: c.dueAt ? new Date(c.dueAt) : null })))
-                          .map((c) => `${c.name} ${c.points} (${formatDue(c)})`)
-                          .join(" · ")}
-                  </div>
-                  <div className="text-footnote text-secondary">{t._count.events} events · {t._count.candidates} candidates</div>
                 </div>
                 {isChair && (
                   <div className="flex gap-2">

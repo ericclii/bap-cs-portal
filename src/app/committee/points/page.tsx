@@ -16,10 +16,7 @@ export default async function PointsPage() {
 
   return (
     <div className="space-y-6">
-      <PageTitle
-        title="Points"
-        subtitle={term.name}
-      />
+      <PageTitle title="Points" />
       <PointsManager
         standings={standings}
         isChair={user?.role === "CHAIR"}

@@ -82,7 +82,7 @@ export async function ServiceHome() {
             </div>
             <StandingNote>
               {[
-                `${term.name}${candidate ? "" : " · Not on the candidate list"}`,
+                candidate ? null : "Not on the candidate list",
                 met ? `Every checkpoint reached${minutesServed > 0 ? ` · ${formatDuration(minutesServed)} of service` : ""}` : null,
                 pending.length > 0 ? `${pending.length} ${pending.length === 1 ? "event" : "events"} awaiting points` : null,
               ]

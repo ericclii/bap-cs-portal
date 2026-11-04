@@ -5,8 +5,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { BackLink, Button, DateTile, LinkButton, Notice, Segmented, buttonClass, cx, inputClass } from "@/components/ui";
 import { api, errorMessage } from "@/lib/api-client";
-import { formatDuration } from "@/lib/event-window";
-import { formatDateTime, formatEventRange } from "@/lib/time";
+import { formatEventRange } from "@/lib/time";
 import { PhasePill } from "../../phase";
 import { FinalizeTab } from "./finalize-tab";
 import { PeopleTab } from "./people-tab";
@@ -49,9 +48,6 @@ export function EventConsole({ event, initialPeople, initialTab }: { event: Cons
             <p className="text-body text-secondary">
               {formatEventRange(new Date(event.startsAt), new Date(event.endsAt))}
               {event.partnerOrg && ` · ${event.partnerOrg}`}
-            </p>
-            <p className="text-footnote text-secondary">
-              {event.capacity} spots · {event.points} pts · {formatDuration(event.minMinutes)} minimum · {event.checkinMode === "QR" ? "QR check-in" : "Link check-in"} · sign-ups close {formatDateTime(new Date(event.signupClosesAt))}
             </p>
           </div>
         </div>
