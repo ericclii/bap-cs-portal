@@ -259,8 +259,11 @@ a {
   transform: scale(1.15);
 }
 
-/* Text buttons have no padding, so neighbours (or their wrappers) need air between them. */
-:is(.btn-text, :has(> .btn-text:only-child)) + :is(.btn-text, :has(> .btn-text:only-child)) {
+/*
+ * Text buttons have no padding, so neighbours (or wrappers that start with
+ * one, like a menu whose popover opens beside it) need air between them.
+ */
+:is(.btn-text, :has(> .btn-text:first-child)) + :is(.btn-text, :has(> .btn-text:first-child)) {
   margin-inline-start: 0.75rem;
 }
 
