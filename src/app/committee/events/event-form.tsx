@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { DateTimeField } from "@/components/date-time-field";
 import { Button, Field, Notice, Panel, Toggle, inputClass } from "@/components/ui";
 import { api, errorMessage } from "@/lib/api-client";
 import type { EventInput } from "@/lib/contracts";
@@ -61,6 +62,12 @@ export function defaultEventValues(points = 3): EventFormValues {
   };
 }
 
+/** Moves a wall-clock datetime-local string by some minutes. */
+function shiftLocal(local: string, minutes: number) {
+  const ms = Date.parse(`${local}:00Z`);
+  return Number.isFinite(ms) ? new Date(ms + minutes * 60_000).toISOString().slice(0, 16) : local;
+}
+
 function minutesBetween(a: string, b: string) {
   const ms = Date.parse(`${b}:00Z`) - Date.parse(`${a}:00Z`);
   return Number.isFinite(ms) ? Math.round(ms / 60_000) : 0;
@@ -77,6 +84,10 @@ export function EventForm({ eventId, initial }: { eventId?: string; initial: Eve
   const set = <K extends keyof EventFormValues>(key: K, value: EventFormValues[K]) =>
     setV((prev) => {
       const next = { ...prev, [key]: value };
+      // Moving the start carries the end with it, so the event keeps its length.
+      if (key === "startsAtLocal") {
+        next.endsAtLocal = shiftLocal(prev.endsAtLocal, minutesBetween(prev.startsAtLocal, value as string));
+      }
       // Until someone sets it, the minimum time tracks the event's length.
       if (!minTouched && (key === "startsAtLocal" || key === "endsAtLocal")) {
         next.minMinutes = Math.max(0, minutesBetween(next.startsAtLocal, next.endsAtLocal));
@@ -125,10 +136,10 @@ export function EventForm({ eventId, initial }: { eventId?: string; initial: Eve
         </div>
         <div className="grid gap-4 sm:grid-cols-2">
           <Field label="Starts (New York time)" htmlFor="startsAt">
-            <input id="startsAt" type="datetime-local" required className={inputClass} value={v.startsAtLocal} onChange={(e) => set("startsAtLocal", e.target.value)} />
+            <DateTimeField id="startsAt" label="Starts" value={v.startsAtLocal} onChange={(x) => set("startsAtLocal", x)} />
           </Field>
-          <Field label="Ends" htmlFor="endsAt" hint={duration > 0 ? formatDuration(duration) : undefined}>
-            <input id="endsAt" type="datetime-local" required className={inputClass} value={v.endsAtLocal} onChange={(e) => set("endsAtLocal", e.target.value)} />
+          <Field label="Ends" htmlFor="endsAt" hint={duration > 0 ? formatDuration(duration) : undefined} error={duration <= 0 ? "Ends before it starts" : null}>
+            <DateTimeField id="endsAt" label="Ends" value={v.endsAtLocal} onChange={(x) => set("endsAtLocal", x)} />
           </Field>
         </div>
         <div className="grid gap-4 sm:grid-cols-3">
@@ -179,10 +190,10 @@ export function EventForm({ eventId, initial }: { eventId?: string; initial: Eve
         </div>
         <div className="grid gap-4 sm:grid-cols-2">
           <Field label="Sign-ups open" htmlFor="signupOpens">
-            <input id="signupOpens" type="datetime-local" required className={inputClass} value={v.signupOpensAtLocal} onChange={(e) => set("signupOpensAtLocal", e.target.value)} />
+            <DateTimeField id="signupOpens" label="Sign-ups open" value={v.signupOpensAtLocal} onChange={(x) => set("signupOpensAtLocal", x)} />
           </Field>
           <Field label="Sign-ups close" htmlFor="signupCloses">
-            <input id="signupCloses" type="datetime-local" required className={inputClass} value={v.signupClosesAtLocal} onChange={(e) => set("signupClosesAtLocal", e.target.value)} />
+            <DateTimeField id="signupCloses" label="Sign-ups close" value={v.signupClosesAtLocal} onChange={(x) => set("signupClosesAtLocal", x)} />
           </Field>
         </div>
       </Panel>
