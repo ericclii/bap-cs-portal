@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { AddressField } from "@/components/address-field";
 import { DateTimeField } from "@/components/date-time-field";
 import { Button, Field, Notice, Panel, Toggle, inputClass } from "@/components/ui";
 import { api, errorMessage } from "@/lib/api-client";
@@ -170,7 +171,13 @@ export function EventForm({ eventId, initial }: { eventId?: string; initial: Eve
             <input id="locationName" className={inputClass} maxLength={200} value={v.locationName ?? ""} onChange={(e) => set("locationName", e.target.value)} placeholder="Father's Heart food pantry" />
           </Field>
           <Field label="Address" htmlFor="address">
-            <input id="address" className={inputClass} maxLength={300} value={v.address ?? ""} onChange={(e) => set("address", e.target.value)} placeholder="545 E 11th St, New York, NY" />
+            <AddressField
+              id="address"
+              value={v.address ?? ""}
+              onChange={(a) => set("address", a)}
+              onPick={(p) => setV((prev) => ({ ...prev, latitude: p.latitude, longitude: p.longitude, locationName: prev.locationName || p.name || prev.locationName }))}
+              placeholder="545 E 11th St, New York, NY"
+            />
           </Field>
         </div>
         <LocationPicker
