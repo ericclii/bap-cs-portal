@@ -3,13 +3,13 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
-import { Button, cx, Empty, Field, Group, inputBase, inputClass, Notice, Panel, Pill, Row, Segmented } from "@/components/ui";
+import { Button, cx, Empty, Field, Group, inputBase, inputClass, Notice, Panel, Segmented } from "@/components/ui";
 import { MenuButton } from "@/components/menu-button";
 import { api, errorMessage } from "@/lib/api-client";
 import type { Checkpoint } from "@/lib/checkpoints";
 import { parseRoster } from "@/lib/netid";
 import { type Candidate, RosterManager } from "./roster-manager";
-import { CheckpointView, RiskView } from "./standing";
+import { CheckpointView, PersonLine, RiskView } from "./standing";
 import { TrackerSync } from "./tracker-sync";
 
 type Standing = {
@@ -114,15 +114,12 @@ export function PointsManager({
           <Group className="sm:hidden">
             {visible.length === 0 && <p className="px-4 py-8 text-center text-footnote text-secondary">No one matches.</p>}
             {visible.map((s) => (
-              <Row
+              <PersonLine
                 key={s.netId}
-                href={`/committee/points/${s.netId}`}
-                title={s.name ?? s.netId}
-                subtitle={`${s.netId} · attended ${s.attended}${s.noShows ? ` · ${s.noShows} no-show${s.noShows === 1 ? "" : "s"}` : ""}${s.pendingEvents ? ` · ${s.pendingEvents} not awarded yet` : ""}`}
-                trailing={
-                  <span className="text-body font-semibold tabular-nums">{s.total}</span>
-                }
-                chevron
+                netId={s.netId}
+                name={s.name}
+                detail={[s.noShows ? `${s.noShows} no-show${s.noShows === 1 ? "" : "s"}` : null, s.pendingEvents ? `${s.pendingEvents} not awarded` : null].filter(Boolean).join(" · ") || null}
+                total={s.total}
               />
             ))}
           </Group>
@@ -130,11 +127,11 @@ export function PointsManager({
             <table className="w-full min-w-[560px] text-body">
               <thead className="border-b border-separator text-left text-secondary">
                 <tr>
-                  <th className="px-4 py-2 font-medium">Person</th>
-                  <th className="px-4 py-2 text-right font-medium">Total</th>
-                  <th className="px-4 py-2 text-right font-medium">Attended</th>
-                  <th className="px-4 py-2 text-right font-medium">No-shows</th>
-                  <th className="px-4 py-2 text-right font-medium">Not awarded yet</th>
+                  <th className="px-4 py-1.5 font-medium">Person</th>
+                  <th className="px-4 py-1.5 text-right font-medium">Total</th>
+                  <th className="px-4 py-1.5 text-right font-medium">Attended</th>
+                  <th className="px-4 py-1.5 text-right font-medium">No-shows</th>
+                  <th className="px-4 py-1.5 text-right font-medium">Not awarded yet</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-separator">
@@ -143,15 +140,15 @@ export function PointsManager({
                 )}
                 {visible.map((s) => (
                   <tr key={s.netId} className="hover:bg-fill">
-                    <td className="px-4 py-2.5">
+                    <td className="px-4 py-1.5">
                       <Link href={`/committee/points/${s.netId}`} className="font-medium hover:underline">{s.name ?? s.netId}</Link>
-                      <span className="ml-2 text-secondary">{s.netId}</span>
-                      {!s.isCandidate && <span className="ml-2"><Pill>Not a candidate</Pill></span>}
+                      {s.name && <span className="text-secondary"> · {s.netId}</span>}
+                      {!s.isCandidate && <span className="ml-2 text-footnote text-secondary">· not a candidate</span>}
                     </td>
-                    <td className="px-4 py-2.5 text-right font-semibold tabular-nums">{s.total}</td>
-                    <td className="px-4 py-2.5 text-right tabular-nums">{s.attended}</td>
-                    <td className={cx("px-4 py-2.5 text-right tabular-nums", s.noShows > 0 && "text-amber")}>{s.noShows}</td>
-                    <td className="px-4 py-2.5 text-right text-secondary tabular-nums">{s.pendingEvents || ""}</td>
+                    <td className="px-4 py-1.5 text-right font-semibold tabular-nums">{s.total}</td>
+                    <td className="px-4 py-1.5 text-right tabular-nums">{s.attended}</td>
+                    <td className={cx("px-4 py-1.5 text-right tabular-nums", s.noShows > 0 && "text-amber")}>{s.noShows}</td>
+                    <td className="px-4 py-1.5 text-right text-secondary tabular-nums">{s.pendingEvents || ""}</td>
                   </tr>
                 ))}
               </tbody>

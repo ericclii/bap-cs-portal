@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Empty, Group, Row, Section, Select } from "@/components/ui";
+import Link from "next/link";
+import { Empty, Group, Section, Select } from "@/components/ui";
 import { type Checkpoint, checkpointStatus, formatDue, nextCheckpoint } from "@/lib/checkpoints";
 
 export type Person = { netId: string; name: string | null; total: number; pendingEvents: number };
@@ -9,19 +10,29 @@ export type Person = { netId: string; name: string | null; total: number; pendin
 const byTotal = (people: Person[]) =>
   [...people].sort((a, b) => a.total - b.total || (a.name ?? a.netId).localeCompare(b.name ?? b.netId));
 
+/** One compact line per person: name · NetID, then points. */
+export function PersonLine({ netId, name, detail, total, note }: { netId: string; name: string | null; detail?: string | null; total: number; note?: string | null }) {
+  return (
+    <Link href={`/committee/points/${netId}`} className="flex items-center gap-3 px-4 py-1.5 transition-colors duration-150 hover:bg-ground active:bg-fill">
+      <span className="min-w-0 flex-1 truncate text-body">
+        <span className="font-medium">{name ?? netId}</span>
+        {name && <span className="text-secondary"> · {netId}</span>}
+        {detail && <span className="text-footnote text-secondary"> · {detail}</span>}
+      </span>
+      {note && <span className="shrink-0 text-footnote text-secondary tabular-nums">{note}</span>}
+      <span className="w-10 shrink-0 text-right text-body font-semibold tabular-nums">{total}</span>
+    </Link>
+  );
+}
+
 function PersonRow({ p, target }: { p: Person; target: number }) {
   return (
-    <Row
-      href={`/committee/points/${p.netId}`}
-      title={p.name ?? p.netId}
-      subtitle={[p.netId, p.pendingEvents ? `${p.pendingEvents} not awarded yet` : null].filter(Boolean).join(" · ")}
-      trailing={
-        <span className="text-right text-body tabular-nums">
-          <span className="font-semibold">{p.total}</span>
-          {p.total < target && <span className="block text-footnote text-secondary">{target - p.total} short</span>}
-        </span>
-      }
-      chevron
+    <PersonLine
+      netId={p.netId}
+      name={p.name}
+      detail={p.pendingEvents ? `${p.pendingEvents} not awarded yet` : null}
+      total={p.total}
+      note={p.total < target ? `${target - p.total} short` : null}
     />
   );
 }
