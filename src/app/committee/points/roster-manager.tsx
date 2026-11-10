@@ -6,8 +6,15 @@ import { useMemo, useState } from "react";
 import { Avatar, Button, Group, inputClass, Notice, Panel, Pill, Toggle, inputBase } from "@/components/ui";
 import { api, errorMessage } from "@/lib/api-client";
 import { parseRoster } from "@/lib/netid";
+import { parseTracker } from "@/lib/tracker";
 
 export type Candidate = { id: string; netId: string; name: string | null; image: string | null; signedIn: boolean };
+
+/** A tracker sheet becomes "Name, netid" lines; anything else is used as is. */
+function rosterText(text: string) {
+  const t = parseTracker(text);
+  return !t.error && t.people.length ? t.people.map((p) => (p.name ? `${p.name.replace(/,/g, " ")}, ${p.netId}` : p.netId)).join("\n") : text;
+}
 
 export function RosterManager({ candidates }: { candidates: Candidate[] }) {
   const router = useRouter();
@@ -72,7 +79,7 @@ export function RosterManager({ candidates }: { candidates: Candidate[] }) {
           </p>
           <label className="u-line inline-flex h-10 cursor-pointer items-center text-body font-semibold">
             Upload CSV
-            <input type="file" accept=".csv,text/csv,.txt" className="sr-only" onChange={async (e) => { const f = e.target.files?.[0]; if (f) setText(await f.text()); }} />
+            <input type="file" accept=".csv,text/csv,.txt" className="sr-only" onChange={async (e) => { const f = e.target.files?.[0]; if (f) setText(rosterText(await f.text())); }} />
           </label>
         </div>
         <Toggle id="replace" label="Replace the roster with this list" description="Removes anyone not in the list. Their points and history are kept." checked={replace} onChange={setReplace} />

@@ -71,31 +71,3 @@ export function parseRoster(text: string): { rows: RosterRow[]; invalid: string[
   }
   return { rows, invalid };
 }
-
-/** Parses "netid/email, [name], points" rows for importing an existing tracker. */
-export function parsePointsImport(text: string): {
-  rows: { netId: string; name: string | null; points: number }[];
-  invalid: string[];
-} {
-  const rows: { netId: string; name: string | null; points: number }[] = [];
-  const invalid: string[] = [];
-  for (const rawLine of text.split(/\r?\n/)) {
-    const line = rawLine.trim();
-    if (!line) continue;
-    const cells = line.split(/[,;\t]/).map((c) => c.trim().replace(/^"|"$/g, ""));
-    let netId: string | null = null;
-    let points: number | null = null;
-    let name: string | null = null;
-    for (const cell of cells) {
-      if (!netId && normalizeNetId(cell)) netId = normalizeNetId(cell);
-      else if (points === null && /^-?\d+(\.\d+)?$/.test(cell)) points = Number(cell);
-      else if (!name && cell) name = cell;
-    }
-    if (!netId || points === null) {
-      if (!/net\s*id|email|points/i.test(line)) invalid.push(line);
-      continue;
-    }
-    rows.push({ netId, name, points: Math.round(points) });
-  }
-  return { rows, invalid };
-}

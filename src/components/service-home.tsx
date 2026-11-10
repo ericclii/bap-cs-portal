@@ -185,7 +185,7 @@ function StandingNote({ children }: { children: React.ReactNode }) {
 function milestoneDates(history: Awaited<ReturnType<typeof personHistory>>, checkpoints: Checkpoint[]): (Date | null)[] {
   const awards = [
     ...history.signups.filter((s) => s.outcome && !s.event.canceledAt).map((s) => ({ date: s.event.startsAt, points: s.points ?? 0 })),
-    ...history.adjustments.map((a) => ({ date: a.createdAt, points: a.points })),
+    ...history.adjustments.map((a) => ({ date: a.occurredOn ?? a.createdAt, points: a.points })),
   ].sort((x, y) => x.date.getTime() - y.date.getTime());
   const reached: (Date | null)[] = checkpoints.map(() => null);
   let total = 0;
@@ -230,7 +230,7 @@ function History({ history }: { history: Awaited<ReturnType<typeof personHistory
           : "Not checked in",
       points: s.outcome ? (s.points ?? 0) : null,
     })),
-    ...history.adjustments.map((a) => ({ key: a.id, date: a.createdAt, title: a.reason, detail: "Added by the committee", points: a.points })),
+    ...history.adjustments.map((a) => ({ key: a.id, date: a.occurredOn ?? a.createdAt, title: a.reason, detail: a.source === "tracker" ? "From the committee tracker" : "Added by the committee", points: a.points })),
   ].sort((a, b) => b.date.getTime() - a.date.getTime());
 
   return (

@@ -121,7 +121,7 @@ export function FinalizeTab({ event, onNotice }: { event: ConsoleEvent; onNotice
                   <option value="EXCUSED">Excused</option>
                 </Select>
                 <label className="sr-only" htmlFor={`p-${r.signupId}`}>Points for {r.name}</label>
-                <input id={`p-${r.signupId}`} type="number" min={-50} max={50} className={`${inputBase} h-8 w-20 py-0 text-footnote`} value={d.points} onChange={(e) => update(r.signupId, { points: Number(e.target.value) })} />
+                <input id={`p-${r.signupId}`} type="number" step={0.5} min={-50} max={50} className={`${inputBase} h-8 w-20 py-0 text-footnote`} value={d.points} onChange={(e) => update(r.signupId, { points: Number(e.target.value) })} />
                 <label className="sr-only" htmlFor={`n-${r.signupId}`}>Note for {r.name}</label>
                 <input id={`n-${r.signupId}`} className={`${inputBase} h-8 w-48 py-0 text-footnote`} placeholder="Note (optional)" maxLength={300} value={d.note} onChange={(e) => update(r.signupId, { note: e.target.value })} />
               </div>

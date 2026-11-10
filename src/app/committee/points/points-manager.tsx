@@ -7,9 +7,10 @@ import { Button, cx, Empty, Field, Group, inputBase, inputClass, Notice, Panel, 
 import { MenuButton } from "@/components/menu-button";
 import { api, errorMessage } from "@/lib/api-client";
 import type { Checkpoint } from "@/lib/checkpoints";
-import { parsePointsImport, parseRoster } from "@/lib/netid";
+import { parseRoster } from "@/lib/netid";
 import { type Candidate, RosterManager } from "./roster-manager";
 import { CheckpointView, RiskView } from "./standing";
+import { TrackerSync } from "./tracker-sync";
 
 type Standing = {
   netId: string;
@@ -71,7 +72,7 @@ export function PointsManager({
           align="left"
           items={[
             { label: "Edit roster", onSelect: () => setPanel("roster") },
-            ...(isChair ? [{ label: "Import old tracker", onSelect: () => setPanel("import") }] : []),
+            ...(isChair ? [{ label: "Sync from tracker", onSelect: () => setPanel("import") }] : []),
             { label: "Google Sheets link", onSelect: () => setPanel("sheets") },
             { label: "Download CSV", href: "/api/v1/committee/points/export" },
           ]}
@@ -80,7 +81,7 @@ export function PointsManager({
 
       {notice && <Notice tone="green">{notice}</Notice>}
       {panel === "adjust" && <AdjustForm onDone={(m) => { setNotice(m); done(); }} />}
-      {panel === "import" && <ImportForm onDone={(m) => { setNotice(m); done(); }} />}
+      {panel === "import" && <TrackerSync rosterNetIds={candidates.map((c) => c.netId)} onDone={(m) => { setNotice(m); done(); }} />}
       {panel === "sheets" && <SheetsHelp feedUrl={feedUrl} />}
       {panel === "roster" && (
         <div className="reveal space-y-3">
@@ -191,7 +192,7 @@ function AdjustForm({ onDone }: { onDone: (m: string) => void }) {
         </Field>
         <div className="grid gap-4 sm:grid-cols-[8rem_1fr]">
           <Field label="Points" htmlFor="adj-points">
-            <input id="adj-points" type="number" min={-50} max={50} className={inputClass} value={points} onChange={(e) => setPoints(Number(e.target.value))} />
+            <input id="adj-points" type="number" step={0.5} min={-50} max={50} className={inputClass} value={points} onChange={(e) => setPoints(Number(e.target.value))} />
           </Field>
           <Field label="Reason" htmlFor="adj-reason">
             <input id="adj-reason" required className={inputClass} maxLength={200} value={reason} onChange={(e) => setReason(e.target.value)} placeholder="Card writing for NYU Langone, Oct 14 meeting" />
@@ -200,41 +201,6 @@ function AdjustForm({ onDone }: { onDone: (m: string) => void }) {
         {error && <Notice tone="crimson">{error}</Notice>}
         <Button type="submit" disabled={busy || parsed.rows.length === 0 || !reason.trim() || points === 0}>Add points</Button>
       </form>
-    </Panel>
-  );
-}
-
-function ImportForm({ onDone }: { onDone: (m: string) => void }) {
-  const [text, setText] = useState("");
-  const [busy, setBusy] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const parsed = useMemo(() => parsePointsImport(text), [text]);
-
-  async function submit() {
-    setBusy(true);
-    setError(null);
-    try {
-      const res = await api<{ imported: number }>("/committee/points/import", { body: { rows: parsed.rows, reason: "Imported from previous tracker" } });
-      onDone(`Imported starting points for ${res.imported} people.`);
-    } catch (err) {
-      setError(errorMessage(err));
-      setBusy(false);
-    }
-  }
-
-  return (
-    <Panel className="space-y-4">
-      <p className="text-footnote text-secondary">Imports each person&apos;s current total. Do this once.</p>
-      <textarea aria-label="Tracker rows" rows={6} className={`${inputClass} font-mono`} placeholder={"NetID,Name,Points\nab1234,Alex Chen,6\ncd5678,Sam Park,3"} value={text} onChange={(e) => setText(e.target.value)} />
-      <div className="flex flex-wrap items-center gap-3">
-        <label className={cx("u-line inline-flex h-10 cursor-pointer items-center text-body font-semibold")}>
-          Upload CSV
-          <input type="file" accept=".csv,text/csv,.txt" className="sr-only" onChange={async (e) => { const f = e.target.files?.[0]; if (f) setText(await f.text()); }} />
-        </label>
-        <Button disabled={busy || parsed.rows.length === 0} onClick={submit}>Import {parsed.rows.length} {parsed.rows.length === 1 ? "person" : "people"}</Button>
-        {parsed.invalid.length > 0 && <span className="text-footnote text-crimson">{parsed.invalid.length} rows skipped: {parsed.invalid.slice(0, 2).join("; ")}</span>}
-      </div>
-      {error && <Notice tone="crimson">{error}</Notice>}
     </Panel>
   );
 }

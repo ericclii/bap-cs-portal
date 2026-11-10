@@ -58,3 +58,5 @@ next-env.d.ts
 /.claude/project-context/
 # Impeccable downloads its binary on first run
 /.claude/skills/impeccable/scripts/bin/
+.backups/
+/*.csv

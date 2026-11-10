@@ -148,7 +148,7 @@ export function EventForm({ eventId, initial }: { eventId?: string; initial: Eve
             <input id="capacity" type="number" min={1} max={500} required className={inputClass} value={v.capacity} onChange={(e) => set("capacity", Number(e.target.value))} />
           </Field>
           <Field label="Points for attending" htmlFor="points">
-            <input id="points" type="number" min={0} max={50} required className={inputClass} value={v.points} onChange={(e) => set("points", Number(e.target.value))} />
+            <input id="points" type="number" step={0.5} min={0} max={50} required className={inputClass} value={v.points} onChange={(e) => set("points", Number(e.target.value))} />
           </Field>
           <Field label="Minimum time on site (min)" htmlFor="minMinutes" hint={formatDuration(v.minMinutes)}>
             <input id="minMinutes" type="number" min={0} max={duration || 1440} required className={inputClass} value={v.minMinutes} onChange={(e) => { setMinTouched(true); set("minMinutes", Number(e.target.value)); }} />

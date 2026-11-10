@@ -100,7 +100,7 @@ export async function personHistory(termId: string, netId: string) {
       },
       orderBy: { event: { startsAt: "desc" } },
     }),
-    db.pointAdjustment.findMany({ where: { netId, termId }, orderBy: { createdAt: "desc" } }),
+    db.pointAdjustment.findMany({ where: { netId, termId }, orderBy: [{ occurredOn: { sort: "desc", nulls: "last" } }, { createdAt: "desc" }] }),
   ]);
   return { signups, adjustments };
 }
@@ -117,17 +117,59 @@ export async function deleteAdjustment(id: string) {
   await db.pointAdjustment.delete({ where: { id } });
 }
 
-export async function importPoints(
+/**
+ * Makes the term match the committee's tracker sheet: every tracker row
+ * from the last sync is replaced by this one (so re-uploading never doubles
+ * up), and with `replaceRoster` the roster becomes exactly these people.
+ * Points added in the app and in-app events are left alone.
+ */
+export async function syncTracker(
   termId: string,
-  rows: { netId: string; name?: string | null; points: number }[],
-  reason: string,
+  people: { netId: string; name?: string | null; entries: { label: string; points: number; month: number | null; day: number | null }[] }[],
+  replaceRoster: boolean,
   by: string,
 ) {
-  const nonZero = rows.filter((r) => r.points !== 0);
-  await db.pointAdjustment.createMany({
-    data: nonZero.map((r) => ({ termId, netId: r.netId, points: r.points, reason, createdBy: by })),
-  });
-  return { imported: nonZero.length, skippedZero: rows.length - nonZero.length };
+  const term = await db.term.findUniqueOrThrow({ where: { id: termId } });
+  const year = Number(term.name.match(/\d{4}/)?.[0] ?? new Date().getFullYear());
+  const unique = [...new Map(people.map((p) => [p.netId, p])).values()];
+  const netIds = unique.map((p) => p.netId);
+  const rows = unique.flatMap((p) =>
+    p.entries
+      .filter((e) => e.points !== 0)
+      .map((e) => ({
+        termId,
+        netId: p.netId,
+        points: e.points,
+        reason: e.label,
+        source: "tracker",
+        occurredOn: e.month && e.day ? new Date(Date.UTC(year, e.month - 1, e.day)) : null,
+        createdBy: by,
+      })),
+  );
+
+  return db.$transaction(async (tx) => {
+    const replaced = (await tx.pointAdjustment.deleteMany({ where: { termId, source: "tracker" } })).count;
+    await tx.pointAdjustment.createMany({ data: rows });
+
+    let removed = 0;
+    if (replaceRoster) removed = (await tx.candidate.deleteMany({ where: { termId, netId: { notIn: netIds } } })).count;
+    const existing = new Set((await tx.candidate.findMany({ where: { termId, netId: { in: netIds } }, select: { netId: true } })).map((c) => c.netId));
+    await tx.candidate.createMany({
+      data: unique.filter((p) => !existing.has(p.netId)).map((p) => ({ termId, netId: p.netId, name: p.name ?? null })),
+      skipDuplicates: true,
+    });
+    for (const p of unique) {
+      if (p.name && existing.has(p.netId)) await tx.candidate.updateMany({ where: { termId, netId: p.netId }, data: { name: p.name } });
+    }
+    return {
+      people: unique.length,
+      entries: rows.length,
+      points: rows.reduce((s, r) => s + r.points, 0),
+      replaced,
+      added: unique.length - existing.size,
+      removed,
+    };
+  }, { timeout: 30_000 });
 }
 
 export async function standingsCsv(termId: string) {

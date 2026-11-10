@@ -61,7 +61,7 @@ export default async function PersonPointsPage({ params }: { params: Promise<{ n
             <div key={a.id} className="flex items-center justify-between gap-4 px-4 py-3">
               <div>
                 <div className="font-medium">{a.reason}</div>
-                <div className="text-footnote text-secondary">{formatDateTime(a.createdAt)}{a.createdBy && ` · by ${a.createdBy}`}</div>
+                <div className="text-footnote text-secondary">{a.source === "tracker" ? "From the tracker" : <>{formatDateTime(a.createdAt)}{a.createdBy && ` · by ${a.createdBy}`}</>}</div>
               </div>
               <div className="flex items-center gap-3">
                 <span className={`font-semibold tabular-nums ${a.points > 0 ? "text-green" : "text-amber"}`}>{a.points > 0 ? "+" : ""}{a.points}</span>

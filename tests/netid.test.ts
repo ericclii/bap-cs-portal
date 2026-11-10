@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { canonicalEmail, netIdFromEmail, normalizeNetId, parsePointsImport, parseRoster } from "@/lib/netid";
+import { canonicalEmail, netIdFromEmail, normalizeNetId, parseRoster } from "@/lib/netid";
 
 describe("NetID identity", () => {
   it("treats nyu.edu and stern.nyu.edu as the same person", () => {
@@ -32,15 +32,5 @@ describe("parseRoster", () => {
       { netId: "gh77", name: null },
     ]);
     expect(invalid).toEqual(["not a person"]);
-  });
-});
-
-describe("parsePointsImport", () => {
-  it("reads netid, name and points in any order", () => {
-    const { rows } = parsePointsImport("NetID,Name,Points\nel4640,Eric Li,6\nAda,al123@nyu.edu,-1");
-    expect(rows).toEqual([
-      { netId: "el4640", name: "Eric Li", points: 6 },
-      { netId: "al123", name: "Ada", points: -1 },
-    ]);
   });
 });

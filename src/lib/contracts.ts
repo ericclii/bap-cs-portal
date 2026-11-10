@@ -36,7 +36,7 @@ export const eventInput = z.object({
   startsAtLocal: nyDateTime,
   endsAtLocal: nyDateTime,
   capacity: z.number().int().min(1).max(500),
-  points: z.number().int().min(0).max(50).default(3),
+  points: z.number().min(0).max(50).default(3),
   minMinutes: z.number().int().min(0).max(24 * 60),
   signupOpensAtLocal: nyDateTime,
   signupClosesAtLocal: nyDateTime,
@@ -95,7 +95,7 @@ export const outcomeInput = z.object({
       z.object({
         signupId: z.string(),
         outcome: z.enum(["ATTENDED", "NO_SHOW", "EXCUSED"]),
-        points: z.number().int().min(-50).max(50),
+        points: z.number().min(-50).max(50),
         note: optionalText(300),
       }),
     )
@@ -104,7 +104,7 @@ export const outcomeInput = z.object({
 
 export const adjustmentInput = z.object({
   netIds: z.array(netIdField).min(1).max(1000),
-  points: z.number().int().min(-50).max(50).refine((v) => v !== 0, "Points can't be 0"),
+  points: z.number().min(-50).max(50).refine((v) => v !== 0, "Points can't be 0"),
   reason: z.string().trim().min(2, "Add a reason").max(200),
 });
 
@@ -113,12 +113,29 @@ export const rosterInput = z.object({
   replace: z.boolean().default(false),
 });
 
-export const importPointsInput = z.object({
-  rows: z
-    .array(z.object({ netId: netIdField, name: optionalText(120), points: z.number().int().min(-500).max(500) }))
+/** The committee's tracker spreadsheet, parsed on the client by parseTracker. */
+export const trackerSyncInput = z.object({
+  people: z
+    .array(
+      z.object({
+        netId: netIdField,
+        name: optionalText(120),
+        entries: z
+          .array(
+            z.object({
+              label: z.string().trim().min(1).max(200),
+              points: z.number().min(-50).max(50),
+              month: z.number().int().min(1).max(12).nullable(),
+              day: z.number().int().min(1).max(31).nullable(),
+            }),
+          )
+          .max(200),
+      }),
+    )
     .min(1)
     .max(2000),
-  reason: z.string().trim().min(2).max(200).default("Imported from previous tracker"),
+  /** Make the roster exactly the people in the sheet. */
+  replaceRoster: z.boolean().default(true),
 });
 
 /** Points rules a chair can change between semesters. */
