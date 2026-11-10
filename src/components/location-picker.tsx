@@ -2,14 +2,11 @@
 
 import "leaflet/dist/leaflet.css";
 import { useEffect, useRef, useState } from "react";
-import { divIcon, latLng } from "leaflet";
-import { AttributionControl, Circle, MapContainer, Marker, TileLayer, ZoomControl, useMap, useMapEvents } from "react-leaflet";
+import { latLng } from "leaflet";
+import { Circle, CircleMarker, MapContainer, TileLayer, useMap, useMapEvents } from "react-leaflet";
 import { Button } from "./ui";
 
 type Point = { latitude: number; longitude: number };
-
-// A crimson pin with a white ring and soft drop shadow, drawn in CSS (.venue-pin).
-const PIN = divIcon({ className: "venue-pin", html: "<span></span>", iconSize: [22, 22], iconAnchor: [11, 11] });
 
 const FALLBACK_CENTER: [number, number] = [40.7295, -73.9965]; // Washington Square
 
@@ -114,34 +111,23 @@ export default function LocationPicker({
         <Button size="sm" variant="secondary" disabled={!query.trim()} onClick={() => search()}>Find address on map</Button>
         <Button size="sm" variant="secondary" onClick={useMyLocation}>Use my location</Button>
       </div>
-      <div className="isolate h-80 overflow-hidden rounded-2xl ring-1 ring-black/5">
+      <div className="isolate h-72 overflow-hidden rounded-xl">
         <MapContainer
           center={value ? [value.latitude, value.longitude] : FALLBACK_CENTER}
           zoom={value ? 16 : 13}
-          className="venue-map h-full w-full"
+          className="h-full w-full"
           scrollWheelZoom
-          zoomControl={false}
-          attributionControl={false}
         >
-          {/* CARTO Positron: a quiet, light basemap that lets the crimson geofence carry the page. */}
           <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'
-            url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
-            subdomains="abcd"
-            maxZoom={20}
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          <ZoomControl position="bottomright" />
-          <AttributionControl position="bottomleft" prefix={false} />
           <ClickToPlace onPick={(p) => place(p, false)} />
           <Recenter point={focus} radiusMeters={radiusMeters} />
           {value && (
             <>
-              <Circle
-                center={[value.latitude, value.longitude]}
-                radius={radiusMeters}
-                pathOptions={{ color: "#bc202f", weight: 1.5, opacity: 0.7, fillColor: "#bc202f", fillOpacity: 0.08 }}
-              />
-              <Marker position={[value.latitude, value.longitude]} icon={PIN} keyboard={false} interactive={false} />
+              <Circle center={[value.latitude, value.longitude]} radius={radiusMeters} pathOptions={{ color: "#bc202f", weight: 2, fillOpacity: 0.12 }} />
+              <CircleMarker center={[value.latitude, value.longitude]} radius={6} pathOptions={{ color: "#ffffff", weight: 2, fillColor: "#bc202f", fillOpacity: 1 }} />
             </>
           )}
         </MapContainer>
