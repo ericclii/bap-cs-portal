@@ -54,7 +54,15 @@ export async function termStandings(termId: string): Promise<Standing[]> {
     else if (su.outcome === "NO_SHOW") s.noShows++;
     else s.excused++;
   }
-  for (const a of adjustments) get(a.netId).adjustmentPoints += a.points;
+  for (const a of adjustments) {
+    const s = get(a.netId);
+    s.adjustmentPoints += a.points;
+    // Each tracker cell is one event: points earned means attended, negative means a no-show.
+    if (a.source === "tracker") {
+      if (a.points > 0) s.attended++;
+      else if (a.points < 0) s.noShows++;
+    }
+  }
 
   // Prefer names people chose on their Google account.
   const users = await db.user.findMany({ where: { netId: { in: [...map.keys()] } }, select: { netId: true, name: true } });
