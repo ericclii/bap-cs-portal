@@ -54,6 +54,12 @@ export async function removeCandidate(termId: string, id: string) {
   await db.candidate.delete({ where: { id } });
 }
 
+/** Empties the term's roster. Points and history are kept. */
+export async function clearCandidates(termId: string) {
+  const { count } = await db.candidate.deleteMany({ where: { termId } });
+  return { removed: count };
+}
+
 export async function isCandidate(termId: string, netId: string) {
   return (await db.candidate.count({ where: { termId, netId } })) > 0;
 }

@@ -1,7 +1,7 @@
 import { rosterInput } from "@/lib/contracts";
 import { json, readJson, route } from "@/server/http";
 import { requireCommittee } from "@/server/session";
-import { listCandidates, saveCandidates } from "@/server/services/roster";
+import { clearCandidates, listCandidates, saveCandidates } from "@/server/services/roster";
 import { requireCurrentTerm } from "@/server/services/terms";
 
 export const GET = route(async (req) => {
@@ -15,4 +15,10 @@ export const POST = route(async (req) => {
   const term = await requireCurrentTerm();
   const { rows, replace } = await readJson(req, rosterInput);
   return json(await saveCandidates(term.id, rows, replace));
+});
+
+export const DELETE = route(async (req) => {
+  await requireCommittee(req);
+  const term = await requireCurrentTerm();
+  return json(await clearCandidates(term.id));
 });

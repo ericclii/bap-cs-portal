@@ -41,6 +41,18 @@ export function RosterManager({ candidates }: { candidates: Candidate[] }) {
     router.refresh();
   }
 
+  async function clearAll() {
+    setError(null);
+    setNotice(null);
+    try {
+      const res = await api<{ removed: number }>("/committee/roster", { method: "DELETE" });
+      setNotice(`Cleared the roster (${res.removed} removed). Points and history are kept.`);
+      router.refresh();
+    } catch (err) {
+      setError(errorMessage(err));
+    }
+  }
+
   return (
     <div className="space-y-6">
       <Panel className="space-y-4">
@@ -71,9 +83,12 @@ export function RosterManager({ candidates }: { candidates: Candidate[] }) {
 
       {candidates.length > 0 && (
         <section className="space-y-3">
-          <div className="flex items-center justify-between gap-3">
+          <div className="flex flex-wrap items-center justify-between gap-3">
             <h2 className="text-headline font-semibold">Roster <span className="text-secondary tabular-nums">{candidates.length}</span></h2>
-            <input aria-label="Search candidates" className={`${inputBase} w-56`} placeholder="Search" value={query} onChange={(e) => setQuery(e.target.value)} />
+            <div className="flex items-center gap-2">
+              <input aria-label="Search candidates" className={`${inputBase} w-40 sm:w-56`} placeholder="Search" value={query} onChange={(e) => setQuery(e.target.value)} />
+              <ConfirmButton confirmLabel={`Clear all ${candidates.length}`} onConfirm={clearAll}>Clear roster</ConfirmButton>
+            </div>
           </div>
           <Group>
             {visible.map((c) => (
