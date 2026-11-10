@@ -424,3 +424,49 @@ a {
   z-index: 0;
   font: inherit;
 }
+
+/* The venue map: Positron tiles, floating controls, a CSS pin. */
+.venue-map.leaflet-container {
+  background: #f2f1ed;
+  cursor: crosshair;
+}
+.venue-map .leaflet-bar.leaflet-bar {
+  margin: 0 12px 12px 0;
+  border-radius: 10px;
+  box-shadow: 0 1px 2px rgb(46 46 46 / 0.08), 0 4px 14px rgb(46 46 46 / 0.1);
+}
+.venue-map .leaflet-bar a {
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--secondary);
+  background: var(--surface);
+  transition: background-color 150ms, color 150ms;
+}
+.venue-map .leaflet-bar a:hover {
+  background: var(--fill);
+  color: var(--text);
+}
+.venue-map .leaflet-control-attribution {
+  margin: 0 0 6px 8px;
+  padding: 1px 6px;
+  border-radius: 6px;
+  background: rgb(255 255 255 / 0.75);
+  backdrop-filter: blur(4px);
+  font-size: 10px;
+  color: var(--tertiary);
+}
+.venue-map .leaflet-control-attribution a {
+  color: inherit;
+}
+.venue-pin span {
+  display: block;
+  width: 22px;
+  height: 22px;
+  border-radius: 9999px;
+  background: var(--crimson);
+  border: 3px solid #fff;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.25), 0 0 0 6px rgb(188 32 47 / 0.15);
+}
